@@ -1,3 +1,9 @@
-const App = () => <h1>Info Repository</h1>;
+import Landing from './pages/Landing';
+
+const App = () => (
+  <div>
+    <Landing />
+  </div>
+);
 
 export default App;
