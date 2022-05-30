@@ -17,7 +17,7 @@ const Landing = () => (
             {LOGIN} / {REGISTER}
           </button>
         </div>
-        <img src={main} alt="" className="img main-img" />
+        <img src={main} alt={SITE_TITLE} className="img main-img" />
       </div>
     </nav>
   </main>
