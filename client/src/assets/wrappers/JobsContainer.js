@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.section`
+const JobsContainerWrapper = styled.section`
   margin-top: 4rem;
   h2 {
     text-transform: none;
@@ -21,4 +21,5 @@ const Wrapper = styled.section`
     }
   }
 `
-export default Wrapper
+
+export default JobsContainerWrapper;

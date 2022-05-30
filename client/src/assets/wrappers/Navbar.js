@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.nav`
+const NavbarWrapper = styled.nav`
   height: var(--nav-height);
   display: flex;
   align-items: center;
@@ -81,4 +81,5 @@ const Wrapper = styled.nav`
     }
   }
 `
-export default Wrapper
+
+export default NavbarWrapper;

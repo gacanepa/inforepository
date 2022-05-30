@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.article`
+const JobWrapper = styled.article`
   background: var(--white);
   border-radius: var(--borderRadius);
   display: grid;
@@ -102,4 +102,4 @@ const Wrapper = styled.article`
   }
 `
 
-export default Wrapper
+export default JobWrapper;

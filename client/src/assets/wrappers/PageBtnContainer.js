@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.section`
+const PageBtnContainerWrapper = styled.section`
   height: 6rem;
   margin-top: 2rem;
   display: flex;
@@ -51,4 +51,5 @@ const Wrapper = styled.section`
     color: var(--white);
   }
 `
-export default Wrapper
+
+export default PageBtnContainerWrapper;

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
+const JobInfoWrapper = styled.div`
   margin-top: 0.5rem;
   display: flex;
   align-items: center;
@@ -19,4 +19,5 @@ const Wrapper = styled.div`
     letter-spacing: var(--letterSpacing);
   }
 `
-export default Wrapper
+
+export default JobInfoWrapper;

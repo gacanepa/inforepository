@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.section`
+const RegisterPageWrapper = styled.section`
   display: grid;
   align-items: center;
   .logo {
@@ -32,4 +32,5 @@ const Wrapper = styled.section`
     letter-spacing: var(--letterSpacing);
   }
 `
-export default Wrapper
+
+export default RegisterPageWrapper;

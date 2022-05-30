@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.main`
+const LandingPageWrapper = styled.main`
   nav {
     width: var(--fluid-width);
     max-width: var(--max-width);
@@ -37,4 +37,4 @@ const Wrapper = styled.main`
     }
   }
 `
-export default Wrapper
+export default LandingPageWrapper;
