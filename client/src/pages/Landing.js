@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from '../assets/images/logo.svg';
 import main from '../assets/images/main.svg';
-import Wrapper from '../assets/wrappers/LandingPage'
+import LandingPageWrapper from '../assets/wrappers/LandingPage'
 import { INTRO_TEXT, SITE_TITLE, LOGIN, REGISTER } from '../common/constants/pages';
 
 const Landing = () => (
-  <Wrapper>
+  <LandingPageWrapper>
     <nav>
       <img src={logo} alt={SITE_TITLE} className="logo" />
     </nav>
@@ -21,7 +21,7 @@ const Landing = () => (
       </div>
       <img src={main} alt={SITE_TITLE} className="img main-img" />
     </div>
-  </Wrapper>
+  </LandingPageWrapper>
 );
 
 export default Landing;
