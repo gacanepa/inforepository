@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from '../assets/images/logo.svg';
 import main from '../assets/images/main.svg';
-import LandingPageWrapper from '../assets/wrappers/LandingPage'
+import LandingPageWrapper from '../assets/wrappers/LandingPage';
+import Logo from '../components/Logo';
 import { INTRO_TEXT, SITE_TITLE, LOGIN, REGISTER } from '../common/constants/pages';
 
 const Landing = () => (
   <LandingPageWrapper>
     <nav>
-      <img src={logo} alt={SITE_TITLE} className="logo" />
+      <Logo />
     </nav>
     <div className="container page">
       <div className="info">
