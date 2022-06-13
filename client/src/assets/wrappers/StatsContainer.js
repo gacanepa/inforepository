@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.section`
+const StatsContainerWrapper = styled.section`
   display: grid;
   row-gap: 2rem;
   @media (min-width: 768px) {
@@ -12,4 +12,5 @@ const Wrapper = styled.section`
     column-gap: 1rem;
   }
 `
-export default Wrapper
+
+export default StatsContainerWrapper;

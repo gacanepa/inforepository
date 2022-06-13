@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.article`
+const StatItemWrapper = styled.article`
   padding: 2rem;
   background: var(--white);
   border-radius: var(--borderRadius);
@@ -38,4 +38,4 @@ const Wrapper = styled.article`
   }
 `
 
-export default Wrapper
+export default StatItemWrapper;
