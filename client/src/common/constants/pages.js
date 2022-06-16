@@ -4,3 +4,4 @@ export const INTRO_TEXT = 'Dreamcatcher butcher knausgaard aute skateboard chart
 export const LOGIN = 'Login';
 export const REGISTER = 'Register';
 export const ERROR = 'Error';
+export const DASHBOARD = 'Dashboard';
