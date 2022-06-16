@@ -1,13 +1,13 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Landing from './pages/Landing';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Dashboard, Error, Landing, Register } from './pages';
 
 const App = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<div>Dashboard</div>} />
-      <Route path="/register" element={<div>Register</div>} />
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/landing" element={<Landing />} />
-      <Route path="*" element={<div>Error</div>} />
+      <Route path="*" element={<Error />} />
     </Routes>
   </BrowserRouter>
 );
