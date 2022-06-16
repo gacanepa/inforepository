@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import main from '../assets/images/main.svg';
 import LandingPageWrapper from '../assets/wrappers/LandingPage';
 import Logo from '../components/Logo';
@@ -15,9 +16,9 @@ const Landing = () => (
           <span>{SITE_TITLE}</span> for organizations
         </h1>
         <p>{INTRO_TEXT}</p>
-        <button className="btn btn-hero">
+        <Link to="/register" className="btn btn-hero">
           {LOGIN} / {REGISTER}
-        </button>
+        </Link>
       </div>
       <img src={main} alt={SITE_TITLE} className="img main-img" />
     </div>
