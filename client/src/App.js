@@ -1,5 +1,11 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Dashboard, Error, Landing, Register } from './pages';
+import {
+  Dashboard,
+  Error,
+  Landing,
+  Register,
+} from './pages';
 
 const App = () => (
   <BrowserRouter>
