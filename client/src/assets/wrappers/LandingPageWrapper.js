@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const LandingPageWrapper = styled.main`
   nav {
@@ -36,5 +36,5 @@ const LandingPageWrapper = styled.main`
       display: block;
     }
   }
-`
+`;
 export default LandingPageWrapper;

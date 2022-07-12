@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const RegisterPageWrapper = styled.section`
   display: grid;
@@ -31,6 +31,6 @@ const RegisterPageWrapper = styled.section`
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
   }
-`
+`;
 
 export default RegisterPageWrapper;
