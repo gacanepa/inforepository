@@ -19,5 +19,7 @@ module.exports = {
     'comma-dangle': ['warn', 'only-multiline'],
     'no-unused-vars': ['warn', { args: 'all', argsIgnorePattern: '^_' }],
     'max-len': ['warn', { code: 100 }],
+    'object-curly-newline': ['warn', { consistent: true }],
+    'object-curly-spacing': ['warn', 'always'],
   },
 };
