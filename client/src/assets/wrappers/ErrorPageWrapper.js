@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ErrorPageWrapper = styled.main`
   text-align: center;
@@ -23,6 +23,6 @@ const ErrorPageWrapper = styled.main`
     text-decoration: underline;
     text-transform: capitalize;
   }
-`
+`;
 
 export default ErrorPageWrapper;
