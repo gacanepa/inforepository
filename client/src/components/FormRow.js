@@ -10,7 +10,7 @@ const FormRow = ({
 }) => (
   <div className="form-row">
     <label htmlFor="name">
-      {labelText.length > 0 ? labelText : name[0].toUpperCase() + name.slice(1)}
+      {labelText || name[0].toUpperCase() + name.slice(1)}
     </label>
     <input
       type={type}
@@ -18,6 +18,7 @@ const FormRow = ({
       name={name}
       onChange={handleChange}
       className="form-input"
+      autoComplete="off"
       value={value}
     />
   </div>
