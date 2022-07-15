@@ -11,5 +11,10 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'import/extensions': [
+      'error',
+      { js: 'always' },
+    ], // Required to allow importing .js files (because of 'type': 'module' in package.json)
+    'arrow-parens': ['warn', 'as-needed'],
   },
 };

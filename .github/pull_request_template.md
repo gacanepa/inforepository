@@ -4,7 +4,7 @@
 
 ## Feature Checklist
 
-<!--- The steps or pieces that you needed while working on this task.   These are helpful to the reviewer so they have a general idea of the main tasks completed.  Add more if needed and put an `x` in all the boxes if they are complete -->
+<!--- The steps or pieces that you completed while working on this task. These are helpful to the reviewer so they have a general idea of the main tasks done.  Add more items if needed and put an **x** in all the boxes if they are complete -->
 
 - [ ] Item 1
 - [ ] Item 2

@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Information Repository for Organizations",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "pm2 start server.js --name inforepository --interpreter node --watch",
+    "stop": "pm2 stop inforepository",
+    "restart": "pm2 restart inforepository"
   },
   "repository": {
     "type": "git",
@@ -18,8 +21,15 @@
   },
   "homepage": "https://github.com/gacanepa/inforepository#readme",
   "devDependencies": {
-    "eslint": "^8.19.0",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0"
+    "eslint-plugin-import": "^2.26.0",
+    "pm2": "^5.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.4"
   }
 }
