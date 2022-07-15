@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connect from './db/connect.js';
+import authRouter from './routes/authRoutes.js';
+import docsRouter from './routes/docsRoutes.js';
 import {
   notFoundMiddleware,
   errorHandlerMiddleware,
@@ -8,6 +10,13 @@ import {
 
 // Instantiate the express app
 const app = express();
+
+// Parse incoming requests with JSON payloads and puts the resulting object on req.body
+app.use(express.json());
+
+// Set up the routes
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/docs', docsRouter);
 
 // Load environment variables
 dotenv.config();
