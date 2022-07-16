@@ -1,12 +1,12 @@
-const register = async (req, res) => {
+const register = async (_req, res) => {
   res.status(200).send('register');
 };
 
-const login = async (req, res) => {
+const login = async (_req, res) => {
   res.status(200).send('login');
 };
 
-const updateUser = async (req, res) => {
+const updateUser = async (_req, res) => {
   res.status(200).send('updateUser');
 };
 

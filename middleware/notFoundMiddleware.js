@@ -1,4 +1,4 @@
-const notFoundMiddleware = (req, res) => {
+const notFoundMiddleware = (_req, res) => {
   res.status(404).send('Route does not exist');
 };
 
