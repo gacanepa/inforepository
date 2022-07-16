@@ -2,8 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import connect from './db/connect.js';
-import authRouter from './routes/authRoutes.js';
-import docsRouter from './routes/docsRoutes.js';
+import authRouter from './routes/authRouter.js';
+import docsRouter from './routes/docsRouter.js';
 import {
   notFoundMiddleware,
   errorHandlerMiddleware,
