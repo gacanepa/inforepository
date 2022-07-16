@@ -1,13 +1,24 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import connect from './db/connect.js';
+import authRouter from './routes/authRouter.js';
+import docsRouter from './routes/docsRouter.js';
 import {
   notFoundMiddleware,
   errorHandlerMiddleware,
 } from './middleware/index.js';
 
-// Instantiate the express app
+// Instantiate the express app and hide the X-Powered-By header
 const app = express();
+app.use(helmet.hidePoweredBy());
+
+// Parse incoming requests with JSON payloads and puts the resulting object on req.body
+app.use(express.json());
+
+// Set up the routes
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/docs', docsRouter);
 
 // Load environment variables
 dotenv.config();
