@@ -23,14 +23,20 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, `Email ${IS_REQUIRED}`],
-    validate: [isEmail, `Email ${NOT_VALID}`],
+    validate: {
+      validator: isEmail,
+      message: `Email ${NOT_VALID}`,
+    },
     unique: [true, `Email ${MUST_BE_UNIQUE}`],
     trim: true,
   },
   password: {
     type: String,
     required: [true, `Password ${IS_REQUIRED}`],
-    validate: [isStrongPassword, `Password ${NOT_VALID}. ${STRONG_PASSWORD}`],
+    validate: {
+      validator: isStrongPassword,
+      message: `Password ${NOT_VALID}. ${STRONG_PASSWORD}`
+    },
     minlength: [8, `Password ${MIN_LENGTH} 8 ${CHARACTERS}`],
   },
   lastName: {
