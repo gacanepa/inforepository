@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { isEmail, isStrongPassword } from 'validator';
+import validator from 'validator';
 import {
   IS_REQUIRED,
   NOT_VALID,
@@ -10,7 +10,9 @@ import {
   STRONG_PASSWORD,
   FIRST_NAME,
   LAST_NAME,
-} from './constants';
+} from './constants.js';
+
+const { isEmail, isStrongPassword } = validator;
 
 const UserSchema = new mongoose.Schema({
   firstName: {
@@ -50,6 +52,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     maxlength: [100, `Location ${MAX_LENGTH} 100 ${CHARACTERS}`],
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
   }
 });
 
