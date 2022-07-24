@@ -6,7 +6,8 @@ const { CREATED, INTERNAL_SERVER_ERROR } = StatusCodes;
 
 const register = async (req, res) => {
   const { email } = req.body;
-  const userAlreadyExists = await User.findOne({ email });
+  // Sanitize user-provided input to prevent NoSQL injection
+  const userAlreadyExists = await User.findOne({ email: String(email) });
   if (userAlreadyExists) {
     throw new Error(EMAIL_IN_USE);
   }
