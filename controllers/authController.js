@@ -1,8 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/User.js';
-import { EMAIL_IN_USE } from './constants.js';
+import { BadRequestError } from '../errors/index.js';
+import { EMAIL_IN_USE, PLEASE_PROVIDE_ALL_VALUES } from './constants.js';
+import handleNullUndefined from '../utilities/handleNullUndefined.js';
 
-const { CREATED, INTERNAL_SERVER_ERROR } = StatusCodes;
+const { CREATED } = StatusCodes;
 
 const register = async (req, res) => {
   const {
@@ -13,18 +15,24 @@ const register = async (req, res) => {
     location
   } = req.body;
 
+  if (!firstName || !email || !password || !lastName) {
+    throw new BadRequestError(PLEASE_PROVIDE_ALL_VALUES);
+  }
+
   // Sanitize user-provided input to prevent NoSQL injection
   const userAlreadyExists = await User.findOne({ email: String(email) });
   if (userAlreadyExists) {
-    throw new Error(EMAIL_IN_USE);
+    throw new BadRequestError(EMAIL_IN_USE);
   }
+
   const user = await User.create({
-    firstName: String(firstName),
-    email: String(email),
-    password: String(password),
-    lastName: String(lastName),
-    location: String(location)
+    firstName: handleNullUndefined(firstName),
+    email: handleNullUndefined(email),
+    password: handleNullUndefined(password),
+    lastName: handleNullUndefined(lastName),
+    location: handleNullUndefined(location),
   });
+
   res.status(CREATED).json({ user });
 };
 
