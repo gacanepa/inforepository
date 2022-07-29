@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import {
   IS_REQUIRED,
   NOT_VALID,
@@ -10,6 +12,7 @@ import {
   STRONG_PASSWORD,
   FIRST_NAME,
   LAST_NAME,
+  SALT_ROUNDS,
 } from './constants.js';
 
 const { isEmail, isStrongPassword } = validator;
@@ -40,6 +43,8 @@ const UserSchema = new mongoose.Schema({
       message: `Password ${NOT_VALID}. ${STRONG_PASSWORD}`
     },
     minlength: [8, `Password ${MIN_LENGTH} 8 ${CHARACTERS}`],
+    // Don't return the password in the response when querying for users
+    select: false,
   },
   lastName: {
     type: String,
@@ -58,5 +63,20 @@ const UserSchema = new mongoose.Schema({
     default: true,
   }
 });
+
+// Cannot use arrow functions here because we need access to the global scope
+UserSchema.pre('save', async function () {
+  const salt = await bcrypt.genSalt(SALT_ROUNDS);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+// Instance method to create a JWT
+UserSchema.methods.createJWT = function () {
+  return jwt.sign(
+    { userId: this._id },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_LIFETIME }
+  );
+}
 
 export default mongoose.model('User', UserSchema);
