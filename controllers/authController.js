@@ -33,7 +33,18 @@ const register = async (req, res) => {
     location: handleNullUndefined(location),
   });
 
-  res.status(CREATED).json({ user });
+  const token = user.createJWT();
+
+  // Do not include the password in the response when creating a user
+  res.status(CREATED).json({
+    user: {
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      location: user.location,
+    },
+    token
+  });
 };
 
 const login = async (_req, res) => {
