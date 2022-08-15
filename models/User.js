@@ -61,6 +61,13 @@ const UserSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true,
+  },
+  lastLogin: {
+    type: String,
+    default: new Date().toLocaleString(
+      process.env.LOCALE,
+      { timeZone: process.env.TIME_ZONE }
+    ),
   }
 });
 

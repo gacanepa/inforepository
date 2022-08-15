@@ -4,7 +4,7 @@ import { BadRequestError } from '../errors/index.js';
 import { EMAIL_IN_USE, PLEASE_PROVIDE_ALL_VALUES } from './constants.js';
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 
-const { CREATED } = StatusCodes;
+const { CREATED, OK } = StatusCodes;
 
 const register = async (req, res) => {
   const {
@@ -48,11 +48,11 @@ const register = async (req, res) => {
 };
 
 const login = async (_req, res) => {
-  res.status(200).send('login');
+  res.status(OK).send('login');
 };
 
 const updateUser = async (_req, res) => {
-  res.status(200).send('updateUser');
+  res.status(OK).send('updateUser');
 };
 
 export { register, login, updateUser };

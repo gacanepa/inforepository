@@ -9,6 +9,10 @@ import {
   notFoundMiddleware,
   errorHandlerMiddleware,
 } from './middleware/index.js';
+import { StatusCodes } from 'http-status-codes';
+
+// Get status codes
+const { OK } = StatusCodes;
 
 // Instantiate the express app and hide the X-Powered-By header
 const app = express();
@@ -25,7 +29,7 @@ app.use('/api/v1/docs', docsRouter);
 dotenv.config();
 
 app.get('/', (req, res) => {
-  res.status(200).json({
+  res.status(OK).json({
     reqUrl: req.url,
     message: 'Hello World!',
   });

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Alert, Logo, FormRow } from '../components';
 import RegisterPageWrapper from '../assets/wrappers/RegisterPageWrapper';
 import { useAppContext } from '../context/AppContext';
@@ -11,21 +12,28 @@ import {
   SUBMIT,
   MISSING_VALUES,
   PASSWORD_MISMATCH,
+  CLEAR_ALERT_DELAY,
+  FIRST_NAME,
+  LAST_NAME,
 } from '../common/constants/pages';
-import areInputsEmpty from '../utilities/areInputsEmpty';
+import { areInputsEmpty } from '../utilities';
 
 const initialState = {
-  name: '',
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   repassword: '',
+  location: '',
   isMember: false,
 };
 
 const Register = () => {
   const [formData, setFormData] = useState(initialState);
 
-  const { showAlert, displayAlert } = useAppContext();
+  const navigate = useNavigate();
+
+  const { user, showAlert, displayAlert, registerUser, isLoading } = useAppContext();
 
   const handleChange = event => {
     setFormData(prevFormData => ({
@@ -36,9 +44,17 @@ const Register = () => {
 
   const onSubmit = event => {
     event.preventDefault();
-    const { name, email, password, repassword, isMember } = formData;
+    const {
+      firstName,
+      lastName,
+      email,
+      location,
+      password,
+      repassword,
+      isMember
+    } = formData;
     if (
-      (!isMember && areInputsEmpty([name, email, password, repassword]))
+      (!isMember && areInputsEmpty([firstName, lastName, email, password, repassword]))
       || (isMember && areInputsEmpty([email, password]))
     ) {
       displayAlert({ message: MISSING_VALUES });
@@ -47,7 +63,22 @@ const Register = () => {
     if (!isMember && password !== repassword) {
       displayAlert({ message: PASSWORD_MISMATCH });
     }
+
+    const currentUser = { firstName, lastName, location, email, password };
+
+    if (!isMember) {
+      registerUser(currentUser);
+    }
   };
+
+  useEffect(() => {
+    if (user) {
+      // Wait until clearing the alert to redirect to the dashboard
+      setTimeout(() => {
+        navigate('/');
+      }, CLEAR_ALERT_DELAY);
+    }
+  }, [user, navigate]);
 
   const toggleMember = () => {
     setFormData(prevFormData => ({
@@ -63,7 +94,28 @@ const Register = () => {
         <h3>{formData.isMember ? LOGIN : REGISTER}</h3>
         {showAlert && <Alert />}
         {!formData.isMember && (
-          <FormRow type="text" name="name" value={formData.name} handleChange={handleChange} />
+          <>
+            <FormRow
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              handleChange={handleChange}
+              labelText={FIRST_NAME}
+            />
+            <FormRow
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              handleChange={handleChange}
+              labelText={LAST_NAME}
+            />
+            <FormRow
+              type="text"
+              name="location"
+              value={formData.location}
+              handleChange={handleChange}
+            />
+          </>
         )}
         <FormRow type="email" name="email" value={formData.email} handleChange={handleChange} />
         <FormRow
@@ -81,7 +133,7 @@ const Register = () => {
             labelText={REENTER_PASSWORD}
           />
         )}
-        <button type="submit" className="btn btn-block">
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
           {SUBMIT}
         </button>
         <p>
