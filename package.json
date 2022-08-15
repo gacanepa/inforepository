@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "pm2 start server.js --name inforepository --interpreter node --watch",
-    "stop": "pm2 stop inforepository",
-    "restart": "pm2 restart inforepository"
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "start": "concurrently --kill-others-on-fail \" npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.19",
     "pm2": "^5.2.0"
   },
   "dependencies": {
