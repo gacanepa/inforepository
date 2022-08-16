@@ -15,6 +15,8 @@ import {
   CLEAR_ALERT_DELAY,
   FIRST_NAME,
   LAST_NAME,
+  ALERT_USER_CREATED,
+  ALERT_USER_LOGIN_SUCCESS,
 } from '../common/constants/pages';
 import { areInputsEmpty } from '../utilities';
 
@@ -33,7 +35,13 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const { user, showAlert, displayAlert, registerUser, isLoading } = useAppContext();
+  const {
+    user,
+    showAlert,
+    displayAlert,
+    setupUser,
+    isLoading,
+  } = useAppContext();
 
   const handleChange = event => {
     setFormData(prevFormData => ({
@@ -58,16 +66,32 @@ const Register = () => {
       || (isMember && areInputsEmpty([email, password]))
     ) {
       displayAlert({ message: MISSING_VALUES });
+      return;
     }
 
     if (!isMember && password !== repassword) {
       displayAlert({ message: PASSWORD_MISMATCH });
+      return;
     }
 
     const currentUser = { firstName, lastName, location, email, password };
 
     if (!isMember) {
-      registerUser(currentUser);
+      setupUser({
+        currentUser,
+        endpoint: 'register',
+        alertText: ALERT_USER_CREATED,
+      });
+    } else {
+      // These properties are not needed for login
+      delete currentUser.firstName;
+      delete currentUser.lastName;
+      delete currentUser.location;
+      setupUser({
+        currentUser,
+        endpoint: 'login',
+        alertText: ALERT_USER_LOGIN_SUCCESS,
+      });
     }
   };
 
@@ -138,7 +162,7 @@ const Register = () => {
         </button>
         <p>
           {formData.isMember ? NOT_A_MEMBER_YET : ALREADY_A_MEMBER}
-          <button type="submit" onClick={toggleMember} className="member-btn">
+          <button type="button" onClick={toggleMember} className="member-btn">
             {!formData.isMember ? LOGIN : REGISTER}
           </button>
         </p>

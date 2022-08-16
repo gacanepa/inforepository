@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import {
   DISPLAY_ALERT,
   CLEAR_ALERT,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  REGISTER_USER_ERROR,
+  SETUP_USER_BEGIN,
+  SETUP_USER_ERROR,
+  SETUP_USER_SUCCESS,
 } from './actions';
 import { addUserToLocalStorage } from '../utilities';
 import reducer from './reducer';
 import { CLEAR_ALERT_DELAY } from '../common/constants/pages';
-import { REGISTER_USER } from '../common/endpoints';
+import SETUP_USER from '../common/endpoints';
 
 const storedToken = localStorage.getItem('token');
 const storedUser = localStorage.getItem('user');
@@ -41,19 +41,19 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const registerUser = async currentUser => {
-    dispatch({ type: REGISTER_USER_BEGIN });
+  const setupUser = async ({ currentUser, endpoint, alertText }) => {
+    dispatch({ type: SETUP_USER_BEGIN });
     try {
-      const response = await axios.post(REGISTER_USER, currentUser);
+      const response = await axios.post(SETUP_USER(endpoint), currentUser);
       const { user, token } = response.data;
       dispatch({
-        type: REGISTER_USER_SUCCESS,
-        payload: { user, token },
+        type: SETUP_USER_SUCCESS,
+        payload: { user, token, alertText },
       });
       addUserToLocalStorage({ user, token });
     } catch (error) {
       dispatch({
-        type: REGISTER_USER_ERROR,
+        type: SETUP_USER_ERROR,
         payload: { message: error.response.data.msg },
       });
     }
@@ -67,7 +67,7 @@ const AppProvider = ({ children }) => {
         ...state,
         displayAlert,
         clearAlert,
-        registerUser,
+        setupUser,
       }}
     >
       {children}
