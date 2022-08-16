@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const NavbarWrapper = styled.nav`
   height: var(--nav-height);
@@ -80,6 +80,6 @@ const NavbarWrapper = styled.nav`
       display: block;
     }
   }
-`
+`;
 
 export default NavbarWrapper;
