@@ -1,15 +1,21 @@
 import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import SharedLayoutWrapper from '../../assets/wrappers/SharedLayoutWrapper';
-import { ALL_POSTS, ADD_POST } from '../../common/constants/pages';
+import { Navbar, SmallSidebar, LargeSidebar } from '../../components';
 
 const SharedLayout = () => (
   <SharedLayoutWrapper>
-    <nav>
-      <Link to="/add-post">{ADD_POST}</Link>
-      <Link to="/all-posts">{ALL_POSTS}</Link>
-    </nav>
-    <Outlet />
+    <main className="sidebar">
+      {/* CSS controls which sidebar is visible based on the screen size */}
+      <SmallSidebar />
+      <LargeSidebar />
+      <div>
+        <Navbar />
+        <div className="dashboard-page">
+          <Outlet />
+        </div>
+      </div>
+    </main>
   </SharedLayoutWrapper>
 );
 
