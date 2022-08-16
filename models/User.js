@@ -86,4 +86,9 @@ UserSchema.methods.createJWT = function () {
   );
 }
 
+UserSchema.methods.comparePassword = async function (password) {
+  // Awaiting inside of the method is redundant because the calling function will also await
+  return bcrypt.compare(password, this.password);
+};
+
 export default mongoose.model('User', UserSchema);

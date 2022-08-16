@@ -17,6 +17,7 @@ export const REENTER_PASSWORD = 'Re-enter Password';
 export const CLEAR_ALERT_DELAY = 3000;
 export const ALERT_TYPE_SUCCESS = 'success';
 export const ALERT_USER_CREATED = 'Your account has been created! Redirecting...';
+export const ALERT_USER_LOGIN_SUCCESS = 'Login Successful! Redirecting...';
 export const ALERT_TYPE_ERROR = 'danger';
 export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';

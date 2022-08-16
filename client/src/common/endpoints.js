@@ -1,2 +1,3 @@
-export const REGISTER_USER = '/api/v1/auth/register';
-export const LOGIN_USER = '/api/v1/auth/login';
+const SETUP_USER = endpoint => `/api/v1/auth/${endpoint}`;
+
+export default SETUP_USER;

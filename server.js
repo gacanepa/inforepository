@@ -2,6 +2,7 @@ import 'express-async-errors';
 import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
+import morgan from 'morgan';
 import connect from './db/connect.js';
 import authRouter from './routes/authRouter.js';
 import docsRouter from './routes/docsRouter.js';
@@ -17,6 +18,11 @@ const { OK } = StatusCodes;
 // Instantiate the express app and hide the X-Powered-By header
 const app = express();
 app.use(helmet.hidePoweredBy());
+
+// Set up logging
+if (process.env.NODE_ENV !== 'production') {
+  app.use(morgan('dev'));
+}
 
 // Parse incoming requests with JSON payloads and puts the resulting object on req.body
 app.use(express.json());
