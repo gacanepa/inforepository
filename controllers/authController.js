@@ -56,22 +56,22 @@ const login = async (req, res) => {
 
   // Add '+password' to include the password in the response
   // (by default it is not present because of the model definition)
-  const existingUser = await User.findOne({ email: String(email) }).select('+password');
-  if (!existingUser) {
+  const user = await User.findOne({ email: String(email) }).select('+password');
+  if (!user) {
     throw new UnauthenticatedError(INVALID_CREDENTIALS);
   }
 
-  const isPasswordValid = await existingUser.comparePassword(password);
+  const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) {
     throw new UnauthenticatedError(INVALID_CREDENTIALS);
   }
 
   // Make password undefined to remove it from the response
-  existingUser.password = undefined;
+  user.password = undefined;
 
-  const token = existingUser.createJWT();
-  res.status(OK).json({ existingUser, token });
+  const token = user.createJWT();
+  res.status(OK).json({ user, token });
 };
 
 const updateUser = async (_req, res) => {
