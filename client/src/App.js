@@ -1,16 +1,30 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
-  Dashboard,
   Error,
   Landing,
   Register,
+  ProtectedRoute,
 } from './pages';
+import { AddPost, AllPosts, Profile, Stats, SharedLayout } from './pages/dashboard';
 
 const App = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Dashboard />} />
+      <Route
+        path="/"
+        element={(
+          <ProtectedRoute>
+            <SharedLayout />
+          </ProtectedRoute>
+        )}
+      >
+        {/* Make Stats an index route in order to redirect after login or registration */}
+        <Route index element={<Stats />} />
+        <Route path="all-posts" element={<AllPosts />} />
+        <Route path="add-post" element={<AddPost />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
       <Route path="/register" element={<Register />} />
       <Route path="/landing" element={<Landing />} />
       <Route path="*" element={<Error />} />

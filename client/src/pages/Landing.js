@@ -19,6 +19,7 @@ const Landing = () => (
       <div className="info">
         <h1>
           <span>{SITE_TITLE}</span>
+          <span> </span>
           for organizations
         </h1>
         <p>{INTRO_TEXT}</p>

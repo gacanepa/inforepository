@@ -21,3 +21,7 @@ export const ALERT_USER_LOGIN_SUCCESS = 'Login Successful! Redirecting...';
 export const ALERT_TYPE_ERROR = 'danger';
 export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
+export const ADD_POST = 'Add Post';
+export const ALL_POSTS = 'All Posts';
+export const PROFILE = 'Profile';
+export const STATS = 'Stats';

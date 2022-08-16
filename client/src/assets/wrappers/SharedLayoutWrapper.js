@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const SharedLayoutWrapper = styled.section`
   .dashboard {
@@ -18,6 +18,6 @@ const SharedLayoutWrapper = styled.section`
       width: 90%;
     }
   }
-`
+`;
 
 export default SharedLayoutWrapper;
