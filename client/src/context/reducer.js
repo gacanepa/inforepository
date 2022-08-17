@@ -4,6 +4,8 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_ERROR,
   SETUP_USER_SUCCESS,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from './actions';
 
 import {
@@ -57,6 +59,21 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: ALERT_TYPE_ERROR,
       alertText: action.payload.message,
+    };
+  }
+
+  if (action.type === TOGGLE_SIDEBAR) {
+    return {
+      ...state,
+      showSidebar: !state.showSidebar,
+    };
+  }
+
+  if (action.type === LOGOUT_USER) {
+    return {
+      ...state,
+      user: null,
+      token: null,
     };
   }
 
