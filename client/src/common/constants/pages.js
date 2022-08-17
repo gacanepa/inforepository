@@ -25,3 +25,4 @@ export const ADD_POST = 'Add Post';
 export const ALL_POSTS = 'All Posts';
 export const PROFILE = 'Profile';
 export const STATS = 'Stats';
+export const LOGOUT = 'Logout';
