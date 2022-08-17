@@ -1,12 +1,51 @@
-import React from 'react';
-import { FaHome } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
+import { useAppContext } from '../context/AppContext';
+import { DASHBOARD, LOGOUT } from '../common/constants/pages';
+import Logo from './Logo';
 import NavbarWrapper from '../assets/wrappers/NavbarWrapper';
 
-const Navbar = () => (
-  <NavbarWrapper>
-    <h4>Navigation Bar</h4>
-    <FaHome />
-  </NavbarWrapper>
-);
+const Navbar = () => {
+  const [showLogout, setShowLogout] = useState(false);
+  const { user, toggleSidebar, logoutUser } = useAppContext();
+
+  return (
+    <NavbarWrapper>
+      <div className="nav-center">
+        <button
+          type="button"
+          className="toggle-btn"
+          onClick={toggleSidebar}
+        >
+          <FaAlignLeft />
+        </button>
+        <div>
+          <Logo />
+          <h3 className="logo-text">{DASHBOARD}</h3>
+        </div>
+        <div className="btn-container">
+          <button
+            type="button"
+            className="btn"
+            onClick={() => setShowLogout(!showLogout)}
+          >
+            <FaUserCircle />
+            {user?.firstName}
+            <FaCaretDown />
+          </button>
+          <div className={showLogout ? 'dropdown show-dropdown' : 'dropdown'}>
+            <button
+              type="button"
+              className="dropdown-btn"
+              onClick={logoutUser}
+            >
+              {LOGOUT}
+            </button>
+          </div>
+        </div>
+      </div>
+    </NavbarWrapper>
+  );
+};
 
 export default Navbar;
