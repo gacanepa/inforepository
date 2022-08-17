@@ -7,8 +7,10 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_ERROR,
   SETUP_USER_SUCCESS,
+  TOGGLE_SIDEBAR,
+  LOGOUT_USER,
 } from './actions';
-import { addUserToLocalStorage } from '../utilities';
+import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
 import { CLEAR_ALERT_DELAY } from '../common/constants/pages';
 import SETUP_USER from '../common/endpoints';
@@ -23,6 +25,7 @@ const initialState = {
   alertType: '',
   user: storedUser ? JSON.parse(storedUser) : null,
   token: storedToken,
+  showSidebar: false,
 };
 
 const AppContext = React.createContext();
@@ -61,6 +64,15 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const toggleSidebar = () => {
+    dispatch({ type: TOGGLE_SIDEBAR });
+  };
+
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -68,6 +80,8 @@ const AppProvider = ({ children }) => {
         displayAlert,
         clearAlert,
         setupUser,
+        toggleSidebar,
+        logoutUser,
       }}
     >
       {children}
