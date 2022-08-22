@@ -1,6 +1,6 @@
 # inforepository
-Information Repository for Organizations
 
+Information Repository for Organizations
 
 ## Testing the API with cURL
 
@@ -12,15 +12,15 @@ curl -X POST http://localhost:8000/api/v1/auth/login
 curl -X PATCH http://localhost:8000/api/v1/auth/login
 ```
 
-**Documents**:
+**Posts**:
 
 ```bash
-curl -X POST http://localhost:8000/api/v1/docs
-curl http://localhost:8000/api/v1/docs
-curl http://localhost:8000/api/v1/docs/stats
+curl -X POST http://localhost:8000/api/v1/posts
+curl http://localhost:8000/api/v1/posts
+curl http://localhost:8000/api/v1/posts/stats
 
 # 123 is a dummy id:
-curl http://localhost:8000/api/v1/docs/123
-curl -X DELETE http://localhost:8000/api/v1/docs/123
-curl -X PATCH http://localhost:8000/api/v1/docs/123 
+curl http://localhost:8000/api/v1/posts/123
+curl -X DELETE http://localhost:8000/api/v1/posts/123
+curl -X PATCH http://localhost:8000/api/v1/posts/123
 ```

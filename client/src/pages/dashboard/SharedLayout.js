@@ -5,7 +5,7 @@ import { Navbar, SmallSidebar, LargeSidebar } from '../../components';
 
 const SharedLayout = () => (
   <SharedLayoutWrapper>
-    <main className="sidebar">
+    <main className="dashboard">
       {/* CSS controls which sidebar is visible based on the screen size */}
       <SmallSidebar />
       <LargeSidebar />

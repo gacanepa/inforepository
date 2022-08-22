@@ -57,7 +57,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       dispatch({
         type: SETUP_USER_ERROR,
-        payload: { message: error.response.data.msg },
+        payload: { message: error.response.data.message },
       });
     }
 

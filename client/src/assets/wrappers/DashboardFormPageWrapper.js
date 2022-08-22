@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const DashboardFormWrapper = styled.section`
   border-radius: var(--borderRadius);
@@ -63,6 +63,6 @@ const DashboardFormWrapper = styled.section`
       margin-top: 0;
     }
   }
-`
+`;
 
 export default DashboardFormWrapper;
