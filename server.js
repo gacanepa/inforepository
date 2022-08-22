@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import connect from './db/connect.js';
 import authRouter from './routes/authRouter.js';
-import docsRouter from './routes/docsRouter.js';
+import postsRouter from './routes/postsRouter.js';
 import {
   notFoundMiddleware,
   errorHandlerMiddleware,
@@ -29,7 +29,7 @@ app.use(express.json());
 
 // Set up the routes
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/docs', docsRouter);
+app.use('/api/v1/posts', postsRouter);
 
 // Load environment variables
 dotenv.config();
