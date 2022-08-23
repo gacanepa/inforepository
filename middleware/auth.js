@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
-import { UnauthenticatedError } from "../errors/index.js";
+import { UnauthorizedError } from "../errors/index.js";
 import { BEARER, NOT_AUTHORIZED } from "./constants.js";
 
 const auth = async (req, _res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith(BEARER)) {
-    throw new UnauthenticatedError(NOT_AUTHORIZED);
+    throw new UnauthorizedError(NOT_AUTHORIZED);
   }
 
   const token = authHeader.split(' ')[1];
@@ -16,7 +16,7 @@ const auth = async (req, _res, next) => {
     req.user = { userId: payload.userId };
     next();
   } catch (error) {
-    throw new UnauthenticatedError(NOT_AUTHORIZED);
+    throw new UnauthorizedError(NOT_AUTHORIZED);
   }
 };
 

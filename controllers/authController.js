@@ -1,7 +1,12 @@
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/User.js';
-import { BadRequestError, UnauthenticatedError } from '../errors/index.js';
-import { EMAIL_IN_USE, PLEASE_PROVIDE_ALL_VALUES, INVALID_CREDENTIALS } from './constants.js';
+import { BadRequestError, UnauthorizedError } from '../errors/index.js';
+import {
+  EMAIL_IN_USE,
+  PLEASE_PROVIDE_ALL_VALUES,
+  INVALID_CREDENTIALS,
+  ACCOUNT_DOES_NOT_EXIST
+} from './constants.js';
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 
 const { CREATED, OK } = StatusCodes;
@@ -20,8 +25,8 @@ const register = async (req, res) => {
   }
 
   // Sanitize user-provided input to prevent NoSQL injection
-  const userAlreadyExists = await User.findOne({ email: String(email) });
-  if (userAlreadyExists) {
+  const existingUser = await User.findOne({ email: String(email) });
+  if (existingUser) {
     throw new BadRequestError(EMAIL_IN_USE);
   }
 
@@ -58,14 +63,22 @@ const login = async (req, res) => {
   // (by default it is not present because of the model definition)
   const user = await User.findOne({ email: String(email) }).select('+password');
   if (!user) {
-    throw new UnauthenticatedError(INVALID_CREDENTIALS);
+    throw new UnauthorizedError(INVALID_CREDENTIALS);
   }
 
   const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) {
-    throw new UnauthenticatedError(INVALID_CREDENTIALS);
+    throw new UnauthorizedError(INVALID_CREDENTIALS);
   }
+
+  const now = new Date().toLocaleString(
+    process.env.LOCALE,
+    { timeZone: process.env.TIME_ZONE }
+  );
+
+  user.lastLogin = now;
+  await user.save();
 
   // Make password undefined to remove it from the response
   user.password = undefined;
@@ -74,8 +87,36 @@ const login = async (req, res) => {
   res.status(OK).json({ user, token });
 };
 
-const updateUser = async (_req, res) => {
-  res.status(OK).send('updateUser');
+const updateUser = async (req, res) => {
+  const { firstName, lastName, location } = req.body;
+  if (!firstName && !lastName && !location) {
+    throw new BadRequestError(PLEASE_PROVIDE_ALL_VALUES);
+  }
+
+  // We have an id at this point, so we use it to get the user in question
+  const existingUser = await User.findOne({ _id: String(req.user.userId) });
+
+  if (!existingUser) {
+    throw new BadRequestError(ACCOUNT_DOES_NOT_EXIST);
+  }
+
+  existingUser.location = location;
+  existingUser.firstName = firstName;
+  existingUser.lastName = lastName;
+
+  await existingUser.save();
+
+  const token = existingUser.createJWT();
+
+  res.status(OK).json({
+    user: {
+      email: existingUser.email,
+      firstName: existingUser.firstName,
+      lastName: existingUser.lastName,
+      location: existingUser.location,
+    },
+    token
+  });
 };
 
 export { register, login, updateUser };
