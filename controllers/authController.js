@@ -72,6 +72,14 @@ const login = async (req, res) => {
     throw new UnauthorizedError(INVALID_CREDENTIALS);
   }
 
+  const now = new Date().toLocaleString(
+    process.env.LOCALE,
+    { timeZone: process.env.TIME_ZONE }
+  );
+
+  user.lastLogin = now;
+  await user.save();
+
   // Make password undefined to remove it from the response
   user.password = undefined;
 
@@ -81,7 +89,7 @@ const login = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { firstName, lastName, location } = req.body;
-  if (!firstName || !lastName) {
+  if (!firstName && !lastName && !location) {
     throw new BadRequestError(PLEASE_PROVIDE_ALL_VALUES);
   }
 
@@ -96,7 +104,7 @@ const updateUser = async (req, res) => {
   existingUser.firstName = firstName;
   existingUser.lastName = lastName;
 
-  existingUser.save();
+  await existingUser.save();
 
   const token = existingUser.createJWT();
 
