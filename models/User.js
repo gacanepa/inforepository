@@ -73,6 +73,9 @@ const UserSchema = new mongoose.Schema({
 
 // Cannot use arrow functions here because we need access to the global scope
 UserSchema.pre('save', async function () {
+  // Skip the password salting and hashing if we are not updating the password
+  if (!this.isModified('password')) return;
+
   const salt = await bcrypt.genSalt(SALT_ROUNDS);
   this.password = await bcrypt.hash(this.password, salt);
 });
