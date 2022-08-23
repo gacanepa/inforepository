@@ -10,7 +10,7 @@ import {
   notFoundMiddleware,
   errorHandlerMiddleware,
 } from './middleware/index.js';
-import authenticateUser from './middleware/auth.js';
+import authorizeUser from './middleware/auth.js';
 import { StatusCodes } from 'http-status-codes';
 
 // Get status codes
@@ -30,8 +30,8 @@ app.use(express.json());
 
 // Set up the routes
 app.use('/api/v1/auth', authRouter);
-// All job routes require authentication
-app.use('/api/v1/posts', authenticateUser, postsRouter);
+// All job routes require authorization
+app.use('/api/v1/posts', authorizeUser, postsRouter);
 
 // Load environment variables
 dotenv.config();
