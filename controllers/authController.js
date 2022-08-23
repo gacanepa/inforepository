@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import User from '../models/User.js';
-import { BadRequestError, UnauthenticatedError } from '../errors/index.js';
+import { BadRequestError, UnauthorizedError } from '../errors/index.js';
 import { EMAIL_IN_USE, PLEASE_PROVIDE_ALL_VALUES, INVALID_CREDENTIALS } from './constants.js';
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 
@@ -58,13 +58,13 @@ const login = async (req, res) => {
   // (by default it is not present because of the model definition)
   const user = await User.findOne({ email: String(email) }).select('+password');
   if (!user) {
-    throw new UnauthenticatedError(INVALID_CREDENTIALS);
+    throw new UnauthorizedError(INVALID_CREDENTIALS);
   }
 
   const isPasswordValid = await user.comparePassword(password);
 
   if (!isPasswordValid) {
-    throw new UnauthenticatedError(INVALID_CREDENTIALS);
+    throw new UnauthorizedError(INVALID_CREDENTIALS);
   }
 
   // Make password undefined to remove it from the response
