@@ -73,6 +73,12 @@ const AppProvider = ({ children }) => {
     removeUserFromLocalStorage();
   };
 
+  const updateUser = async currentUser => {
+    // To be removed when the backend is ready
+    // eslint-disable-next-line no-console
+    console.log({ currentUser });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -82,6 +88,7 @@ const AppProvider = ({ children }) => {
         setupUser,
         toggleSidebar,
         logoutUser,
+        updateUser,
       }}
     >
       {children}
