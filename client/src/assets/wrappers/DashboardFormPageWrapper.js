@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DashboardFormWrapper = styled.section`
+const DashboardFormPageWrapper = styled.section`
   border-radius: var(--borderRadius);
   width: 100%;
   background: var(--white);
@@ -65,4 +65,4 @@ const DashboardFormWrapper = styled.section`
   }
 `;
 
-export default DashboardFormWrapper;
+export default DashboardFormPageWrapper;
