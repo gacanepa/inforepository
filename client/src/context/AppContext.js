@@ -9,11 +9,14 @@ import {
   SETUP_USER_SUCCESS,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_ERROR,
+  UPDATE_USER_SUCCESS,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
-import { CLEAR_ALERT_DELAY } from '../common/constants/pages';
-import SETUP_USER from '../common/endpoints';
+import { CLEAR_ALERT_DELAY, UNAUTHORIZED } from '../common/constants/pages';
+import { BASE_URL, SETUP_USER, UPDATE_USER } from '../common/endpoints';
 
 const storedToken = localStorage.getItem('token');
 const storedUser = localStorage.getItem('user');
@@ -33,6 +36,39 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER });
+    removeUserFromLocalStorage();
+  };
+
+  // Base resource for all HTTP requests
+  const authFetch = axios.create({
+    baseURL: BASE_URL,
+  });
+
+  // Request interceptor
+  authFetch.interceptors.request.use(
+    config => {
+      const requestConfig = { ...config };
+      requestConfig.headers.common.Authorization = `Bearer ${state.token}`;
+      return requestConfig;
+    },
+    error => {
+      throw error;
+    }
+  );
+
+  // Response interceptor
+  authFetch.interceptors.response.use(
+    response => response,
+    error => {
+      if (error.response.status === UNAUTHORIZED) {
+        logoutUser();
+      }
+      throw error;
+    }
+  );
+
   const clearAlert = () => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
@@ -47,7 +83,7 @@ const AppProvider = ({ children }) => {
   const setupUser = async ({ currentUser, endpoint, alertText }) => {
     dispatch({ type: SETUP_USER_BEGIN });
     try {
-      const response = await axios.post(SETUP_USER(endpoint), currentUser);
+      const response = await authFetch.post(SETUP_USER(endpoint), currentUser);
       const { user, token } = response.data;
       dispatch({
         type: SETUP_USER_SUCCESS,
@@ -68,15 +104,28 @@ const AppProvider = ({ children }) => {
     dispatch({ type: TOGGLE_SIDEBAR });
   };
 
-  const logoutUser = () => {
-    dispatch({ type: LOGOUT_USER });
-    removeUserFromLocalStorage();
-  };
+  const updateUser = async ({ currentUser, alertText }) => {
+    dispatch({ type: UPDATE_USER_BEGIN });
+    try {
+      const response = await authFetch.patch(UPDATE_USER, currentUser);
+      const { user, token } = response.data;
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { user, token, alertText },
+      });
+      addUserToLocalStorage({ user, token });
+    } catch (error) {
+      if (error.response.status !== UNAUTHORIZED) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: {
+            message: error.response.data.message,
+          }
+        });
+      }
+    }
 
-  const updateUser = async currentUser => {
-    // To be removed when the backend is ready
-    // eslint-disable-next-line no-console
-    console.log({ currentUser });
+    clearAlert();
   };
 
   return (
