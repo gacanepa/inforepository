@@ -1,3 +1,3 @@
-const SETUP_USER = endpoint => `/api/v1/auth/${endpoint}`;
-
-export default SETUP_USER;
+export const BASE_URL = '/api/v1';
+export const SETUP_USER = endpoint => `/auth/${endpoint}`;
+export const UPDATE_USER = '/auth/updateUser';
