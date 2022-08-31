@@ -6,6 +6,7 @@ import {
   SAVE_CHANGES,
   PLEASE_WAIT,
   MISSING_VALUES,
+  UPDATE_USER_SUCCESS,
 } from '../../common/constants/pages';
 import { areInputsEmpty } from '../../utilities';
 import { FormRow, Alert } from '../../components';
@@ -30,10 +31,13 @@ const Profile = () => {
       return;
     }
     updateUser({
-      firstName,
-      lastName,
-      email,
-      location,
+      currentUser: {
+        firstName,
+        lastName,
+        email,
+        location
+      },
+      alertText: UPDATE_USER_SUCCESS,
     });
   };
 
@@ -70,7 +74,7 @@ const Profile = () => {
             handleChange={e => setLocation(e.target.value)}
           />
           <button className="btn btn-block" type="submit" disabled={isLoading}>
-            { isLoading ? PLEASE_WAIT : SAVE_CHANGES }
+            {isLoading ? PLEASE_WAIT : SAVE_CHANGES}
           </button>
         </div>
       </form>

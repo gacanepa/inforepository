@@ -6,6 +6,9 @@ import {
   SETUP_USER_SUCCESS,
   TOGGLE_SIDEBAR,
   LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_ERROR,
+  UPDATE_USER_SUCCESS,
 } from './actions';
 
 import {
@@ -32,14 +35,14 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === SETUP_USER_BEGIN) {
+  if ([SETUP_USER_BEGIN, UPDATE_USER_BEGIN].includes(action.type)) {
     return {
       ...state,
       isLoading: true,
     };
   }
 
-  if (action.type === SETUP_USER_SUCCESS) {
+  if ([SETUP_USER_SUCCESS, UPDATE_USER_SUCCESS].includes(action.type)) {
     const { user, token } = action.payload;
     return {
       ...state,
@@ -52,7 +55,7 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === SETUP_USER_ERROR) {
+  if ([SETUP_USER_ERROR, UPDATE_USER_ERROR].includes(action.type)) {
     return {
       ...state,
       isLoading: false,
