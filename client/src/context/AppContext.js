@@ -15,7 +15,12 @@ import {
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
-import { CLEAR_ALERT_DELAY, UNAUTHORIZED } from '../common/constants/pages';
+import {
+  CLEAR_ALERT_DELAY,
+  UNAUTHORIZED, IMPORTANCE,
+  CLASSIFICATION,
+  TYPE
+} from '../common/constants/pages';
 import { BASE_URL, SETUP_USER, UPDATE_USER } from '../common/endpoints';
 
 const storedToken = localStorage.getItem('token');
@@ -29,6 +34,13 @@ const initialState = {
   user: storedUser ? JSON.parse(storedUser) : null,
   token: storedToken,
   showSidebar: false,
+  isEditing: false,
+  editPostId: '',
+  title: '',
+  importance: IMPORTANCE,
+  classification: CLASSIFICATION,
+  type: TYPE,
+  content: '',
 };
 
 const AppContext = React.createContext();
