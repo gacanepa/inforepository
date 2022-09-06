@@ -30,3 +30,19 @@ export const LOGOUT = 'Logout';
 export const PLEASE_WAIT = 'Please wait...';
 export const SAVE_CHANGES = 'Save Changes';
 export const UNAUTHORIZED = 401;
+
+// These are the same constants that are defined for the Post model in the backend
+// Need to find a way to share them between the two projects to avoid duplicates
+export const CRITICAL = 'Critical';
+export const HIGH = 'High';
+export const MEDIUM = 'Medium';
+export const LOW = 'Low';
+export const IMPORTANCE = [CRITICAL, HIGH, MEDIUM, LOW];
+export const PUBLIC = 'Public';
+export const PRIVATE = 'Private';
+export const CLASSIFICATION = [PUBLIC, PRIVATE];
+export const TITLE = 'Title';
+export const CONTENT = 'Content';
+export const TASK = 'Task';
+export const ARTICLE = 'Article';
+export const TYPE = [TASK, ARTICLE];
