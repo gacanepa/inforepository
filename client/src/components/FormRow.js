@@ -9,7 +9,7 @@ const FormRow = ({
   labelText
 }) => (
   <div className="form-row">
-    <label htmlFor="name">
+    <label htmlFor="name" className="form-label">
       {labelText || name[0].toUpperCase() + name.slice(1)}
     </label>
     <input
