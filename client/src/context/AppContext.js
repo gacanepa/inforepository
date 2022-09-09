@@ -12,14 +12,16 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
+  HANDLE_CHANGE,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
 import {
   CLEAR_ALERT_DELAY,
-  UNAUTHORIZED, IMPORTANCE,
-  CLASSIFICATION,
-  TYPE
+  UNAUTHORIZED,
+  LOW,
+  ARTICLE,
+  PUBLIC,
 } from '../common/constants/pages';
 import { BASE_URL, SETUP_USER, UPDATE_USER } from '../common/endpoints';
 
@@ -37,9 +39,9 @@ const initialState = {
   isEditing: false,
   editPostId: '',
   title: '',
-  importance: IMPORTANCE,
-  classification: CLASSIFICATION,
-  type: TYPE,
+  importance: LOW,
+  classification: PUBLIC,
+  type: ARTICLE,
   content: '',
 };
 
@@ -140,6 +142,10 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const handleChange = ({ name, value }) => {
+    dispatch({ type: HANDLE_CHANGE, payload: { name, value } });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -150,6 +156,7 @@ const AppProvider = ({ children }) => {
         toggleSidebar,
         logoutUser,
         updateUser,
+        handleChange,
       }}
     >
       {children}
