@@ -9,6 +9,7 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
+  HANDLE_CHANGE,
 } from './actions';
 
 import {
@@ -77,6 +78,13 @@ const reducer = (state, action) => {
       ...state,
       user: null,
       token: null,
+    };
+  }
+
+  if (action.type === HANDLE_CHANGE) {
+    return {
+      ...state,
+      [action.payload.name]: action.payload.value,
     };
   }
 
