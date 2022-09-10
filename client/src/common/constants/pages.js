@@ -9,6 +9,7 @@ export const DASHBOARD = 'Dashboard';
 export const NOT_FOUND = 'We cannot find the page you are looking for';
 export const BACK_TO_HOME = 'Back to home';
 export const SUBMIT = 'Submit';
+export const CLEAR = 'Clear';
 export const NOT_A_MEMBER_YET = 'Not a member yet?';
 export const ALREADY_A_MEMBER = 'Already a member?';
 export const MISSING_VALUES = 'Please fill in all the fields';
