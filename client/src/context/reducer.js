@@ -10,11 +10,15 @@ import {
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
   HANDLE_CHANGE,
+  CLEAR_VALUES,
 } from './actions';
 
 import {
   ALERT_TYPE_SUCCESS,
   ALERT_TYPE_ERROR,
+  LOW,
+  PUBLIC,
+  ARTICLE,
 } from '../common/constants/pages';
 
 const reducer = (state, action) => {
@@ -85,6 +89,23 @@ const reducer = (state, action) => {
     return {
       ...state,
       [action.payload.name]: action.payload.value,
+    };
+  }
+
+  if (action.type === CLEAR_VALUES) {
+    const defaultValues = {
+      isEditing: false,
+      editPostId: '',
+      title: '',
+      importance: LOW,
+      classification: PUBLIC,
+      type: ARTICLE,
+      content: '',
+    };
+
+    return {
+      ...state,
+      ...defaultValues,
     };
   }
 

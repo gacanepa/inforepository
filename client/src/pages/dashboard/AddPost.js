@@ -4,6 +4,7 @@ import { useAppContext } from '../../context/AppContext';
 import {
   ADD_POST,
   EDIT_POST,
+  CLEAR,
   SUBMIT,
   MISSING_VALUES,
   IMPORTANCE,
@@ -23,6 +24,7 @@ const AddPost = () => {
     type,
     content,
     handleChange,
+    clearValues,
   } = useAppContext();
 
   const handleSubmit = e => {
@@ -78,8 +80,23 @@ const AddPost = () => {
             handleChange={handlePostInput}
           />
           <div className="btn-container">
-            <button type="submit" className="btn btn-block submit-btn" onClick={handleSubmit}>
+            <button
+              type="submit"
+              className="btn btn-block submit-btn"
+              onClick={handleSubmit}
+            >
               {SUBMIT}
+            </button>
+            <button
+              type="button"
+              className="btn btn-block clear-btn"
+              onClick={event => {
+                // Do not submit the form when clicking the button
+                event.preventDefault();
+                clearValues();
+              }}
+            >
+              {CLEAR}
             </button>
           </div>
         </div>
