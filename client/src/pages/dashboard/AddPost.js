@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormRow, Alert, FormRowSelect } from '../../components';
+import { FormRow, Alert, FormRowSelect, TextArea } from '../../components';
 import { useAppContext } from '../../context/AppContext';
 import {
   ADD_POST,
@@ -73,8 +73,7 @@ const AddPost = () => {
             value={title}
             handleChange={handlePostInput}
           />
-          <FormRow
-            type="text"
+          <TextArea
             name="content"
             value={content}
             handleChange={handlePostInput}

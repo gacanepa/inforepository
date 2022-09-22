@@ -5,6 +5,7 @@ import LargeSidebar from './LargeSidebar';
 import SmallSidebar from './SmallSidebar';
 import Navbar from './Navbar';
 import FormRowSelect from './FormRowSelect';
+import TextArea from './TextArea';
 
 export {
   Alert,
@@ -14,4 +15,5 @@ export {
   SmallSidebar,
   Navbar,
   FormRowSelect,
+  TextArea,
 };
