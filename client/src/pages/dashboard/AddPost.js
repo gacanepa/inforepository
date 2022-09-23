@@ -10,11 +10,13 @@ import {
   IMPORTANCE,
   CLASSIFICATION,
   TYPE,
+  ALERT_POST_CREATED,
 } from '../../common/constants/pages';
 import DashboardFormPageWrapper from '../../assets/wrappers/DashboardFormPageWrapper';
 
 const AddPost = () => {
   const {
+    isLoading,
     isEditing,
     showAlert,
     displayAlert,
@@ -25,6 +27,7 @@ const AddPost = () => {
     content,
     handleChange,
     clearValues,
+    createPost,
   } = useAppContext();
 
   const handleSubmit = e => {
@@ -33,6 +36,10 @@ const AddPost = () => {
     if (!title || !content) {
       displayAlert({ message: MISSING_VALUES });
     }
+
+    createPost({
+      alertText: ALERT_POST_CREATED,
+    });
   };
 
   const handlePostInput = e => {
@@ -83,6 +90,7 @@ const AddPost = () => {
               type="submit"
               className="btn btn-block submit-btn"
               onClick={handleSubmit}
+              disabled={isLoading}
             >
               {SUBMIT}
             </button>

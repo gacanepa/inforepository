@@ -14,6 +14,9 @@ import {
   UPDATE_USER_SUCCESS,
   HANDLE_CHANGE,
   CLEAR_VALUES,
+  CREATE_POST_BEGIN,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_ERROR,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -24,7 +27,7 @@ import {
   ARTICLE,
   PUBLIC,
 } from '../common/constants/pages';
-import { BASE_URL, SETUP_USER, UPDATE_USER } from '../common/endpoints';
+import { BASE_URL, SETUP_USER, UPDATE_USER, HANDLE_POST } from '../common/endpoints';
 
 const storedToken = localStorage.getItem('token');
 const storedUser = localStorage.getItem('user');
@@ -151,6 +154,34 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLEAR_VALUES });
   };
 
+  const createPost = async ({ alertText }) => {
+    dispatch({ type: CREATE_POST_BEGIN });
+    try {
+      const { importance, classification, type, title, content } = state;
+      const response = await authFetch.post(HANDLE_POST, {
+        importance,
+        classification,
+        type,
+        title,
+        content,
+      });
+
+      dispatch({
+        type: CREATE_POST_SUCCESS,
+        payload: { alertText }
+      });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === UNAUTHORIZED) return;
+      dispatch({
+        type: CREATE_POST_ERROR,
+        payload: { message: error.response.data.message },
+      });
+    }
+
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -163,6 +194,7 @@ const AppProvider = ({ children }) => {
         updateUser,
         handleChange,
         clearValues,
+        createPost,
       }}
     >
       {children}
