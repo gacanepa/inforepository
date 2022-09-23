@@ -20,6 +20,7 @@ export const ALERT_TYPE_SUCCESS = 'success';
 export const ALERT_USER_CREATED = 'Your account has been created! Redirecting...';
 export const ALERT_USER_LOGIN_SUCCESS = 'Login successful! Redirecting...';
 export const UPDATE_USER_SUCCESS = 'User updated successfully';
+export const ALERT_POST_CREATED = 'Your post was created successfully';
 export const ALERT_TYPE_ERROR = 'danger';
 export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
