@@ -158,7 +158,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_POST_BEGIN });
     try {
       const { importance, classification, type, title, content } = state;
-      const response = await authFetch.post(HANDLE_POST, {
+      await authFetch.post(HANDLE_POST, {
         importance,
         classification,
         type,
