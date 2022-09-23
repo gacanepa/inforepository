@@ -9,11 +9,19 @@ import {
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
   UPDATE_USER_SUCCESS,
+  HANDLE_CHANGE,
+  CLEAR_VALUES,
+  CREATE_POST_BEGIN,
+  CREATE_POST_SUCCESS,
+  CREATE_POST_ERROR,
 } from './actions';
 
 import {
   ALERT_TYPE_SUCCESS,
   ALERT_TYPE_ERROR,
+  LOW,
+  PUBLIC,
+  ARTICLE,
 } from '../common/constants/pages';
 
 const reducer = (state, action) => {
@@ -35,7 +43,7 @@ const reducer = (state, action) => {
     };
   }
 
-  if ([SETUP_USER_BEGIN, UPDATE_USER_BEGIN].includes(action.type)) {
+  if ([SETUP_USER_BEGIN, UPDATE_USER_BEGIN, CREATE_POST_BEGIN].includes(action.type)) {
     return {
       ...state,
       isLoading: true,
@@ -43,7 +51,7 @@ const reducer = (state, action) => {
   }
 
   if ([SETUP_USER_SUCCESS, UPDATE_USER_SUCCESS].includes(action.type)) {
-    const { user, token } = action.payload;
+    const { user, token, alertText } = action.payload;
     return {
       ...state,
       isLoading: false,
@@ -51,11 +59,22 @@ const reducer = (state, action) => {
       token,
       showAlert: true,
       alertType: ALERT_TYPE_SUCCESS,
-      alertText: action.payload.alertText,
+      alertText,
     };
   }
 
-  if ([SETUP_USER_ERROR, UPDATE_USER_ERROR].includes(action.type)) {
+  if (action.type === CREATE_POST_SUCCESS) {
+    const { alertText } = action.payload;
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: ALERT_TYPE_SUCCESS,
+      alertText,
+    };
+  }
+
+  if ([SETUP_USER_ERROR, UPDATE_USER_ERROR, CREATE_POST_ERROR].includes(action.type)) {
     return {
       ...state,
       isLoading: false,
@@ -77,6 +96,30 @@ const reducer = (state, action) => {
       ...state,
       user: null,
       token: null,
+    };
+  }
+
+  if (action.type === HANDLE_CHANGE) {
+    return {
+      ...state,
+      [action.payload.name]: action.payload.value,
+    };
+  }
+
+  if (action.type === CLEAR_VALUES) {
+    const defaultValues = {
+      isEditing: false,
+      editPostId: '',
+      title: '',
+      importance: LOW,
+      classification: PUBLIC,
+      type: ARTICLE,
+      content: '',
+    };
+
+    return {
+      ...state,
+      ...defaultValues,
     };
   }
 

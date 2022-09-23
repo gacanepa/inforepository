@@ -13,11 +13,13 @@ export const LAST_NAME = 'Last name';
 export const SALT_ROUNDS = 10;
 
 // Post constants
+// These are the same constants that are defined in the frontend
+// Need to find a way to share them between the two projects to avoid duplicates
 export const POST_REQUIRES_USER = 'Please provide the owner of this post';
 export const CRITICAL = 'Critical';
 export const HIGH = 'High';
 export const MEDIUM = 'Medium';
-export const LOW = 'Low'
+export const LOW = 'Low';
 export const IMPORTANCE = [CRITICAL, HIGH, MEDIUM, LOW];
 export const PUBLIC = 'Public';
 export const PRIVATE = 'Private';

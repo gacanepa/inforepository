@@ -73,9 +73,11 @@ const Profile = () => {
             value={location}
             handleChange={e => setLocation(e.target.value)}
           />
-          <button className="btn btn-block" type="submit" disabled={isLoading}>
-            {isLoading ? PLEASE_WAIT : SAVE_CHANGES}
-          </button>
+          <div className="btn-container">
+            <button className="btn btn-block" type="submit" disabled={isLoading}>
+              {isLoading ? PLEASE_WAIT : SAVE_CHANGES}
+            </button>
+          </div>
         </div>
       </form>
     </DashboardFormPageWrapper>

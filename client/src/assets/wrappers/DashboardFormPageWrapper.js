@@ -21,8 +21,9 @@ const DashboardFormPageWrapper = styled.section`
     margin-bottom: 0;
   }
   .form-center {
-    display: grid;
-    row-gap: 0.5rem;
+    display: block;
+    width: 60%;
+    margin: 0 auto;
   }
   .form-center button {
     align-self: end;
@@ -30,13 +31,12 @@ const DashboardFormPageWrapper = styled.section`
     margin-top: 1rem;
   }
   .btn-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 1rem;
-    align-self: flex-end;
+    display: flex;
+    justify-content: flex-end;
     margin-top: 0.5rem;
     button {
       height: 35px;
+      margin-left: 1rem;
     }
   }
   .clear-btn {
@@ -47,20 +47,16 @@ const DashboardFormPageWrapper = styled.section`
   }
   @media (min-width: 992px) {
     .form-center {
-      grid-template-columns: 1fr 1fr;
       align-items: center;
-      column-gap: 1rem;
     }
     .btn-container {
-      margin-top: 0;
+      margin-top: 0.5rem;
     }
   }
   @media (min-width: 1120px) {
-    .form-center {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
     .form-center button {
-      margin-top: 0;
+      margin-top: 1rem;
+      width: fit-content;
     }
   }
 `;

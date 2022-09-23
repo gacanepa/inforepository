@@ -222,6 +222,7 @@ ul {
   display: block;
   font-size: var(--smallText);
   margin-bottom: 0.5rem;
+  margin-top: 1rem;
   text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
 }
@@ -245,6 +246,7 @@ ul {
 
 .form-textarea {
   height: 7rem;
+  resize: none;
 }
 ::placeholder {
   font-family: inherit;
