@@ -1,4 +1,5 @@
 import Post from '../models/Post.js';
+import User from '../models/User.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError } from '../errors/index.js';
 import { PLEASE_PROVIDE_ALL_VALUES } from './constants.js'
@@ -43,8 +44,17 @@ const getPost = async (_req, res) => {
   res.status(OK).send('getPost');
 };
 
-const getAllPosts = async (_req, res) => {
-  res.status(OK).send('getAllPosts');
+const getAllPosts = async (req, res) => {
+  const user = await User.findById(handleNullUndefined(req.user.userId));
+  const userSearchFilter = user.isSuperUser
+    ? {}
+    : { createdBy: handleNullUndefined(req.user.userId) }
+  const posts = await Post.find(userSearchFilter);
+  res.status(OK).json({
+    posts,
+    totalPosts: posts.length,
+    numOfPages: 1,
+  });
 };
 
 const updatePost = async (_req, res) => {
