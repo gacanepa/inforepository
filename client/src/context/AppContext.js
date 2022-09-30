@@ -47,6 +47,10 @@ const initialState = {
   classification: PUBLIC,
   type: ARTICLE,
   content: '',
+  posts: [],
+  totalPosts: 0,
+  numOfPages: 1,
+  page: 1,
 };
 
 const AppContext = React.createContext();
