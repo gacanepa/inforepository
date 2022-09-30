@@ -53,6 +53,7 @@ const reducer = (state, action) => {
   ].includes(action.type)) {
     return {
       ...state,
+      showAlert: false,
       isLoading: true,
     };
   }
