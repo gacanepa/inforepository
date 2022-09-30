@@ -17,6 +17,8 @@ import {
   CREATE_POST_BEGIN,
   CREATE_POST_SUCCESS,
   CREATE_POST_ERROR,
+  GET_POSTS_BEGIN,
+  GET_POSTS_SUCCESS,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -186,6 +188,27 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const getPosts = async () => {
+    dispatch({ type: GET_POSTS_BEGIN });
+    try {
+      const { data: { posts, totalPosts, numOfPages } } = await authFetch(HANDLE_POST);
+      dispatch({
+        type: GET_POSTS_SUCCESS,
+        payload: {
+          posts,
+          totalPosts,
+          numOfPages,
+        }
+      });
+    } catch (error) {
+      // Remove the console.log when a proper error handling is implemented
+      // eslint-disable-next-line no-console
+      console.log(error.response);
+    }
+
+    clearAlert();
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -199,6 +222,7 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createPost,
+        getPosts,
       }}
     >
       {children}
