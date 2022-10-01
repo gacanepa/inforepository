@@ -29,7 +29,6 @@ export const EDIT = 'Edit';
 export const POST = 'Post';
 export const ADD_POST = `${ADD} ${POST}`;
 export const EDIT_POST = `${EDIT} ${POST}`;
-export const ALL_POSTS = `All ${POST}s`;
 export const PROFILE = 'Profile';
 export const STATS = 'Stats';
 export const LOGOUT = 'Logout';
