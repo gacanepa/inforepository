@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const PostsContainerWrapper = styled.section`
+const PostContainerWrapper = styled.section`
   margin-top: 4rem;
   h2 {
     text-transform: none;
@@ -22,4 +22,4 @@ const PostsContainerWrapper = styled.section`
   }
 `;
 
-export default PostsContainerWrapper;
+export default PostContainerWrapper;
