@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-const JobWrapper = styled.article`
+const PostWrapper = styled.article`
   background: var(--white);
   border-radius: var(--borderRadius);
   display: grid;
@@ -100,6 +100,6 @@ const JobWrapper = styled.article`
   &:hover .actions {
     visibility: visible;
   }
-`
+`;
 
-export default JobWrapper;
+export default PostWrapper;
