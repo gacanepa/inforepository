@@ -49,7 +49,10 @@ const getAllPosts = async (req, res) => {
   const userSearchFilter = user.isSuperUser
     ? {}
     : { createdBy: handleNullUndefined(req.user.userId) }
-  const posts = await Post.find(userSearchFilter);
+
+  // Instead of returning the user's ObjectId, populate the response with the first and last names
+  const posts = await Post.find(userSearchFilter).populate('createdBy', 'firstName lastName');
+
   res.status(OK).json({
     posts,
     totalPosts: posts.length,
