@@ -209,6 +209,14 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const setEditPost = id => {
+    console.log(`set edit post ${id}`);
+  };
+
+  const deletePost = id => {
+    console.log(`set delete post ${id}`);
+  };
+
   return (
     <AppContext.Provider
       value={{
