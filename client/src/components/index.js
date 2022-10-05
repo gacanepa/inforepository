@@ -6,6 +6,8 @@ import SmallSidebar from './SmallSidebar';
 import Navbar from './Navbar';
 import FormRowSelect from './FormRowSelect';
 import TextArea from './TextArea';
+import PostContainer from './PostContainer';
+import SearchContainer from './SearchContainer';
 
 export {
   Alert,
@@ -16,4 +18,6 @@ export {
   Navbar,
   FormRowSelect,
   TextArea,
+  PostContainer,
+  SearchContainer,
 };

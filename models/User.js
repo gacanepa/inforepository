@@ -62,6 +62,10 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  isSuperUser: {
+    type: Boolean,
+    default: false,
+  },
   lastLogin: {
     type: String,
     default: new Date().toLocaleString(

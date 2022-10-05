@@ -26,16 +26,17 @@ export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
 export const ADD = 'Add';
 export const EDIT = 'Edit';
+export const DELETE = 'Delete';
 export const POST = 'Post';
 export const ADD_POST = `${ADD} ${POST}`;
 export const EDIT_POST = `${EDIT} ${POST}`;
-export const ALL_POSTS = `All ${POST}s`;
 export const PROFILE = 'Profile';
 export const STATS = 'Stats';
 export const LOGOUT = 'Logout';
 export const PLEASE_WAIT = 'Please wait...';
 export const SAVE_CHANGES = 'Save Changes';
 export const UNAUTHORIZED = 401;
+export const NO_POSTS_FOUND = 'No posts found';
 
 // These are the same constants that are defined for the Post model in the backend
 // Need to find a way to share them between the two projects to avoid duplicates

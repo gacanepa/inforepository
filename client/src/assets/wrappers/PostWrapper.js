@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-const JobWrapper = styled.article`
+const PostWrapper = styled.article`
   background: var(--white);
   border-radius: var(--borderRadius);
   display: grid;
@@ -41,17 +41,21 @@ const JobWrapper = styled.article`
       letter-spacing: var(--letterSpacing);
     }
   }
-  .pending {
+  .medium {
     background: #fcefc7;
     color: #e9b949;
   }
-  .interview {
+  .low {
     background: #e0e8f9;
     color: #647acb;
   }
-  .declined {
+  .high {
     color: #d66a6a;
     background: #ffeeee;
+  }
+  .critical {
+    color: #fff;
+    background: #c9252c;
   }
   .content {
     padding: 1rem 1.5rem;
@@ -100,6 +104,6 @@ const JobWrapper = styled.article`
   &:hover .actions {
     visibility: visible;
   }
-`
+`;
 
-export default JobWrapper;
+export default PostWrapper;

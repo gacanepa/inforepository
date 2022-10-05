@@ -14,6 +14,8 @@ import {
   CREATE_POST_BEGIN,
   CREATE_POST_SUCCESS,
   CREATE_POST_ERROR,
+  GET_POSTS_BEGIN,
+  GET_POSTS_SUCCESS,
 } from './actions';
 
 import {
@@ -43,9 +45,15 @@ const reducer = (state, action) => {
     };
   }
 
-  if ([SETUP_USER_BEGIN, UPDATE_USER_BEGIN, CREATE_POST_BEGIN].includes(action.type)) {
+  if ([
+    SETUP_USER_BEGIN,
+    UPDATE_USER_BEGIN,
+    CREATE_POST_BEGIN,
+    GET_POSTS_BEGIN,
+  ].includes(action.type)) {
     return {
       ...state,
+      showAlert: false,
       isLoading: true,
     };
   }
@@ -71,6 +79,16 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: ALERT_TYPE_SUCCESS,
       alertText,
+    };
+  }
+
+  if (action.type === GET_POSTS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      posts: action.payload.posts,
+      totalPosts: action.payload.totalPosts,
+      numOfPages: action.payload.numOfPages,
     };
   }
 

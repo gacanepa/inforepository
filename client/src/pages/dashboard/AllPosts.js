@@ -1,6 +1,11 @@
 import React from 'react';
-import { ALL_POSTS } from '../../common/constants/pages';
+import { PostContainer, SearchContainer } from '../../components';
 
-const AllPosts = () => <h3>{ALL_POSTS}</h3>;
+const AllPosts = () => (
+  <div>
+    <SearchContainer />
+    <PostContainer />
+  </div>
+);
 
 export default AllPosts;

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useContext, useReducer } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -17,6 +18,8 @@ import {
   CREATE_POST_BEGIN,
   CREATE_POST_SUCCESS,
   CREATE_POST_ERROR,
+  GET_POSTS_BEGIN,
+  GET_POSTS_SUCCESS,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -47,6 +50,10 @@ const initialState = {
   classification: PUBLIC,
   type: ARTICLE,
   content: '',
+  posts: [],
+  totalPosts: 0,
+  numOfPages: 1,
+  page: 1,
 };
 
 const AppContext = React.createContext();
@@ -182,6 +189,34 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const getPosts = async () => {
+    dispatch({ type: GET_POSTS_BEGIN });
+    try {
+      const { data: { posts, totalPosts, numOfPages } } = await authFetch(HANDLE_POST);
+      dispatch({
+        type: GET_POSTS_SUCCESS,
+        payload: {
+          posts,
+          totalPosts,
+          numOfPages,
+        }
+      });
+    } catch (error) {
+      // Remove the console.log when a proper error handling is implemented
+      console.log(error.response);
+    }
+
+    clearAlert();
+  };
+
+  const setEditPost = id => {
+    console.log(`set edit post ${id}`);
+  };
+
+  const deletePost = id => {
+    console.log(`set delete post ${id}`);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -195,6 +230,9 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearValues,
         createPost,
+        getPosts,
+        setEditPost,
+        deletePost,
       }}
     >
       {children}
