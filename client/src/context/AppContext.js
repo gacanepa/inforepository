@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useContext, useReducer } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -202,7 +203,6 @@ const AppProvider = ({ children }) => {
       });
     } catch (error) {
       // Remove the console.log when a proper error handling is implemented
-      // eslint-disable-next-line no-console
       console.log(error.response);
     }
 
@@ -231,6 +231,8 @@ const AppProvider = ({ children }) => {
         clearValues,
         createPost,
         getPosts,
+        setEditPost,
+        deletePost,
       }}
     >
       {children}
