@@ -26,6 +26,7 @@ export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
 export const ADD = 'Add';
 export const EDIT = 'Edit';
+export const DELETE = 'Delete';
 export const POST = 'Post';
 export const ADD_POST = `${ADD} ${POST}`;
 export const EDIT_POST = `${EDIT} ${POST}`;
