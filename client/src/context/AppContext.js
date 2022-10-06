@@ -20,6 +20,7 @@ import {
   CREATE_POST_ERROR,
   GET_POSTS_BEGIN,
   GET_POSTS_SUCCESS,
+  SET_EDIT_POST,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -210,7 +211,11 @@ const AppProvider = ({ children }) => {
   };
 
   const setEditPost = id => {
-    console.log(`set edit post ${id}`);
+    dispatch({ type: SET_EDIT_POST, payload: { id } });
+  };
+
+  const editPost = () => {
+    console.log('edit post');
   };
 
   const deletePost = id => {
@@ -233,6 +238,7 @@ const AppProvider = ({ children }) => {
         getPosts,
         setEditPost,
         deletePost,
+        editPost,
       }}
     >
       {children}
