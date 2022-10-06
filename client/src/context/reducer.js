@@ -16,6 +16,7 @@ import {
   CREATE_POST_ERROR,
   GET_POSTS_BEGIN,
   GET_POSTS_SUCCESS,
+  SET_EDIT_POST,
 } from './actions';
 
 import {
@@ -90,6 +91,25 @@ const reducer = (state, action) => {
       totalPosts: action.payload.totalPosts,
       numOfPages: action.payload.numOfPages,
     };
+  }
+
+  if (action.type === SET_EDIT_POST) {
+    // Need to disable the ESLint rule because _id is an actual property of the post object
+    // eslint-disable-next-line no-underscore-dangle
+    const post = state.posts.find(p => p._id === action.payload.id);
+    if (post) {
+      const { _id, importance, classification, type, title, content } = post;
+      return {
+        ...state,
+        isEditing: true,
+        editPostId: _id,
+        importance,
+        classification,
+        type,
+        title,
+        content,
+      };
+    }
   }
 
   if ([SETUP_USER_ERROR, UPDATE_USER_ERROR, CREATE_POST_ERROR].includes(action.type)) {
