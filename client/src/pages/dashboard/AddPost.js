@@ -28,6 +28,7 @@ const AddPost = () => {
     handleChange,
     clearValues,
     createPost,
+    editPost,
   } = useAppContext();
 
   const handleSubmit = e => {
@@ -35,6 +36,11 @@ const AddPost = () => {
 
     if (!title || !content) {
       displayAlert({ message: MISSING_VALUES });
+    }
+
+    if (isEditing) {
+      editPost();
+      return;
     }
 
     createPost({
