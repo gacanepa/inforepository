@@ -37,6 +37,7 @@ export const PLEASE_WAIT = 'Please wait...';
 export const SAVE_CHANGES = 'Save Changes';
 export const UNAUTHORIZED = 401;
 export const NO_POSTS_FOUND = 'No posts found';
+export const LAST_UPDATED = 'Last updated:';
 
 // These are the same constants that are defined for the Post model in the backend
 // Need to find a way to share them between the two projects to avoid duplicates
