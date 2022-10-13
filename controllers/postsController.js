@@ -1,9 +1,10 @@
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 import { StatusCodes } from 'http-status-codes';
-import { BadRequestError } from '../errors/index.js';
-import { PLEASE_PROVIDE_ALL_VALUES } from './constants.js'
+import { BadRequestError, NotFoundError } from '../errors/index.js';
+import { PLEASE_PROVIDE_ALL_VALUES, NO_POST_FOUND } from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
+import checkPermissions from '../utilities/checkPermissions.js';
 
 // Get status codes
 const { OK, CREATED } = StatusCodes;
@@ -60,8 +61,42 @@ const getAllPosts = async (req, res) => {
   });
 };
 
-const updatePost = async (_req, res) => {
-  res.status(OK).send('updatePost');
+const updatePost = async (req, res) => {
+  const { id: postId } = req.params;
+  const {
+    title,
+    content,
+    importance,
+    classification,
+    type,
+    dueDate
+  } = req.body;
+
+  if (!title || !content) {
+    throw new BadRequestError(PLEASE_PROVIDE_ALL_VALUES);
+  }
+
+  const existingPost = await Post.findOne({ _id: String(postId) });
+
+  if (!existingPost) {
+    throw new NotFoundError(`${NO_POST_FOUND} ${postId}`);
+  }
+
+  checkPermissions({
+    requestUser: req.user,
+    resourceUserId: existingPost.createdBy,
+  });
+
+  existingPost.title = handleNullUndefined(title);
+  existingPost.content = handleNullUndefined(content);
+  existingPost.importance = handleNullUndefined(importance);
+  existingPost.classification = handleNullUndefined(classification);
+  existingPost.type = handleNullUndefined(type);
+  existingPost.dueDate = handleNullUndefined(dueDate);
+
+  await existingPost.save();
+
+  res.status(OK).json({ existingPost });
 };
 
 const showStats = async (_req, res) => {
