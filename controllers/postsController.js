@@ -44,7 +44,7 @@ const createPost = async (req, res) => {
 // Hard delete
 const deletePost = async (req, res) => {
   const { id: postId } = req.params;
-  const { user: { userId } } = req;
+  const { user: { userId }, body: { hardDelete } } = req;
 
   const existingPost = await Post.findOne({ _id: handleNullUndefined(postId) });
 
@@ -57,7 +57,14 @@ const deletePost = async (req, res) => {
     resourceUserId: existingPost.createdBy,
   });
 
-  await existingPost.remove();
+  if (hardDelete) {
+    await existingPost.remove();
+    return;
+  }
+
+  existingPost.isDeleted = true;
+
+  existingPost.save();
 
   res.status(OK).json({ message: POST_REMOVED });
 };
@@ -85,7 +92,6 @@ const getAllPosts = async (req, res) => {
   });
 };
 
-// Includes soft delete
 const updatePost = async (req, res) => {
   const { id: postId } = req.params;
   const { user: { userId } } = req;
@@ -96,7 +102,6 @@ const updatePost = async (req, res) => {
     classification,
     type,
     dueDate,
-    isDeleted,
   } = req.body;
 
   if (!title || !content) {
@@ -120,9 +125,6 @@ const updatePost = async (req, res) => {
   existingPost.classification = handleNullUndefined(classification);
   existingPost.type = handleNullUndefined(type);
   existingPost.dueDate = handleNullUndefined(dueDate);
-
-  // Sanitize boolean input (just in case)
-  existingPost.isDeleted = Boolean(isDeleted);
 
   await existingPost.save();
 
