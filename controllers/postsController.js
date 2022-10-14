@@ -2,7 +2,11 @@ import Post from '../models/Post.js';
 import User from '../models/User.js';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js';
-import { PLEASE_PROVIDE_ALL_VALUES, NO_POST_FOUND } from './constants.js'
+import {
+  PLEASE_PROVIDE_ALL_VALUES,
+  NO_POST_FOUND,
+  POST_REMOVED
+} from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 import checkPermissions from '../utilities/checkPermissions.js';
 
@@ -37,8 +41,25 @@ const createPost = async (req, res) => {
   res.status(CREATED).json({ post });
 };
 
-const deletePost = async (_req, res) => {
-  res.status(OK).send('deletePost');
+// Hard delete
+const deletePost = async (req, res) => {
+  const { id: postId } = req.params;
+  const { user: { userId } } = req;
+
+  const existingPost = await Post.findOne({ _id: handleNullUndefined(postId) });
+
+  if (!existingPost) {
+    throw new NotFoundError(`${NO_POST_FOUND} ${postId}`);
+  }
+
+  checkPermissions({
+    userId,
+    resourceUserId: existingPost.createdBy,
+  });
+
+  await existingPost.remove();
+
+  res.status(OK).json({ message: POST_REMOVED });
 };
 
 const getPost = async (_req, res) => {
@@ -64,6 +85,7 @@ const getAllPosts = async (req, res) => {
   });
 };
 
+// Includes soft delete
 const updatePost = async (req, res) => {
   const { id: postId } = req.params;
   const { user: { userId } } = req;
@@ -81,7 +103,7 @@ const updatePost = async (req, res) => {
     throw new BadRequestError(PLEASE_PROVIDE_ALL_VALUES);
   }
 
-  const existingPost = await Post.findOne({ _id: String(postId) });
+  const existingPost = await Post.findOne({ _id: handleNullUndefined(postId) });
 
   if (!existingPost) {
     throw new NotFoundError(`${NO_POST_FOUND} ${postId}`);
