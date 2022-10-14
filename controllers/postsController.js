@@ -52,7 +52,7 @@ const deletePost = async (req, res) => {
     throw new NotFoundError(`${NO_POST_FOUND} ${postId}`);
   }
 
-  checkPermissions({
+  await checkPermissions({
     userId,
     resourceUserId: existingPost.createdBy,
   });
@@ -109,7 +109,7 @@ const updatePost = async (req, res) => {
     throw new NotFoundError(`${NO_POST_FOUND} ${postId}`);
   }
 
-  checkPermissions({
+  await checkPermissions({
     userId,
     resourceUserId: existingPost.createdBy,
   });
