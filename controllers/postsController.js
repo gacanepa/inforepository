@@ -63,6 +63,7 @@ const getAllPosts = async (req, res) => {
 
 const updatePost = async (req, res) => {
   const { id: postId } = req.params;
+  const { user: { userId } } = req;
   const {
     title,
     content,
@@ -83,7 +84,7 @@ const updatePost = async (req, res) => {
   }
 
   checkPermissions({
-    requestUser: req.user,
+    userId,
     resourceUserId: existingPost.createdBy,
   });
 
