@@ -21,6 +21,7 @@ import {
   GET_POSTS_BEGIN,
   GET_POSTS_SUCCESS,
   SET_EDIT_POST,
+  DELETE_POST_BEGIN,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -218,8 +219,15 @@ const AppProvider = ({ children }) => {
     console.log('edit post');
   };
 
-  const deletePost = id => {
-    console.log(`set delete post ${id}`);
+  const deletePost = async postId => {
+    dispatch({ type: DELETE_POST_BEGIN });
+    try {
+      await authFetch.delete(`${HANDLE_POST}/${postId}`, { isDeleted: true });
+      getPosts();
+    } catch (error) {
+      // Remove the console.log when a proper error handling is implemented
+      console.log(error.response);
+    }
   };
 
   return (
