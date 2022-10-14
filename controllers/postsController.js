@@ -73,7 +73,8 @@ const updatePost = async (req, res) => {
     importance,
     classification,
     type,
-    dueDate
+    dueDate,
+    isDeleted,
   } = req.body;
 
   if (!title || !content) {
@@ -97,6 +98,9 @@ const updatePost = async (req, res) => {
   existingPost.classification = handleNullUndefined(classification);
   existingPost.type = handleNullUndefined(type);
   existingPost.dueDate = handleNullUndefined(dueDate);
+
+  // Sanitize boolean input (just in case)
+  existingPost.isDeleted = Boolean(isDeleted);
 
   await existingPost.save();
 
