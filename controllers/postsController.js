@@ -97,7 +97,7 @@ const updatePost = async (req, res) => {
 
   await existingPost.save();
 
-  res.status(OK).json({ existingPost });
+  res.status(OK).json({ updatedPost: existingPost });
 };
 
 const showStats = async (_req, res) => {
