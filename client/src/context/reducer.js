@@ -17,6 +17,7 @@ import {
   GET_POSTS_BEGIN,
   GET_POSTS_SUCCESS,
   SET_EDIT_POST,
+  DELETE_POST_BEGIN,
 } from './actions';
 
 import {
@@ -158,6 +159,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       ...defaultValues,
+    };
+  }
+
+  if (action.type === DELETE_POST_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
     };
   }
 
