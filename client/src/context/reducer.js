@@ -76,7 +76,7 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === CREATE_POST_SUCCESS) {
+  if ([CREATE_POST_SUCCESS, EDIT_POST_SUCCESS].includes(action.type)) {
     const { alertText } = action.payload;
     return {
       ...state,
@@ -170,28 +170,10 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === DELETE_POST_BEGIN) {
+  if ([DELETE_POST_BEGIN, EDIT_POST_BEGIN].includes(action.type)) {
     return {
       ...state,
       isLoading: true,
-    };
-  }
-
-  if (action.type === EDIT_POST_BEGIN) {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }
-
-  if (action.type === EDIT_POST_SUCCESS) {
-    const { alertText } = action.payload;
-    return {
-      ...state,
-      isLoading: false,
-      showAlert: true,
-      alertType: ALERT_TYPE_SUCCESS,
-      alertText,
     };
   }
 
