@@ -41,7 +41,7 @@ const createPost = async (req, res) => {
   res.status(CREATED).json({ post });
 };
 
-// Hard delete
+// Hard and soft delete
 const deletePost = async (req, res) => {
   const { id: postId } = req.params;
   const { user: { userId }, body: { hardDelete } } = req;
