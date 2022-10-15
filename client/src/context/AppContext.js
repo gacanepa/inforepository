@@ -22,6 +22,9 @@ import {
   GET_POSTS_SUCCESS,
   SET_EDIT_POST,
   DELETE_POST_BEGIN,
+  EDIT_POST_BEGIN,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_ERROR,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -215,8 +218,28 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_POST, payload: { id } });
   };
 
-  const editPost = () => {
-    console.log('edit post');
+  const editPost = async () => {
+    dispatch({ type: EDIT_POST_BEGIN });
+    try {
+      const { importance, classification, type, title, content, editPostId } = state;
+      await authFetch.patch(`${HANDLE_POST}/${editPostId}`, {
+        importance,
+        classification,
+        type,
+        title,
+        content,
+      });
+      dispatch({ type: EDIT_POST_SUCCESS });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === UNAUTHORIZED) return;
+      dispatch({
+        type: EDIT_POST_ERROR,
+        payload: { message: error.response.data.message },
+      });
+    }
+
+    clearAlert();
   };
 
   const deletePost = async postId => {
