@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaCalendarAlt, FaLock, FaBookReader, FaLockOpen } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { PUBLIC, EDIT, DELETE } from '../common/constants/pages';
+import { PUBLIC, EDIT, DELETE, LAST_UPDATED } from '../common/constants/pages';
 import { useAppContext } from '../context/AppContext';
 import PostWrapper from '../assets/wrappers/PostWrapper';
 import PostInfo from './PostInfo';
@@ -14,12 +14,12 @@ const Post = ({
   classification,
   content,
   createdBy,
-  createdAt
+  updatedAt,
 }) => {
   const { setEditPost, deletePost } = useAppContext();
   const { firstName, lastName } = createdBy;
 
-  const postDate = new Date(createdAt).toLocaleDateString('en-US', {
+  const lastUpdated = new Date(updatedAt).toLocaleDateString('en-US', {
     dateStyle: 'medium',
   });
   return (
@@ -37,7 +37,7 @@ const Post = ({
             icon={classification === PUBLIC ? <FaLockOpen /> : <FaLock />}
             text={classification}
           />
-          <PostInfo icon={<FaCalendarAlt />} text={postDate} />
+          <PostInfo icon={<FaCalendarAlt />} text={`${LAST_UPDATED} ${lastUpdated}`} />
           <PostInfo icon={<FaBookReader />} text={content} />
           <div className={`status ${importance.toLowerCase()}`}>{importance}</div>
         </div>
@@ -67,7 +67,7 @@ Post.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
   }).isRequired,
-  createdAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
 };
 
 export default Post;

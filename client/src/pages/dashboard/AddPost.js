@@ -10,7 +10,9 @@ import {
   IMPORTANCE,
   CLASSIFICATION,
   TYPE,
-  ALERT_POST_CREATED,
+  ALERT_POST,
+  CREATED,
+  UPDATED,
 } from '../../common/constants/pages';
 import DashboardFormPageWrapper from '../../assets/wrappers/DashboardFormPageWrapper';
 
@@ -28,6 +30,7 @@ const AddPost = () => {
     handleChange,
     clearValues,
     createPost,
+    editPost,
   } = useAppContext();
 
   const handleSubmit = e => {
@@ -37,8 +40,15 @@ const AddPost = () => {
       displayAlert({ message: MISSING_VALUES });
     }
 
+    if (isEditing) {
+      editPost({
+        alertText: ALERT_POST(UPDATED)
+      });
+      return;
+    }
+
     createPost({
-      alertText: ALERT_POST_CREATED,
+      alertText: ALERT_POST(CREATED),
     });
   };
 

@@ -20,7 +20,9 @@ export const ALERT_TYPE_SUCCESS = 'success';
 export const ALERT_USER_CREATED = 'Your account has been created! Redirecting...';
 export const ALERT_USER_LOGIN_SUCCESS = 'Login successful! Redirecting...';
 export const UPDATE_USER_SUCCESS = 'User updated successfully';
-export const ALERT_POST_CREATED = 'Your post was created successfully';
+export const ALERT_POST = action => `Your post was ${action} successfully`;
+export const CREATED = 'created';
+export const UPDATED = 'updated';
 export const ALERT_TYPE_ERROR = 'danger';
 export const FIRST_NAME = 'First Name';
 export const LAST_NAME = 'Last Name';
@@ -37,6 +39,7 @@ export const PLEASE_WAIT = 'Please wait...';
 export const SAVE_CHANGES = 'Save Changes';
 export const UNAUTHORIZED = 401;
 export const NO_POSTS_FOUND = 'No posts found';
+export const LAST_UPDATED = 'Last updated:';
 
 // These are the same constants that are defined for the Post model in the backend
 // Need to find a way to share them between the two projects to avoid duplicates

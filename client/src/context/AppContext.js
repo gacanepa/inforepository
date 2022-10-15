@@ -20,6 +20,11 @@ import {
   CREATE_POST_ERROR,
   GET_POSTS_BEGIN,
   GET_POSTS_SUCCESS,
+  SET_EDIT_POST,
+  DELETE_POST_BEGIN,
+  EDIT_POST_BEGIN,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_ERROR,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -210,11 +215,45 @@ const AppProvider = ({ children }) => {
   };
 
   const setEditPost = id => {
-    console.log(`set edit post ${id}`);
+    dispatch({ type: SET_EDIT_POST, payload: { id } });
   };
 
-  const deletePost = id => {
-    console.log(`set delete post ${id}`);
+  const editPost = async ({ alertText }) => {
+    dispatch({ type: EDIT_POST_BEGIN });
+    try {
+      const { importance, classification, type, title, content, editPostId } = state;
+      await authFetch.patch(`${HANDLE_POST}/${editPostId}`, {
+        importance,
+        classification,
+        type,
+        title,
+        content,
+      });
+      dispatch({
+        type: EDIT_POST_SUCCESS,
+        payload: { alertText }
+      });
+      dispatch({ type: CLEAR_VALUES });
+    } catch (error) {
+      if (error.response.status === UNAUTHORIZED) return;
+      dispatch({
+        type: EDIT_POST_ERROR,
+        payload: { message: error.response.data.message },
+      });
+    }
+
+    clearAlert();
+  };
+
+  const deletePost = async postId => {
+    dispatch({ type: DELETE_POST_BEGIN });
+    try {
+      await authFetch.delete(`${HANDLE_POST}/${postId}`, { isDeleted: true });
+      getPosts();
+    } catch (error) {
+      // Remove the console.log when a proper error handling is implemented
+      console.log(error.response);
+    }
   };
 
   return (
@@ -233,6 +272,7 @@ const AppProvider = ({ children }) => {
         getPosts,
         setEditPost,
         deletePost,
+        editPost,
       }}
     >
       {children}

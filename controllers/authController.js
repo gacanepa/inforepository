@@ -100,9 +100,9 @@ const updateUser = async (req, res) => {
     throw new BadRequestError(ACCOUNT_DOES_NOT_EXIST);
   }
 
-  existingUser.location = location;
-  existingUser.firstName = firstName;
-  existingUser.lastName = lastName;
+  existingUser.location = handleNullUndefined(location);
+  existingUser.firstName = handleNullUndefined(firstName);
+  existingUser.lastName = handleNullUndefined(lastName);
 
   await existingUser.save();
 

@@ -1,9 +1,14 @@
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 import { StatusCodes } from 'http-status-codes';
-import { BadRequestError } from '../errors/index.js';
-import { PLEASE_PROVIDE_ALL_VALUES } from './constants.js'
+import { BadRequestError, NotFoundError } from '../errors/index.js';
+import {
+  PLEASE_PROVIDE_ALL_VALUES,
+  NO_POST_FOUND,
+  POST_REMOVED
+} from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
+import checkPermissions from '../utilities/checkPermissions.js';
 
 // Get status codes
 const { OK, CREATED } = StatusCodes;
@@ -36,8 +41,32 @@ const createPost = async (req, res) => {
   res.status(CREATED).json({ post });
 };
 
-const deletePost = async (_req, res) => {
-  res.status(OK).send('deletePost');
+// Hard and soft delete
+const deletePost = async (req, res) => {
+  const { id: postId } = req.params;
+  const { user: { userId }, body: { hardDelete } } = req;
+
+  const existingPost = await Post.findOne({ _id: handleNullUndefined(postId) });
+
+  if (!existingPost) {
+    throw new NotFoundError(`${NO_POST_FOUND} ${postId}`);
+  }
+
+  await checkPermissions({
+    userId,
+    resourceUserId: existingPost.createdBy,
+  });
+
+  if (hardDelete) {
+    await existingPost.remove();
+    return;
+  }
+
+  existingPost.isDeleted = true;
+
+  existingPost.save();
+
+  res.status(OK).json({ message: POST_REMOVED });
 };
 
 const getPost = async (_req, res) => {
@@ -51,7 +80,10 @@ const getAllPosts = async (req, res) => {
     : { createdBy: handleNullUndefined(req.user.userId) }
 
   // Instead of returning the user's ObjectId, populate the response with the first and last names
-  const posts = await Post.find(userSearchFilter).populate('createdBy', 'firstName lastName');
+  const posts = await Post.find({
+    ...userSearchFilter,
+    isDeleted: false,
+  }).populate('createdBy', 'firstName lastName');
 
   res.status(OK).json({
     posts,
@@ -60,8 +92,43 @@ const getAllPosts = async (req, res) => {
   });
 };
 
-const updatePost = async (_req, res) => {
-  res.status(OK).send('updatePost');
+const updatePost = async (req, res) => {
+  const { id: postId } = req.params;
+  const { user: { userId } } = req;
+  const {
+    title,
+    content,
+    importance,
+    classification,
+    type,
+    dueDate,
+  } = req.body;
+
+  if (!title || !content) {
+    throw new BadRequestError(PLEASE_PROVIDE_ALL_VALUES);
+  }
+
+  const existingPost = await Post.findOne({ _id: handleNullUndefined(postId) });
+
+  if (!existingPost) {
+    throw new NotFoundError(`${NO_POST_FOUND} ${postId}`);
+  }
+
+  await checkPermissions({
+    userId,
+    resourceUserId: existingPost.createdBy,
+  });
+
+  existingPost.title = handleNullUndefined(title);
+  existingPost.content = handleNullUndefined(content);
+  existingPost.importance = handleNullUndefined(importance);
+  existingPost.classification = handleNullUndefined(classification);
+  existingPost.type = handleNullUndefined(type);
+  existingPost.dueDate = handleNullUndefined(dueDate);
+
+  await existingPost.save();
+
+  res.status(OK).json({ updatedPost: existingPost });
 };
 
 const showStats = async (_req, res) => {
