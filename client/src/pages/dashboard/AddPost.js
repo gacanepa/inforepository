@@ -10,7 +10,9 @@ import {
   IMPORTANCE,
   CLASSIFICATION,
   TYPE,
-  ALERT_POST_CREATED,
+  ALERT_POST,
+  CREATED,
+  UPDATED,
 } from '../../common/constants/pages';
 import DashboardFormPageWrapper from '../../assets/wrappers/DashboardFormPageWrapper';
 
@@ -39,12 +41,14 @@ const AddPost = () => {
     }
 
     if (isEditing) {
-      editPost();
+      editPost({
+        alertText: ALERT_POST(UPDATED)
+      });
       return;
     }
 
     createPost({
-      alertText: ALERT_POST_CREATED,
+      alertText: ALERT_POST(CREATED),
     });
   };
 

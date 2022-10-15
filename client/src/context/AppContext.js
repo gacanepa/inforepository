@@ -218,7 +218,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: SET_EDIT_POST, payload: { id } });
   };
 
-  const editPost = async () => {
+  const editPost = async ({ alertText }) => {
     dispatch({ type: EDIT_POST_BEGIN });
     try {
       const { importance, classification, type, title, content, editPostId } = state;
@@ -229,7 +229,10 @@ const AppProvider = ({ children }) => {
         title,
         content,
       });
-      dispatch({ type: EDIT_POST_SUCCESS });
+      dispatch({
+        type: EDIT_POST_SUCCESS,
+        payload: { alertText }
+      });
       dispatch({ type: CLEAR_VALUES });
     } catch (error) {
       if (error.response.status === UNAUTHORIZED) return;
