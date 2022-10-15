@@ -18,6 +18,9 @@ import {
   GET_POSTS_SUCCESS,
   SET_EDIT_POST,
   DELETE_POST_BEGIN,
+  EDIT_POST_BEGIN,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_ERROR,
 } from './actions';
 
 import {
@@ -113,7 +116,12 @@ const reducer = (state, action) => {
     }
   }
 
-  if ([SETUP_USER_ERROR, UPDATE_USER_ERROR, CREATE_POST_ERROR].includes(action.type)) {
+  if ([
+    SETUP_USER_ERROR,
+    UPDATE_USER_ERROR,
+    CREATE_POST_ERROR,
+    EDIT_POST_ERROR
+  ].includes(action.type)) {
     return {
       ...state,
       isLoading: false,
@@ -166,6 +174,24 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
+    };
+  }
+
+  if (action.type === EDIT_POST_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+
+  if (action.type === EDIT_POST_SUCCESS) {
+    const { alertText } = action.payload;
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: ALERT_TYPE_SUCCESS,
+      alertText,
     };
   }
 
