@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import img from '../assets/images/main.svg';
+import img from '../assets/images/not-found.svg';
 import ErrorPageWrapper from '../assets/wrappers/ErrorPageWrapper';
 import { BACK_TO_HOME, ERROR, NOT_FOUND } from '../common/constants/pages';
 
