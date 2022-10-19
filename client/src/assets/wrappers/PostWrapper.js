@@ -42,20 +42,20 @@ const PostWrapper = styled.article`
     }
   }
   .medium {
-    background: #fcefc7;
-    color: #e9b949;
-  }
-  .low {
     background: #e0e8f9;
     color: #647acb;
   }
+  .low {
+    background: #c2f9bb;
+    color: #62c370;
+  }
   .high {
-    color: #d66a6a;
-    background: #ffeeee;
+    color: #e9b949;
+    background: #fcefc7;
   }
   .critical {
-    color: #fff;
-    background: #c9252c;
+    color: #d66a6a;
+    background: #ffeeee;
   }
   .content {
     padding: 1rem 1.5rem;
