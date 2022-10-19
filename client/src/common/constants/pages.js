@@ -33,7 +33,6 @@ export const POST = 'Post';
 export const ADD_POST = `${ADD} ${POST}`;
 export const EDIT_POST = `${EDIT} ${POST}`;
 export const PROFILE = 'Profile';
-export const STATS = 'Stats';
 export const LOGOUT = 'Logout';
 export const PLEASE_WAIT = 'Please wait...';
 export const SAVE_CHANGES = 'Save Changes';

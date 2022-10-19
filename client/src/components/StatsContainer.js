@@ -3,7 +3,7 @@ import { FaSuitcaseRolling } from 'react-icons/fa';
 import StatItem from './StatItem';
 import { useAppContext } from '../context/AppContext';
 import StatsContainerWrapper from '../assets/wrappers/StatsContainerWrapper';
-import { CRITICAL, HIGH, LOW, MEDIUM, STATS } from '../common/constants/pages';
+import { CRITICAL, HIGH, LOW, MEDIUM } from '../common/constants/pages';
 
 const StatsContainer = () => {
   const { stats } = useAppContext();
