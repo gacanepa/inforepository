@@ -211,11 +211,6 @@ const reducer = (state, action) => {
       showAlert: false,
       isLoading: true,
     }),
-    [SHOW_STATS_SUCCESS]: () => ({
-      ...state,
-      isLoading: false,
-      stats: payload.stats,
-    }),
     [DELETE_POST_BEGIN]: () => ({
       ...state,
       isLoading: true,
@@ -232,7 +227,7 @@ const reducer = (state, action) => {
     [SHOW_STATS_SUCCESS]: () => ({
       ...state,
       isLoading: false,
-      stats: payload.stats,
+      stats: payload.defaultStats,
       monthlyStats: payload.monthlyStats,
     }),
   };
