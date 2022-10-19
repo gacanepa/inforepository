@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StatItemWrapper = styled.article`
   padding: 2rem;
   background: var(--white);
   border-radius: var(--borderRadius);
-  border-bottom: 5px solid ${(props) => props.color};
+  border-bottom: 5px solid ${props => props.color};
   header {
     display: flex;
     align-items: center;
@@ -14,7 +14,7 @@ const StatItemWrapper = styled.article`
     display: block;
     font-weight: 700;
     font-size: 50px;
-    color: ${(props) => props.color};
+    color: ${props => props.color};
   }
   .title {
     margin: 0;
@@ -26,16 +26,16 @@ const StatItemWrapper = styled.article`
   .icon {
     width: 70px;
     height: 60px;
-    background: ${(props) => props.bcg};
+    background: ${props => props.bcg};
     border-radius: var(--borderRadius);
     display: flex;
     align-items: center;
     justify-content: center;
     svg {
       font-size: 2rem;
-      color: ${(props) => props.color};
+      color: ${props => props.color};
     }
   }
-`
+`;
 
 export default StatItemWrapper;
