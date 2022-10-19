@@ -65,6 +65,8 @@ const UserSchema = new mongoose.Schema({
   isSuperUser: {
     type: Boolean,
     default: false,
+    // Don't return this property in the response when querying for users
+    select: false,
   },
   lastLogin: {
     type: String,

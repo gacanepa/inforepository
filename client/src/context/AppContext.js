@@ -25,6 +25,8 @@ import {
   EDIT_POST_BEGIN,
   EDIT_POST_SUCCESS,
   EDIT_POST_ERROR,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -59,6 +61,8 @@ const initialState = {
   totalPosts: 0,
   numOfPages: 1,
   page: 1,
+  stats: {},
+  monthlyPosts: [],
 };
 
 const AppContext = React.createContext();
@@ -86,7 +90,6 @@ const AppProvider = ({ children }) => {
           Authorization: `Bearer ${state.token}`,
         },
       };
-      console.log({ requestConfig });
       return requestConfig;
     },
     error => {
@@ -262,6 +265,20 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const showStats = async () => {
+    dispatch({ type: SHOW_STATS_BEGIN });
+    try {
+      const { data: { defaultStats, monthlyPosts } } = await authFetch(`${HANDLE_POST}/stats`);
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: { defaultStats, monthlyPosts }
+      });
+    } catch (error) {
+      // Remove the console.log when a proper error handling is implemented
+      console.log(error.response);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -279,6 +296,7 @@ const AppProvider = ({ children }) => {
         setEditPost,
         deletePost,
         editPost,
+        showStats,
       }}
     >
       {children}

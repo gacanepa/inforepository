@@ -29,7 +29,7 @@ const PostsContainer = () => {
   return (
     <PostContainerWrapper>
       <h5>
-        {`${totalPosts} post${totalPosts > 1 && 's '} found`}
+        {`${totalPosts} post${totalPosts > 1 ? 's ' : ' '} found`}
       </h5>
       <div className="posts">
         {posts.map(post => (

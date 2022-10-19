@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StatsContainerWrapper = styled.section`
   display: grid;
@@ -8,9 +8,9 @@ const StatsContainerWrapper = styled.section`
     column-gap: 1rem;
   }
   @media (min-width: 1120px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 1rem;
   }
-`
+`;
 
 export default StatsContainerWrapper;

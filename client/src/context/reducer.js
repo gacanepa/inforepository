@@ -21,6 +21,8 @@ import {
   EDIT_POST_BEGIN,
   EDIT_POST_SUCCESS,
   EDIT_POST_ERROR,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
 } from './actions';
 
 import {
@@ -32,152 +34,207 @@ import {
 } from '../common/constants/pages';
 
 const reducer = (state, action) => {
-  if (action.type === DISPLAY_ALERT) {
-    return {
+  const defaultValues = {
+    isEditing: false,
+    editPostId: '',
+    title: '',
+    importance: LOW,
+    classification: PUBLIC,
+    type: ARTICLE,
+    content: '',
+  };
+
+  const { type, payload } = action;
+
+  const actions = {
+    [DISPLAY_ALERT]: () => ({
       ...state,
       showAlert: true,
-      alertText: action.payload.message,
-      alertType: 'danger',
-    };
-  }
-
-  if (action.type === CLEAR_ALERT) {
-    return {
+      alertText: payload.message,
+      alertType: ALERT_TYPE_ERROR,
+    }),
+    [CLEAR_ALERT]: () => ({
       ...state,
       showAlert: false,
       alertText: '',
       alertType: '',
-    };
-  }
-
-  if ([
-    SETUP_USER_BEGIN,
-    UPDATE_USER_BEGIN,
-    CREATE_POST_BEGIN,
-    GET_POSTS_BEGIN,
-  ].includes(action.type)) {
-    return {
+    }),
+    [SETUP_USER_BEGIN]: () => ({
       ...state,
       showAlert: false,
       isLoading: true,
-    };
-  }
-
-  if ([SETUP_USER_SUCCESS, UPDATE_USER_SUCCESS].includes(action.type)) {
-    const { user, token, alertText } = action.payload;
-    return {
+    }),
+    [UPDATE_USER_BEGIN]: () => ({
       ...state,
-      isLoading: false,
-      user,
-      token,
-      showAlert: true,
-      alertType: ALERT_TYPE_SUCCESS,
-      alertText,
-    };
-  }
-
-  if ([CREATE_POST_SUCCESS, EDIT_POST_SUCCESS].includes(action.type)) {
-    const { alertText } = action.payload;
-    return {
+      showAlert: false,
+      isLoading: true,
+    }),
+    [CREATE_POST_BEGIN]: () => ({
       ...state,
-      isLoading: false,
-      showAlert: true,
-      alertType: ALERT_TYPE_SUCCESS,
-      alertText,
-    };
-  }
-
-  if (action.type === GET_POSTS_SUCCESS) {
-    return {
+      showAlert: false,
+      isLoading: true,
+    }),
+    [GET_POSTS_BEGIN]: () => ({
       ...state,
-      isLoading: false,
-      posts: action.payload.posts,
-      totalPosts: action.payload.totalPosts,
-      numOfPages: action.payload.numOfPages,
-    };
-  }
+      showAlert: false,
+      isLoading: true,
+    }),
+    [SETUP_USER_SUCCESS]: () => {
+      const { user, token, alertText } = payload;
 
-  if (action.type === SET_EDIT_POST) {
-    // Need to disable the ESLint rule because _id is an actual property of the post object
-    // eslint-disable-next-line no-underscore-dangle
-    const post = state.posts.find(p => p._id === action.payload.id);
-    if (post) {
-      const { _id, importance, classification, type, title, content } = post;
       return {
         ...state,
-        isEditing: true,
-        editPostId: _id,
-        importance,
-        classification,
-        type,
-        title,
-        content,
+        user,
+        token,
+        showAlert: true,
+        alertText,
+        alertType: ALERT_TYPE_SUCCESS,
+        isLoading: false,
       };
-    }
-  }
+    },
+    [UPDATE_USER_SUCCESS]: () => {
+      const { user, token, alertText } = payload;
 
-  if ([
-    SETUP_USER_ERROR,
-    UPDATE_USER_ERROR,
-    CREATE_POST_ERROR,
-    EDIT_POST_ERROR
-  ].includes(action.type)) {
-    return {
+      return {
+        ...state,
+        user,
+        token,
+        showAlert: true,
+        alertText,
+        alertType: ALERT_TYPE_SUCCESS,
+        isLoading: false,
+      };
+    },
+    [CREATE_POST_SUCCESS]: () => ({
       ...state,
-      isLoading: false,
       showAlert: true,
-      alertType: ALERT_TYPE_ERROR,
-      alertText: action.payload.message,
-    };
-  }
-
-  if (action.type === TOGGLE_SIDEBAR) {
-    return {
+      alertText: payload.alertText,
+      alertType: ALERT_TYPE_SUCCESS,
+      isLoading: false,
+    }),
+    [EDIT_POST_SUCCESS]: () => ({
       ...state,
-      showSidebar: !state.showSidebar,
-    };
-  }
+      showAlert: true,
+      alertText: payload.alertText,
+      alertType: ALERT_TYPE_SUCCESS,
+      isLoading: false,
+    }),
+    [GET_POSTS_SUCCESS]: () => {
+      const { posts, totalPosts, numOfPages } = payload;
 
-  if (action.type === LOGOUT_USER) {
-    return {
+      return {
+        ...state,
+        isLoading: false,
+        posts,
+        totalPosts,
+        numOfPages,
+      };
+    },
+    [SET_EDIT_POST]: () => {
+      // Need to disable the ESLint rule because _id is an actual property of the post object
+      // eslint-disable-next-line no-underscore-dangle
+      const post = state.posts.find(p => p._id === payload.id);
+      if (post) {
+        const { _id, importance, classification, type: postType, title, content } = post;
+        return {
+          ...state,
+          isEditing: true,
+          editPostId: _id,
+          importance,
+          classification,
+          type: postType,
+          title,
+          content,
+        };
+      }
+
+      return null;
+    },
+    [SETUP_USER_ERROR]: () => ({
+      ...state,
+      showAlert: true,
+      alertText: payload.message,
+      alertType: ALERT_TYPE_ERROR,
+      isLoading: false,
+    }),
+    [UPDATE_USER_ERROR]: () => ({
+      ...state,
+      showAlert: true,
+      alertText: payload.message,
+      alertType: ALERT_TYPE_ERROR,
+      isLoading: false,
+    }),
+    [CREATE_POST_ERROR]: () => ({
+      ...state,
+      showAlert: true,
+      alertText: payload.message,
+      alertType: ALERT_TYPE_ERROR,
+      isLoading: false,
+    }),
+    [EDIT_POST_ERROR]: () => ({
+      ...state,
+      showAlert: true,
+      alertText: payload.message,
+      alertType: ALERT_TYPE_ERROR,
+      isLoading: false,
+    }),
+    [TOGGLE_SIDEBAR]: () => ({
+      ...state,
+      ...defaultValues,
+      showSidebar: !state.showSidebar,
+    }),
+    [LOGOUT_USER]: () => ({
       ...state,
       user: null,
       token: null,
-    };
-  }
-
-  if (action.type === HANDLE_CHANGE) {
-    return {
+    }),
+    [HANDLE_CHANGE]: () => ({
       ...state,
-      [action.payload.name]: action.payload.value,
-    };
-  }
-
-  if (action.type === CLEAR_VALUES) {
-    const defaultValues = {
-      isEditing: false,
-      editPostId: '',
-      title: '',
-      importance: LOW,
-      classification: PUBLIC,
-      type: ARTICLE,
-      content: '',
-    };
-
-    return {
+      [payload.name]: payload.value,
+    }),
+    [CLEAR_VALUES]: () => ({
       ...state,
       ...defaultValues,
-    };
-  }
-
-  if ([DELETE_POST_BEGIN, EDIT_POST_BEGIN].includes(action.type)) {
-    return {
+    }),
+    [DELETE_POST_BEGIN]: () => ({
+      ...state,
+      showAlert: false,
+      isLoading: true,
+    }),
+    [EDIT_POST_BEGIN]: () => ({
+      ...state,
+      showAlert: false,
+      isLoading: true,
+    }),
+    [SHOW_STATS_BEGIN]: () => ({
+      ...state,
+      showAlert: false,
+      isLoading: true,
+    }),
+    [DELETE_POST_BEGIN]: () => ({
       ...state,
       isLoading: true,
-    };
-  }
+    }),
+    [EDIT_POST_BEGIN]: () => ({
+      ...state,
+      isLoading: true,
+    }),
+    [SHOW_STATS_BEGIN]: () => ({
+      ...state,
+      isLoading: true,
+      showStats: false,
+    }),
+    [SHOW_STATS_SUCCESS]: () => ({
+      ...state,
+      isLoading: false,
+      stats: payload.defaultStats,
+      monthlyStats: payload.monthlyStats,
+    }),
+  };
 
-  throw new Error(`No such action: ${action.type}`);
+  if (!Object.keys(actions).includes(type)) throw new Error(`No such action: ${type}`);
+
+  return actions[type]();
 };
 
 export default reducer;

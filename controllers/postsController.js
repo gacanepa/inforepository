@@ -9,6 +9,7 @@ import {
 } from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 import checkPermissions from '../utilities/checkPermissions.js';
+import { CRITICAL, HIGH, LOW, MEDIUM } from '../models/constants.js';
 
 // Get status codes
 const { OK, CREATED } = StatusCodes;
@@ -131,8 +132,31 @@ const updatePost = async (req, res) => {
   res.status(OK).json({ updatedPost: existingPost });
 };
 
-const showStats = async (_req, res) => {
-  res.status(OK).send('showStats');
+const showStats = async (req, res) => {
+  // The results of the aggregation pipeline include the posts of ALL users
+  const tmpStats = await Post.aggregate([
+    { $match: { isDeleted: false } },
+    { $group: { _id: '$importance', count: { $sum: 1 }}},
+  ]);
+
+  // Object with importance as key and count as value
+  const stats = tmpStats.reduce((acc, stat) => {
+    const { _id: importance, count } = stat;
+    acc[importance] = count;
+    return acc;
+  }, {});
+
+  // Add 0 to the stats object for each importance that doesn't exist
+  const defaultStats = {
+    [LOW]: stats[LOW] || 0,
+    [MEDIUM]: stats[MEDIUM] || 0,
+    [HIGH]: stats[HIGH] || 0,
+    [CRITICAL]: stats[CRITICAL] || 0,
+  };
+
+  const monthlyPosts = [];
+
+  res.status(OK).json({ defaultStats, monthlyPosts });
 };
 
 export { createPost, deletePost, getPost, getAllPosts, updatePost, showStats };
