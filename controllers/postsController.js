@@ -154,7 +154,7 @@ const showStats = async (req, res) => {
     [CRITICAL]: stats[CRITICAL] || 0,
   };
 
-  const monthlyPosts = await Post.aggregate([
+  const tmpMonthlyPosts = await Post.aggregate([
     { $match: { isDeleted: false } },
     { $group: {
       _id: {
@@ -165,6 +165,12 @@ const showStats = async (req, res) => {
     { $sort: { '_id.year': -1, '_id.month': -1 }},
     { $limit: 6 },
   ]);
+
+  // Object with YYYY-MM as key and count as value
+  const monthlyPosts = tmpMonthlyPosts.map(item => {
+    const { _id: { year, month }} = item;
+    return `${year}-${month}`;
+  });
 
   res.status(OK).json({ defaultStats, monthlyPosts });
 };
