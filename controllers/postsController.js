@@ -169,7 +169,11 @@ const showStats = async (req, res) => {
   // Object with YYYY-MM as key and count as value
   const monthlyPosts = tmpMonthlyPosts.map(item => {
     const { _id: { year, month }} = item;
-    return `${year}-${month}`;
+    return {
+      year,
+      month,
+      count: item.count,
+    };
   });
 
   res.status(OK).json({ defaultStats, monthlyPosts });
