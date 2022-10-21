@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Alert, Logo, FormRow } from '../components';
 import RegisterPageWrapper from '../assets/wrappers/RegisterPageWrapper';
 import { useAppContext } from '../context/AppContext';
@@ -32,6 +33,8 @@ const initialState = {
 
 const Register = () => {
   const [formData, setFormData] = useState(initialState);
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -115,7 +118,7 @@ const Register = () => {
     <RegisterPageWrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
         <Logo />
-        <h3>{formData.isMember ? LOGIN : REGISTER}</h3>
+        <h3>{formData.isMember ? t('login') : t('REGISTER')}</h3>
         {showAlert && <Alert />}
         {!formData.isMember && (
           <>
