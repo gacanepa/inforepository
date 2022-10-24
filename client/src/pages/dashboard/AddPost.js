@@ -1,19 +1,7 @@
 import React from 'react';
+import { useTranslationContext } from '../../context/TranslationContext';
 import { FormRow, Alert, FormRowSelect, TextArea } from '../../components';
 import { useAppContext } from '../../context/AppContext';
-import {
-  ADD_POST,
-  EDIT_POST,
-  CLEAR,
-  SUBMIT,
-  MISSING_VALUES,
-  IMPORTANCE,
-  CLASSIFICATION,
-  TYPE,
-  ALERT_POST,
-  CREATED,
-  UPDATED,
-} from '../../common/constants/pages';
 import DashboardFormPageWrapper from '../../assets/wrappers/DashboardFormPageWrapper';
 
 const AddPost = () => {
@@ -32,6 +20,20 @@ const AddPost = () => {
     createPost,
     editPost,
   } = useAppContext();
+
+  const {
+    ADD_POST,
+    EDIT_POST,
+    CLEAR,
+    SUBMIT,
+    MISSING_VALUES,
+    IMPORTANCE,
+    CLASSIFICATION,
+    TYPE,
+    ALERT_POST,
+    CREATED,
+    UPDATED,
+  } = useTranslationContext();
 
   const handleSubmit = e => {
     e.preventDefault();
