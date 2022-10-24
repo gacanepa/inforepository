@@ -28,7 +28,7 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
 } from './actions';
-import { UNAUTHORIZED } from '../common/constants';
+import { UNAUTHORIZED, CLEAR_ALERT_DELAY } from '../common/constants';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
 import { BASE_URL, SETUP_USER, UPDATE_USER, HANDLE_POST } from '../common/endpoints';

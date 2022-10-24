@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useTranslationContext } from '../context/TranslationContext';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
+import { useTranslationContext } from '../context/TranslationContext';
 import { useAppContext } from '../context/AppContext';
 import Logo from './Logo';
 import NavbarWrapper from '../assets/wrappers/NavbarWrapper';

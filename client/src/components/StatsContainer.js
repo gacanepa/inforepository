@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTranslationContext } from '../context/TranslationContext';
 import { FaSuitcaseRolling } from 'react-icons/fa';
+import { useTranslationContext } from '../context/TranslationContext';
 import StatItem from './StatItem';
 import { useAppContext } from '../context/AppContext';
 import StatsContainerWrapper from '../assets/wrappers/StatsContainerWrapper';
