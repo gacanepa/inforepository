@@ -30,13 +30,6 @@ import {
 } from './actions';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
-import {
-  CLEAR_ALERT_DELAY,
-  UNAUTHORIZED,
-  LOW,
-  ARTICLE,
-  PUBLIC,
-} from '../common/constants/pages';
 import { BASE_URL, SETUP_USER, UPDATE_USER, HANDLE_POST } from '../common/endpoints';
 
 const storedToken = localStorage.getItem('token');
