@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
+import { useTranslationContext } from '../context/TranslationContext';
 import { useAppContext } from '../context/AppContext';
 import Loading from './Loading';
 import Post from './Post';
 import PostContainerWrapper from '../assets/wrappers/PostContainerWrapper';
-import { NO_POSTS_FOUND } from '../common/constants/pages';
 
 const PostsContainer = () => {
   const { getPosts, posts, isLoading, totalPosts } = useAppContext();
+  const { NO_POSTS_FOUND } = useTranslationContext();
 
   useEffect(() => {
     getPosts();
