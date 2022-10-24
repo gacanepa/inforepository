@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslationContext } from '../context/TranslationContext';
 import { FaCalendarAlt, FaLock, FaBookReader, FaLockOpen } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { PUBLIC, EDIT, DELETE, LAST_UPDATED } from '../common/constants/pages';
 import { useAppContext } from '../context/AppContext';
 import PostWrapper from '../assets/wrappers/PostWrapper';
 import PostInfo from './PostInfo';
@@ -17,6 +17,7 @@ const Post = ({
   updatedAt,
 }) => {
   const { setEditPost, deletePost } = useAppContext();
+  const { PUBLIC, EDIT, DELETE, LAST_UPDATED } = useTranslationContext();
   const { firstName, lastName } = createdBy;
 
   const lastUpdated = new Date(updatedAt).toLocaleDateString('en-US', {
