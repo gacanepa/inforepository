@@ -1,12 +1,13 @@
 import React from 'react';
+import { useTranslationContext } from '../context/TranslationContext';
 import { FaSuitcaseRolling } from 'react-icons/fa';
 import StatItem from './StatItem';
 import { useAppContext } from '../context/AppContext';
 import StatsContainerWrapper from '../assets/wrappers/StatsContainerWrapper';
-import { CRITICAL, HIGH, LOW, MEDIUM } from '../common/constants/pages';
 
 const StatsContainer = () => {
   const { stats } = useAppContext();
+  const { CRITICAL, HIGH, LOW, MEDIUM } = useTranslationContext();
 
   const initialStats = [
     {
