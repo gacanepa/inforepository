@@ -24,16 +24,13 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
 } from './actions';
+import { useTranslationContext } from './TranslationContext';
 
-import {
-  ALERT_TYPE_SUCCESS,
-  ALERT_TYPE_ERROR,
-  LOW,
-  PUBLIC,
-  ARTICLE,
-} from '../common/constants/pages';
+import { ALERT_TYPE_SUCCESS, ALERT_TYPE_ERROR } from '../common/constants';
 
 const reducer = (state, action) => {
+  const { LOW, PUBLIC, ARTICLE } = useTranslationContext();
+
   const defaultValues = {
     isEditing: false,
     editPostId: '',
