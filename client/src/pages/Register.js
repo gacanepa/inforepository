@@ -1,24 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Alert, Logo, FormRow } from '../components';
 import RegisterPageWrapper from '../assets/wrappers/RegisterPageWrapper';
 import { useAppContext } from '../context/AppContext';
-import {
-  ALREADY_A_MEMBER,
-  LOGIN,
-  NOT_A_MEMBER_YET,
-  REENTER_PASSWORD,
-  REGISTER,
-  SUBMIT,
-  MISSING_VALUES,
-  PASSWORD_MISMATCH,
-  CLEAR_ALERT_DELAY,
-  FIRST_NAME,
-  LAST_NAME,
-  ALERT_USER_CREATED,
-  ALERT_USER_LOGIN_SUCCESS,
-} from '../common/constants/pages';
+import { useTranslationContext } from '../context/TranslationContext';
 import { areInputsEmpty } from '../utilities';
 
 const initialState = {
@@ -34,7 +19,21 @@ const initialState = {
 const Register = () => {
   const [formData, setFormData] = useState(initialState);
 
-  const { t } = useTranslation();
+  const {
+    ALREADY_A_MEMBER,
+    LOGIN,
+    NOT_A_MEMBER_YET,
+    REENTER_PASSWORD,
+    REGISTER,
+    SUBMIT,
+    MISSING_VALUES,
+    PASSWORD_MISMATCH,
+    CLEAR_ALERT_DELAY,
+    FIRST_NAME,
+    LAST_NAME,
+    ALERT_USER_CREATED,
+    ALERT_USER_LOGIN_SUCCESS,
+  } = useTranslationContext();
 
   const navigate = useNavigate();
 
@@ -118,7 +117,7 @@ const Register = () => {
     <RegisterPageWrapper className="full-page">
       <form className="form" onSubmit={onSubmit}>
         <Logo />
-        <h3>{formData.isMember ? t('login') : t('REGISTER')}</h3>
+        <h3>{formData.isMember ? LOGIN : REGISTER}</h3>
         {showAlert && <Alert />}
         {!formData.isMember && (
           <>
