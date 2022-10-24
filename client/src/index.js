@@ -10,10 +10,10 @@ import './i18n';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AppProvider>
-      <TranslationProvider>
+    <TranslationProvider>
+      <AppProvider>
         <App />
-      </TranslationProvider>
-    </AppProvider>
+      </AppProvider>
+    </TranslationProvider>
   </React.StrictMode>
 );
