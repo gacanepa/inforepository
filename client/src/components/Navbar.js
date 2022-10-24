@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useTranslationContext } from '../context/TranslationContext';
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import { useAppContext } from '../context/AppContext';
-import { DASHBOARD, LOGOUT } from '../common/constants/pages';
 import Logo from './Logo';
 import NavbarWrapper from '../assets/wrappers/NavbarWrapper';
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
   const { user, toggleSidebar, logoutUser } = useAppContext();
+  const { DASHBOARD, LOGOUT } = useTranslationContext();
 
   return (
     <NavbarWrapper>
