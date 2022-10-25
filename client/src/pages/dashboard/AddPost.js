@@ -33,6 +33,11 @@ const AddPost = () => {
     ALERT_POST,
     CREATED,
     UPDATED,
+    TITLE,
+    CONTENT,
+    IMPORTANCE_LABEL,
+    CLASSIFICATION_LABEL,
+    TYPE_LABEL,
   } = useTranslationContext();
 
   const handleSubmit = e => {
@@ -66,21 +71,21 @@ const AddPost = () => {
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRowSelect
-            labelText="importance"
+            labelText={IMPORTANCE_LABEL}
             name="importance"
             value={importance}
             handleChange={handlePostInput}
             options={IMPORTANCE}
           />
           <FormRowSelect
-            labelText="classification"
+            labelText={CLASSIFICATION_LABEL}
             name="classification"
             value={classification}
             handleChange={handlePostInput}
             options={CLASSIFICATION}
           />
           <FormRowSelect
-            labelText="type"
+            labelText={TYPE_LABEL}
             name="type"
             value={type}
             handleChange={handlePostInput}
@@ -88,12 +93,14 @@ const AddPost = () => {
           />
           <FormRow
             type="text"
+            labelText={TITLE}
             name="title"
             value={title}
             handleChange={handlePostInput}
           />
           <TextArea
             name="content"
+            labelText={CONTENT}
             value={content}
             handleChange={handlePostInput}
           />
