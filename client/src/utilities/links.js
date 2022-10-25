@@ -16,13 +16,13 @@ const links = [
   },
   {
     id: 2,
-    text: 'All Posts',
+    text: 'All_Posts',
     path: '/all-posts',
     icon: <MdQueryStats />,
   },
   {
     id: 3,
-    text: 'Add Post',
+    text: 'Add_Post',
     path: '/add-post',
     icon: <MdArticle />,
   },
