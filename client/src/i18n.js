@@ -25,7 +25,7 @@ i18n
       },
       es: {
         translation: {
-          SPA,
+          ...SPA,
         }
       }
     }
