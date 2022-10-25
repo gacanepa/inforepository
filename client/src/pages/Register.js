@@ -25,6 +25,9 @@ const Register = () => {
     NOT_A_MEMBER_YET,
     REENTER_PASSWORD,
     REGISTER,
+    EMAIL,
+    PASSWORD,
+    LOCATION,
     SUBMIT,
     MISSING_VALUES,
     PASSWORD_MISMATCH,
@@ -140,15 +143,23 @@ const Register = () => {
               name="location"
               value={formData.location}
               handleChange={handleChange}
+              labelText={LOCATION}
             />
           </>
         )}
-        <FormRow type="email" name="email" value={formData.email} handleChange={handleChange} />
+        <FormRow
+          type="email"
+          name="email"
+          value={formData.email}
+          handleChange={handleChange}
+          labelText={EMAIL}
+        />
         <FormRow
           type="password"
           name="password"
           value={formData.password}
           handleChange={handleChange}
+          labelText={PASSWORD}
         />
         {!formData.isMember && (
           <FormRow
