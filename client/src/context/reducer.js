@@ -25,22 +25,16 @@ import {
   SHOW_STATS_SUCCESS,
 } from './actions';
 
-import {
-  ALERT_TYPE_SUCCESS,
-  ALERT_TYPE_ERROR,
-  LOW,
-  PUBLIC,
-  ARTICLE,
-} from '../common/constants/pages';
+import { ALERT_TYPE_SUCCESS, ALERT_TYPE_ERROR } from '../common/constants';
 
 const reducer = (state, action) => {
   const defaultValues = {
     isEditing: false,
     editPostId: '',
     title: '',
-    importance: LOW,
-    classification: PUBLIC,
-    type: ARTICLE,
+    importance: 'Low',
+    classification: 'Public',
+    type: 'Article',
     content: '',
   };
 

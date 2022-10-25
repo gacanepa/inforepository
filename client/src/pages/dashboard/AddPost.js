@@ -1,19 +1,7 @@
 import React from 'react';
+import { useTranslationContext } from '../../context/TranslationContext';
 import { FormRow, Alert, FormRowSelect, TextArea } from '../../components';
 import { useAppContext } from '../../context/AppContext';
-import {
-  ADD_POST,
-  EDIT_POST,
-  CLEAR,
-  SUBMIT,
-  MISSING_VALUES,
-  IMPORTANCE,
-  CLASSIFICATION,
-  TYPE,
-  ALERT_POST,
-  CREATED,
-  UPDATED,
-} from '../../common/constants/pages';
 import DashboardFormPageWrapper from '../../assets/wrappers/DashboardFormPageWrapper';
 
 const AddPost = () => {
@@ -32,6 +20,25 @@ const AddPost = () => {
     createPost,
     editPost,
   } = useAppContext();
+
+  const {
+    ADD_POST,
+    EDIT_POST,
+    CLEAR,
+    SUBMIT,
+    MISSING_VALUES,
+    IMPORTANCE,
+    CLASSIFICATION,
+    TYPE,
+    ALERT_POST,
+    CREATED,
+    UPDATED,
+    TITLE,
+    CONTENT,
+    IMPORTANCE_LABEL,
+    CLASSIFICATION_LABEL,
+    TYPE_LABEL,
+  } = useTranslationContext();
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -64,21 +71,21 @@ const AddPost = () => {
         {showAlert && <Alert />}
         <div className="form-center">
           <FormRowSelect
-            labelText="importance"
+            labelText={IMPORTANCE_LABEL}
             name="importance"
             value={importance}
             handleChange={handlePostInput}
             options={IMPORTANCE}
           />
           <FormRowSelect
-            labelText="classification"
+            labelText={CLASSIFICATION_LABEL}
             name="classification"
             value={classification}
             handleChange={handlePostInput}
             options={CLASSIFICATION}
           />
           <FormRowSelect
-            labelText="type"
+            labelText={TYPE_LABEL}
             name="type"
             value={type}
             handleChange={handlePostInput}
@@ -86,12 +93,14 @@ const AddPost = () => {
           />
           <FormRow
             type="text"
+            labelText={TITLE}
             name="title"
             value={title}
             handleChange={handlePostInput}
           />
           <TextArea
             name="content"
+            labelText={CONTENT}
             value={content}
             handleChange={handlePostInput}
           />

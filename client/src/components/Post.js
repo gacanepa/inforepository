@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaCalendarAlt, FaLock, FaBookReader, FaLockOpen } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { PUBLIC, EDIT, DELETE, LAST_UPDATED } from '../common/constants/pages';
+import { useTranslationContext } from '../context/TranslationContext';
 import { useAppContext } from '../context/AppContext';
 import PostWrapper from '../assets/wrappers/PostWrapper';
 import PostInfo from './PostInfo';
+import { getLocalizedValue } from '../utilities';
 
 const Post = ({
   _id,
@@ -17,6 +18,13 @@ const Post = ({
   updatedAt,
 }) => {
   const { setEditPost, deletePost } = useAppContext();
+  const {
+    EDIT,
+    DELETE,
+    LAST_UPDATED,
+    IMPORTANCE,
+    CLASSIFICATION,
+  } = useTranslationContext();
   const { firstName, lastName } = createdBy;
 
   const lastUpdated = new Date(updatedAt).toLocaleDateString('en-US', {
@@ -34,12 +42,16 @@ const Post = ({
       <div className="content">
         <div className="content-center">
           <PostInfo
-            icon={classification === PUBLIC ? <FaLockOpen /> : <FaLock />}
-            text={classification}
+            icon={classification === 'Public' ? <FaLockOpen /> : <FaLock />}
+            text={getLocalizedValue(CLASSIFICATION, classification)}
           />
           <PostInfo icon={<FaCalendarAlt />} text={`${LAST_UPDATED} ${lastUpdated}`} />
           <PostInfo icon={<FaBookReader />} text={content} />
-          <div className={`status ${importance.toLowerCase()}`}>{importance}</div>
+          <div
+            className={`status ${importance.toLowerCase()}`}
+          >
+            {getLocalizedValue(IMPORTANCE, importance)}
+          </div>
         </div>
         <footer>
           <div className="actions">

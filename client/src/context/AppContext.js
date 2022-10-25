@@ -28,15 +28,9 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
 } from './actions';
+import { UNAUTHORIZED, CLEAR_ALERT_DELAY } from '../common/constants';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
-import {
-  CLEAR_ALERT_DELAY,
-  UNAUTHORIZED,
-  LOW,
-  ARTICLE,
-  PUBLIC,
-} from '../common/constants/pages';
 import { BASE_URL, SETUP_USER, UPDATE_USER, HANDLE_POST } from '../common/endpoints';
 
 const storedToken = localStorage.getItem('token');
@@ -53,9 +47,6 @@ const initialState = {
   isEditing: false,
   editPostId: '',
   title: '',
-  importance: LOW,
-  classification: PUBLIC,
-  type: ARTICLE,
   content: '',
   posts: [],
   totalPosts: 0,

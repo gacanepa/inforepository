@@ -3,21 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Alert, Logo, FormRow } from '../components';
 import RegisterPageWrapper from '../assets/wrappers/RegisterPageWrapper';
 import { useAppContext } from '../context/AppContext';
-import {
-  ALREADY_A_MEMBER,
-  LOGIN,
-  NOT_A_MEMBER_YET,
-  REENTER_PASSWORD,
-  REGISTER,
-  SUBMIT,
-  MISSING_VALUES,
-  PASSWORD_MISMATCH,
-  CLEAR_ALERT_DELAY,
-  FIRST_NAME,
-  LAST_NAME,
-  ALERT_USER_CREATED,
-  ALERT_USER_LOGIN_SUCCESS,
-} from '../common/constants/pages';
+import { useTranslationContext } from '../context/TranslationContext';
 import { areInputsEmpty } from '../utilities';
 
 const initialState = {
@@ -32,6 +18,25 @@ const initialState = {
 
 const Register = () => {
   const [formData, setFormData] = useState(initialState);
+
+  const {
+    ALREADY_A_MEMBER,
+    LOGIN,
+    NOT_A_MEMBER_YET,
+    REENTER_PASSWORD,
+    REGISTER,
+    EMAIL,
+    PASSWORD,
+    LOCATION,
+    SUBMIT,
+    MISSING_VALUES,
+    PASSWORD_MISMATCH,
+    CLEAR_ALERT_DELAY,
+    FIRST_NAME,
+    LAST_NAME,
+    ALERT_USER_CREATED,
+    ALERT_USER_LOGIN_SUCCESS,
+  } = useTranslationContext();
 
   const navigate = useNavigate();
 
@@ -138,15 +143,23 @@ const Register = () => {
               name="location"
               value={formData.location}
               handleChange={handleChange}
+              labelText={LOCATION}
             />
           </>
         )}
-        <FormRow type="email" name="email" value={formData.email} handleChange={handleChange} />
+        <FormRow
+          type="email"
+          name="email"
+          value={formData.email}
+          handleChange={handleChange}
+          labelText={EMAIL}
+        />
         <FormRow
           type="password"
           name="password"
           value={formData.password}
           handleChange={handleChange}
+          labelText={PASSWORD}
         />
         {!formData.isMember && (
           <FormRow

@@ -1,13 +1,5 @@
 import React, { useState } from 'react';
-import {
-  PROFILE,
-  FIRST_NAME,
-  LAST_NAME,
-  SAVE_CHANGES,
-  PLEASE_WAIT,
-  MISSING_VALUES,
-  UPDATE_USER_SUCCESS,
-} from '../../common/constants/pages';
+import { useTranslationContext } from '../../context/TranslationContext';
 import { areInputsEmpty } from '../../utilities';
 import { FormRow, Alert } from '../../components';
 import { useAppContext } from '../../context/AppContext';
@@ -15,6 +7,15 @@ import DashboardFormPageWrapper from '../../assets/wrappers/DashboardFormPageWra
 
 const Profile = () => {
   const { user, showAlert, displayAlert, updateUser, isLoading } = useAppContext();
+  const {
+    PROFILE,
+    FIRST_NAME,
+    LAST_NAME,
+    SAVE_CHANGES,
+    PLEASE_WAIT,
+    MISSING_VALUES,
+    UPDATE_USER_SUCCESS,
+  } = useTranslationContext();
 
   // Setting up the form data as separate state variables because they are part of the user object
   // firstName, lastName, and email are required fields
