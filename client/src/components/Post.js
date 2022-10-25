@@ -17,8 +17,19 @@ const Post = ({
   updatedAt,
 }) => {
   const { setEditPost, deletePost } = useAppContext();
-  const { PUBLIC, EDIT, DELETE, LAST_UPDATED } = useTranslationContext();
+  const {
+    EDIT,
+    DELETE,
+    LAST_UPDATED,
+    IMPORTANCE,
+    CLASSIFICATION,
+  } = useTranslationContext();
   const { firstName, lastName } = createdBy;
+
+  const getUnlocalizedValue = (arr, value) => {
+    const unlocalizedObj = arr.find(obj => Object.keys(obj)[0] === value);
+    return Object.values(unlocalizedObj)[0];
+  };
 
   const lastUpdated = new Date(updatedAt).toLocaleDateString('en-US', {
     dateStyle: 'medium',
@@ -35,12 +46,16 @@ const Post = ({
       <div className="content">
         <div className="content-center">
           <PostInfo
-            icon={classification === PUBLIC ? <FaLockOpen /> : <FaLock />}
-            text={classification}
+            icon={classification === 'Public' ? <FaLockOpen /> : <FaLock />}
+            text={getUnlocalizedValue(CLASSIFICATION, classification)}
           />
           <PostInfo icon={<FaCalendarAlt />} text={`${LAST_UPDATED} ${lastUpdated}`} />
           <PostInfo icon={<FaBookReader />} text={content} />
-          <div className={`status ${importance.toLowerCase()}`}>{importance}</div>
+          <div
+            className={`status ${importance.toLowerCase()}`}
+          >
+            {getUnlocalizedValue(IMPORTANCE, importance)}
+          </div>
         </div>
         <footer>
           <div className="actions">
