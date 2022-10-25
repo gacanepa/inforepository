@@ -26,9 +26,9 @@ const Post = ({
   } = useTranslationContext();
   const { firstName, lastName } = createdBy;
 
-  const getUnlocalizedValue = (arr, value) => {
-    const unlocalizedObj = arr.find(obj => Object.keys(obj)[0] === value);
-    return Object.values(unlocalizedObj)[0];
+  const getLocalizedValue = (arr, value) => {
+    const localizedObj = arr.find(obj => Object.keys(obj)[0] === value);
+    return Object.values(localizedObj)[0];
   };
 
   const lastUpdated = new Date(updatedAt).toLocaleDateString('en-US', {
@@ -47,14 +47,14 @@ const Post = ({
         <div className="content-center">
           <PostInfo
             icon={classification === 'Public' ? <FaLockOpen /> : <FaLock />}
-            text={getUnlocalizedValue(CLASSIFICATION, classification)}
+            text={getLocalizedValue(CLASSIFICATION, classification)}
           />
           <PostInfo icon={<FaCalendarAlt />} text={`${LAST_UPDATED} ${lastUpdated}`} />
           <PostInfo icon={<FaBookReader />} text={content} />
           <div
             className={`status ${importance.toLowerCase()}`}
           >
-            {getUnlocalizedValue(IMPORTANCE, importance)}
+            {getLocalizedValue(IMPORTANCE, importance)}
           </div>
         </div>
         <footer>
