@@ -78,6 +78,13 @@ const TranslationProvider = ({ children }) => {
         ],
         TITLE: t('TITLE'),
         CONTENT: t('CONTENT'),
+        SIDEBAR_LINKS: [
+          { Stats: t('STATS') },
+          { Profile: t('PROFILE') },
+          { Add_Post: t('ADD_POST') },
+          { All_Posts: t('ALL_POSTS') },
+        ],
+        FOR_ORGANIZATIONS: t('FOR_ORGANIZATIONS'),
       }}
     >
       {children}
