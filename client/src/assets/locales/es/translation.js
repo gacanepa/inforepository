@@ -65,6 +65,10 @@ const SPA = {
   PRIVATE: 'Privado',
   TITLE: 'Título',
   CONTENT: 'Contenido',
+  STATS: 'Estadísticas',
+  ALL_POSTS: 'Ver Entradas',
+  ADD_POST: 'Agregar Entrada',
+  FOR_ORGANIZATIONS: 'Para Organizaciones',
 };
 
 export default SPA;
