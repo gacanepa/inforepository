@@ -11,6 +11,7 @@ const Landing = () => {
     SITE_TITLE,
     LOGIN,
     REGISTER,
+    FOR_ORGANIZATIONS,
   } = useTranslationContext();
 
   return (
@@ -23,7 +24,7 @@ const Landing = () => {
           <h1>
             <span>{SITE_TITLE}</span>
             <span> </span>
-            for organizations
+            {FOR_ORGANIZATIONS}
           </h1>
           <p>{INTRO_TEXT}</p>
           <Link to="/register" className="btn btn-hero">
