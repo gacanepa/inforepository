@@ -4,6 +4,7 @@ import { useTranslationContext } from '../context/TranslationContext';
 import main from '../assets/images/main.svg';
 import LandingPageWrapper from '../assets/wrappers/LandingPageWrapper';
 import { Logo } from '../components';
+import SwitchLanguage from '../components/SwitchLanguage';
 
 const Landing = () => {
   const {
@@ -32,6 +33,7 @@ const Landing = () => {
             /
             {REGISTER}
           </Link>
+          <SwitchLanguage />
         </div>
         <img src={main} alt={SITE_TITLE} className="img main-img" />
       </div>
