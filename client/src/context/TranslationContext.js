@@ -55,23 +55,26 @@ const TranslationProvider = ({ children }) => {
         HIGH: t('HIGH'),
         MEDIUM: t('MEDIUM'),
         LOW: t('LOW'),
+        // Mapping from the backend to the localized values
         IMPORTANCE: [
-          t('CRITICAL'),
-          t('HIGH'),
-          t('MEDIUM'),
-          t('LOW'),
+          { Critical: t('CRITICAL') },
+          { High: t('HIGH') },
+          { Medium: t('MEDIUM') },
+          { Low: t('LOW') },
         ],
         ARTICLE: t('ARTICLE'),
         TASK: t('TASK'),
+        // Mapping from the backend to the localized values
         TYPE: [
-          t('ARTICLE'),
-          t('TASK'),
+          { Article: t('ARTICLE') },
+          { Task: t('TASK') },
         ],
         PUBLIC: t('PUBLIC'),
         PRIVATE: t('PRIVATE'),
+        // Mapping from the backend to the localized values
         CLASSIFICATION: [
-          t('PUBLIC'),
-          t('PRIVATE'),
+          { Public: t('PUBLIC') },
+          { Private: t('PRIVATE') },
         ],
         TITLE: t('TITLE'),
         CONTENT: t('CONTENT'),
