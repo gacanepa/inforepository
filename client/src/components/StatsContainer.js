@@ -7,6 +7,7 @@ import StatsContainerWrapper from '../assets/wrappers/StatsContainerWrapper';
 
 const StatsContainer = () => {
   const { stats } = useAppContext();
+
   const { CRITICAL, HIGH, LOW, MEDIUM } = useTranslationContext();
 
   const initialStats = [
@@ -42,7 +43,7 @@ const StatsContainer = () => {
 
   return (
     <StatsContainerWrapper>
-      {initialStats.map(item => (
+      {Object.keys(stats).length > 0 && initialStats.map(item => (
         <StatItem
           key={item.title}
           title={item.title}
