@@ -6,6 +6,7 @@ import { useTranslationContext } from '../context/TranslationContext';
 import { useAppContext } from '../context/AppContext';
 import PostWrapper from '../assets/wrappers/PostWrapper';
 import PostInfo from './PostInfo';
+import { getLocalizedValue } from '../utilities';
 
 const Post = ({
   _id,
@@ -25,11 +26,6 @@ const Post = ({
     CLASSIFICATION,
   } = useTranslationContext();
   const { firstName, lastName } = createdBy;
-
-  const getLocalizedValue = (arr, value) => {
-    const localizedObj = arr.find(obj => Object.keys(obj)[0] === value);
-    return Object.values(localizedObj)[0];
-  };
 
   const lastUpdated = new Date(updatedAt).toLocaleDateString('en-US', {
     dateStyle: 'medium',
