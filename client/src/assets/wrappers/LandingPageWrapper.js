@@ -27,6 +27,16 @@ const LandingPageWrapper = styled.main`
   .main-img {
     display: none;
   }
+  div.language-switch {
+    margin-top: 4rem;
+    text-align: center;
+  }
+  .btn-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-500);
+  }
   @media (min-width: 992px) {
     .page {
       grid-template-columns: 1fr 1fr;
