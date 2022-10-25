@@ -66,6 +66,10 @@ const ENG = {
   PRIVATE: 'Private',
   TITLE: 'Title',
   CONTENT: 'Content',
+  STATS: 'Stats',
+  ALL_POSTS: 'All Posts',
+  ADD_POST: 'Add Post',
+  FOR_ORGANIZATIONS: 'For Organizations',
 };
 
 export default ENG;
