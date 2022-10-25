@@ -12,28 +12,28 @@ const StatsContainer = () => {
   const initialStats = [
     {
       title: LOW,
-      count: stats[LOW],
+      count: stats.Low,
       icon: <FaSuitcaseRolling />,
       color: '#62c370',
       bcg: '#c2f9bb',
     },
     {
       title: MEDIUM,
-      count: stats[MEDIUM],
+      count: stats.Medium,
       icon: <FaSuitcaseRolling />,
       color: '#647acb',
       bcg: '#e0e8f9',
     },
     {
       title: HIGH,
-      count: stats[HIGH],
+      count: stats.High,
       icon: <FaSuitcaseRolling />,
       color: '#e9b949',
       bcg: '#fcefc7',
     },
     {
       title: CRITICAL,
-      count: stats[CRITICAL],
+      count: stats.Critical,
       icon: <FaSuitcaseRolling />,
       color: '#d66a6a',
       bcg: '#ffeeee',
