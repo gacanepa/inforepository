@@ -85,6 +85,7 @@ const TranslationProvider = ({ children }) => {
           { All_Posts: t('ALL_POSTS') },
         ],
         FOR_ORGANIZATIONS: t('FOR_ORGANIZATIONS'),
+        MONTHLY_POSTS: t('MONTHLY_POSTS'),
       }}
     >
       {children}

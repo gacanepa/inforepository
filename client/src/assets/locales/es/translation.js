@@ -53,6 +53,7 @@ const SPA = {
   SAVE_CHANGES: 'Guardar Cambios',
   NO_POSTS_FOUND: 'No se encontraron posts',
   LAST_UPDATED: 'Actualizado:',
+  MONTHLY_POSTS: 'Publicaciones por mes',
   // These are the same constants that are defined for the Post model in the backend
   // Need to find a way to share them between the two projects to avoid duplicates
   CRITICAL: 'Crítico',
