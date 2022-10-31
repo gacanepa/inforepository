@@ -10,7 +10,7 @@ import TextArea from './TextArea';
 import PostContainer from './PostContainer';
 import SearchContainer from './SearchContainer';
 import StatsContainer from './StatsContainer';
-import ChartsContainer from './ChartsContainer';
+import ChartContainer from './ChartContainer';
 
 export {
   Alert,
@@ -25,5 +25,5 @@ export {
   PostContainer,
   SearchContainer,
   StatsContainer,
-  ChartsContainer,
+  ChartContainer,
 };
