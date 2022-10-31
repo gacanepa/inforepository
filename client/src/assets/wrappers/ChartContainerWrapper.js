@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const ChartsContainerWrapper = styled.section`
   margin-top: 4rem;
@@ -15,6 +15,6 @@ const ChartsContainerWrapper = styled.section`
     text-align: center;
     margin-bottom: 0.75rem;
   }
-`
+`;
 
 export default ChartsContainerWrapper;

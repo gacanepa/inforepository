@@ -54,6 +54,9 @@ const ENG = {
   UNAUTHORIZED: 401,
   NO_POSTS_FOUND: 'No posts found',
   LAST_UPDATED: 'Last updated:',
+  MONTHLY_POSTS: 'Monthly Posts',
+  MONTH: 'Month',
+  COUNT: 'Count',
   // These are the same constants that are defined for the Post model in the backend
   // Need to find a way to share them between the two projects to avoid duplicates
   CRITICAL: 'Critical',

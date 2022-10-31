@@ -136,7 +136,7 @@ const showStats = async (req, res) => {
   // The results of the aggregation pipeline include the posts of ALL users
   const tmpStats = await Post.aggregate([
     { $match: { isDeleted: false } },
-    { $group: { _id: '$importance', count: { $sum: 1 }}},
+    { $group: { _id: '$importance', count: { $sum: 1 } } },
   ]);
 
   // Object with importance as key and count as value
@@ -156,18 +156,20 @@ const showStats = async (req, res) => {
 
   const tmpMonthlyPosts = await Post.aggregate([
     { $match: { isDeleted: false } },
-    { $group: {
-      _id: {
-        year: { $year: '$createdAt' },
-        month: { $month: '$createdAt'}
-      }, count: { $sum: 1 }
-    }},
-    { $sort: { '_id.year': -1, '_id.month': -1 }},
+    {
+      $group: {
+        _id: {
+          year: { $year: '$createdAt' },
+          month: { $month: '$createdAt' }
+        }, count: { $sum: 1 }
+      }
+    },
+    { $sort: { '_id.year': 1, '_id.month': 1 } },
     { $limit: 6 },
   ]);
 
   const monthlyPosts = tmpMonthlyPosts.map(item => {
-    const { _id: { year, month }} = item;
+    const { _id: { year, month } } = item;
     return {
       year,
       month,

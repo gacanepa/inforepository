@@ -222,7 +222,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       stats: payload.defaultStats,
-      monthlyStats: payload.monthlyStats,
+      monthlyPosts: payload.monthlyPosts,
     }),
   };
 
