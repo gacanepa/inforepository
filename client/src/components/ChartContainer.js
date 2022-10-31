@@ -5,13 +5,25 @@ import { useTranslationContext } from '../context/TranslationContext';
 import ChartContainerWrapper from '../assets/wrappers/ChartContainerWrapper';
 
 const ChartContainer = () => {
-  const { monthlyApplications: data } = useAppContext();
-  const { MONTHLY_POSTS } = useTranslationContext();
+  const { monthlyPosts } = useAppContext();
+  const { MONTHS, MONTHLY_POSTS } = useTranslationContext();
+
+  const formatData = ({ data, months }) => data.map(monthData => {
+    const { count, month, year } = monthData;
+    return {
+      count,
+      date: `${months[month]} ${year}`
+    };
+  });
 
   return (
     <ChartContainerWrapper>
       <h4>{MONTHLY_POSTS}</h4>
-      <Chart data={data} />
+      <Chart data={formatData({
+        data: monthlyPosts,
+        months: MONTHS,
+      })}
+      />
     </ChartContainerWrapper>
   );
 };
