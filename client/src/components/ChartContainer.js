@@ -1,5 +1,5 @@
 import React from 'react';
-import BarChart from './BarChart';
+import Chart from './Chart';
 import { useAppContext } from '../context/AppContext';
 import { useTranslationContext } from '../context/TranslationContext';
 import ChartContainerWrapper from '../assets/wrappers/ChartContainerWrapper';
@@ -11,7 +11,7 @@ const ChartContainer = () => {
   return (
     <ChartContainerWrapper>
       <h4>{MONTHLY_POSTS}</h4>
-      <BarChart data={data} />
+      <Chart data={data} />
     </ChartContainerWrapper>
   );
 };
