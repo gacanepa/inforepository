@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes, { string } from 'prop-types';
 
+const optionObjectsToStrings = ({ options = [] }) => options.map(opt => Object.values(opt)[0]);
+
 const FormRowSelect = ({
   labelText,
   name,
@@ -18,7 +20,7 @@ const FormRowSelect = ({
       onChange={handleChange}
       className="form-select"
     >
-      {options.map((option, index) => (
+      {optionObjectsToStrings({ options }).map((option, index) => (
         /* OK to ignore this rule when the array is static:
         https://github.com/jsx-eslint/eslint-plugin-react/issues/1123 */
         // eslint-disable-next-line react/no-array-index-key
