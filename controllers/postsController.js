@@ -10,6 +10,8 @@ import {
   IMPORTANCE_QUERY_FILTER,
   TYPE_QUERY_FILTER,
   CLASSIFICATION_QUERY_FILTER,
+  ASCENDING,
+  DESCENDING,
 } from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 import checkPermissions from '../utilities/checkPermissions.js';
@@ -85,9 +87,22 @@ const queryFilter = ({ filter, filterValue }) => {
   };
 };
 
+const getSortCriteria = ({ sortCriteria }) => {
+  if (!sortCriteria || sortCriteria === ASCENDING) return 'createdAt';
+  if (sortCriteria === DESCENDING) return '-createdAt';
+};
+
 const getAllPosts = async (req, res) => {
-  const { importance, classification, type, search } = req.query;
+  const {
+    importance,
+    classification,
+    type,
+    search,
+    sort,
+  } = req.query;
   const user = await User.findById(handleNullUndefined(req.user.userId)).select('+isSuperUser');
+
+  const sortCriteria = handleNullUndefined(sort);
 
   const userFilter = user.isSuperUser
     ? {}
@@ -126,7 +141,8 @@ const getAllPosts = async (req, res) => {
     ...classificationFilter,
     ...searchFilter,
     isDeleted: false,
-  }).populate('createdBy', 'firstName lastName');
+  }).populate('createdBy', 'firstName lastName')
+    .sort(getSortCriteria({ sortCriteria }));
 
   res.status(OK).json({
     posts,
