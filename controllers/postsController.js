@@ -5,7 +5,11 @@ import { BadRequestError, NotFoundError } from '../errors/index.js';
 import {
   PLEASE_PROVIDE_ALL_VALUES,
   NO_POST_FOUND,
-  POST_REMOVED
+  POST_REMOVED,
+  ALL,
+  IMPORTANCE_QUERY_FILTER,
+  TYPE_QUERY_FILTER,
+  CLASSIFICATION_QUERY_FILTER,
 } from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 import checkPermissions from '../utilities/checkPermissions.js';
@@ -74,15 +78,42 @@ const getPost = async (_req, res) => {
   res.status(OK).send('getPost');
 };
 
+const queryFilter = ({ filter, filterValue }) => {
+  if ([ALL, undefined].includes(filterValue)) return {};
+  return {
+    [filter]: filterValue
+  };
+};
+
 const getAllPosts = async (req, res) => {
-  const user = await User.findById(handleNullUndefined(req.user.userId));
+  const { importance, classification, type } = req.query;
+  const user = await User.findById(handleNullUndefined(req.user.userId)).select('+isSuperUser');
+  console.log(user);
   const userSearchFilter = user.isSuperUser
     ? {}
     : { createdBy: handleNullUndefined(req.user.userId) }
 
+  const importanceSearchFilter = queryFilter({
+    filter: IMPORTANCE_QUERY_FILTER,
+    filterValue: handleNullUndefined(importance),
+  });
+
+  const typeSearchFilter = queryFilter({
+    filter: TYPE_QUERY_FILTER,
+    filterValue: handleNullUndefined(type),
+  });
+
+  const classificationSearchFilter = queryFilter({
+    filter: CLASSIFICATION_QUERY_FILTER,
+    filterValue: handleNullUndefined(classification),
+  });
+
   // Instead of returning the user's ObjectId, populate the response with the first and last names
   const posts = await Post.find({
     ...userSearchFilter,
+    ...importanceSearchFilter,
+    ...typeSearchFilter,
+    ...classificationSearchFilter,
     isDeleted: false,
   }).populate('createdBy', 'firstName lastName');
 
