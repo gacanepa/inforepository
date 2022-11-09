@@ -5,7 +5,13 @@ import { BadRequestError, NotFoundError } from '../errors/index.js';
 import {
   PLEASE_PROVIDE_ALL_VALUES,
   NO_POST_FOUND,
-  POST_REMOVED
+  POST_REMOVED,
+  ALL,
+  IMPORTANCE_QUERY_FILTER,
+  TYPE_QUERY_FILTER,
+  CLASSIFICATION_QUERY_FILTER,
+  ASCENDING,
+  DESCENDING,
 } from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 import checkPermissions from '../utilities/checkPermissions.js';
@@ -74,17 +80,69 @@ const getPost = async (_req, res) => {
   res.status(OK).send('getPost');
 };
 
+const queryFilter = ({ filter, filterValue }) => {
+  if ([ALL, undefined].includes(filterValue)) return {};
+  return {
+    [filter]: filterValue
+  };
+};
+
+const getSortCriteria = ({ sortCriteria }) => {
+  if (!sortCriteria || sortCriteria === ASCENDING) return 'createdAt';
+  if (sortCriteria === DESCENDING) return '-createdAt';
+};
+
 const getAllPosts = async (req, res) => {
-  const user = await User.findById(handleNullUndefined(req.user.userId));
-  const userSearchFilter = user.isSuperUser
+  const {
+    importance,
+    classification,
+    type,
+    search,
+    sort,
+  } = req.query;
+  const user = await User.findById(handleNullUndefined(req.user.userId)).select('+isSuperUser');
+
+  const sortCriteria = handleNullUndefined(sort);
+
+  const userFilter = user.isSuperUser
     ? {}
     : { createdBy: handleNullUndefined(req.user.userId) }
 
+  const importanceFilter = queryFilter({
+    filter: IMPORTANCE_QUERY_FILTER,
+    filterValue: handleNullUndefined(importance),
+  });
+
+  const typeFilter = queryFilter({
+    filter: TYPE_QUERY_FILTER,
+    filterValue: handleNullUndefined(type),
+  });
+
+  const classificationFilter = queryFilter({
+    filter: CLASSIFICATION_QUERY_FILTER,
+    filterValue: handleNullUndefined(classification),
+  });
+
+  // Case insensitive
+  const searchFilter = search
+    ? {
+      $or: [
+        { title: { $regex: search, $options: 'i' } },
+        { content: { $regex: search, $options: 'i' } }
+      ]
+    }
+    : {}
+
   // Instead of returning the user's ObjectId, populate the response with the first and last names
   const posts = await Post.find({
-    ...userSearchFilter,
+    ...userFilter,
+    ...importanceFilter,
+    ...typeFilter,
+    ...classificationFilter,
+    ...searchFilter,
     isDeleted: false,
-  }).populate('createdBy', 'firstName lastName');
+  }).populate('createdBy', 'firstName lastName')
+    .sort(getSortCriteria({ sortCriteria }));
 
   res.status(OK).json({
     posts,
