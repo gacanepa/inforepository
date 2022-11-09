@@ -89,31 +89,31 @@ const getAllPosts = async (req, res) => {
   const { importance, classification, type } = req.query;
   const user = await User.findById(handleNullUndefined(req.user.userId)).select('+isSuperUser');
   console.log(user);
-  const userSearchFilter = user.isSuperUser
+  const userFilter = user.isSuperUser
     ? {}
     : { createdBy: handleNullUndefined(req.user.userId) }
 
-  const importanceSearchFilter = queryFilter({
+  const importanceFilter = queryFilter({
     filter: IMPORTANCE_QUERY_FILTER,
     filterValue: handleNullUndefined(importance),
   });
 
-  const typeSearchFilter = queryFilter({
+  const typeFilter = queryFilter({
     filter: TYPE_QUERY_FILTER,
     filterValue: handleNullUndefined(type),
   });
 
-  const classificationSearchFilter = queryFilter({
+  const classificationFilter = queryFilter({
     filter: CLASSIFICATION_QUERY_FILTER,
     filterValue: handleNullUndefined(classification),
   });
 
   // Instead of returning the user's ObjectId, populate the response with the first and last names
   const posts = await Post.find({
-    ...userSearchFilter,
-    ...importanceSearchFilter,
-    ...typeSearchFilter,
-    ...classificationSearchFilter,
+    ...userFilter,
+    ...importanceFilter,
+    ...typeFilter,
+    ...classificationFilter,
     isDeleted: false,
   }).populate('createdBy', 'firstName lastName');
 
