@@ -72,6 +72,7 @@ const SPA = {
   ALL_POSTS: 'Ver Entradas',
   ADD_POST: 'Agregar Entrada',
   FOR_ORGANIZATIONS: 'Para Organizaciones',
+  ALL: 'Todos',
 };
 
 export default SPA;
