@@ -37,8 +37,6 @@ import { BASE_URL, SETUP_USER, UPDATE_USER, HANDLE_POST } from '../common/endpoi
 const storedToken = localStorage.getItem('token');
 const storedUser = localStorage.getItem('user');
 
-const { ALL, LATEST, OLDEST } = useTranslationContext();
-
 const initialState = {
   isLoading: false,
   showAlert: false,
@@ -58,16 +56,31 @@ const initialState = {
   stats: {},
   monthlyPosts: [],
   search: '',
-  searchStatus: ALL,
-  searchType: ALL,
-  sort: LATEST,
-  sortOptions: [LATEST, OLDEST]
 };
 
-const AppContext = React.createContext();
+const AppContext = React.createContext(undefined);
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const {
+    ALL,
+    LATEST,
+    OLDEST,
+    ARTICLE,
+    MEDIUM,
+    PUBLIC,
+  } = useTranslationContext();
+  const [state, dispatch] = useReducer(
+    reducer,
+    {
+      ...initialState,
+      importance: MEDIUM,
+      classification: PUBLIC,
+      type: ARTICLE,
+      searchStatus: ALL,
+      searchType: ALL,
+      sortOptions: [LATEST, OLDEST],
+    }
+  );
 
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
@@ -254,7 +267,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: DELETE_POST_BEGIN });
     try {
       await authFetch.delete(`${HANDLE_POST}/${postId}`, { isDeleted: true });
-      getPosts();
+      await getPosts();
     } catch (error) {
       // Remove the console.log when a proper error handling is implemented
       console.log(error.response);
