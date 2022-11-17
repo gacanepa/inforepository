@@ -74,6 +74,8 @@ const ENG = {
   ADD_POST: 'Add Post',
   FOR_ORGANIZATIONS: 'For Organizations',
   ALL: 'All',
+  LATEST: 'Latest',
+  OLDEST: 'Oldest',
 };
 
 export default ENG;
