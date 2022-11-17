@@ -28,6 +28,7 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
 } from './actions';
+import { useTranslationContext } from './TranslationContext';
 import { UNAUTHORIZED, CLEAR_ALERT_DELAY } from '../common/constants';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -35,6 +36,8 @@ import { BASE_URL, SETUP_USER, UPDATE_USER, HANDLE_POST } from '../common/endpoi
 
 const storedToken = localStorage.getItem('token');
 const storedUser = localStorage.getItem('user');
+
+const { ALL, LATEST, OLDEST } = useTranslationContext();
 
 const initialState = {
   isLoading: false,
@@ -54,6 +57,11 @@ const initialState = {
   page: 1,
   stats: {},
   monthlyPosts: [],
+  search: '',
+  searchStatus: ALL,
+  searchType: ALL,
+  sort: LATEST,
+  sortOptions: [LATEST, OLDEST]
 };
 
 const AppContext = React.createContext();
@@ -73,16 +81,13 @@ const AppProvider = ({ children }) => {
 
   // Request interceptor
   authFetch.interceptors.request.use(
-    config => {
-      const requestConfig = {
-        ...config,
-        headers: {
-          ...config.headers,
-          Authorization: `Bearer ${state.token}`,
-        },
-      };
-      return requestConfig;
-    },
+    config => ({
+      ...config,
+      headers: {
+        ...config.headers,
+        Authorization: `Bearer ${state.token}`,
+      },
+    }),
     error => {
       throw error;
     }
@@ -270,6 +275,10 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const clearFilters = () => {
+    console.log('clear filters');
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -288,6 +297,7 @@ const AppProvider = ({ children }) => {
         deletePost,
         editPost,
         showStats,
+        clearFilters,
       }}
     >
       {children}
