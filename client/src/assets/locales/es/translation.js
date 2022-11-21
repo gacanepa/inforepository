@@ -77,6 +77,7 @@ const SPA = {
   OLDEST: 'Más antiguos',
   SEARCH_FORM: 'Formulario de búsqueda',
   SEARCH_LABEL: 'Buscar',
+  SORT_LABEL: 'Ordenar',
 };
 
 export default SPA;

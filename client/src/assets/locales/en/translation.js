@@ -78,6 +78,7 @@ const ENG = {
   OLDEST: 'Oldest',
   SEARCH_FORM: 'Search Form',
   SEARCH_LABEL: 'Search',
+  SORT_LABEL: 'Sort',
 };
 
 export default ENG;

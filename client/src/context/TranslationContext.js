@@ -93,6 +93,7 @@ const TranslationProvider = ({ children }) => {
         OLDEST: t('OLDEST'),
         SEARCH_FORM: t('SEARCH_FORM'),
         SEARCH_LABEL: t('SEARCH_LABEL'),
+        SORT_LABEL: t('SORT_LABEL'),
       }}
     >
       {children}
