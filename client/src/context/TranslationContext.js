@@ -94,6 +94,7 @@ const TranslationProvider = ({ children }) => {
         SEARCH_FORM: t('SEARCH_FORM'),
         SEARCH_LABEL: t('SEARCH_LABEL'),
         SORT_LABEL: t('SORT_LABEL'),
+        CLEAR_FILTERS: t('CLEAR_FILTERS'),
       }}
     >
       {children}

@@ -79,6 +79,7 @@ const ENG = {
   SEARCH_FORM: 'Search Form',
   SEARCH_LABEL: 'Search',
   SORT_LABEL: 'Sort',
+  CLEAR_FILTERS: 'Clear Filters',
 };
 
 export default ENG;

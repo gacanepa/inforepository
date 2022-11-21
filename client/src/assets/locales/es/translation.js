@@ -78,6 +78,7 @@ const SPA = {
   SEARCH_FORM: 'Formulario de búsqueda',
   SEARCH_LABEL: 'Buscar',
   SORT_LABEL: 'Ordenar',
+  CLEAR_FILTERS: 'Limpiar filtros',
 };
 
 export default SPA;
