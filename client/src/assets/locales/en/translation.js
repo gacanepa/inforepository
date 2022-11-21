@@ -73,6 +73,14 @@ const ENG = {
   ALL_POSTS: 'All Posts',
   ADD_POST: 'Add Post',
   FOR_ORGANIZATIONS: 'For Organizations',
+  ALL: 'All',
+  LATEST: 'Latest',
+  OLDEST: 'Oldest',
+  SEARCH_FORM: 'Search Form',
+  SEARCH_LABEL: 'Search',
+  SORT_LABEL: 'Sort',
+  CLEAR_FILTERS: 'Clear Filters',
+  FOUND: () => 'Found',
 };
 
 export default ENG;

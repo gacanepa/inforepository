@@ -40,6 +40,8 @@ const AddPost = () => {
     TYPE_LABEL,
   } = useTranslationContext();
 
+  const optionObjectsToStrings = ({ options = [] }) => options.map(opt => Object.values(opt)[0]);
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -75,21 +77,21 @@ const AddPost = () => {
             name="importance"
             value={importance}
             handleChange={handlePostInput}
-            options={IMPORTANCE}
+            options={optionObjectsToStrings({ options: IMPORTANCE })}
           />
           <FormRowSelect
             labelText={CLASSIFICATION_LABEL}
             name="classification"
             value={classification}
             handleChange={handlePostInput}
-            options={CLASSIFICATION}
+            options={optionObjectsToStrings({ options: CLASSIFICATION })}
           />
           <FormRowSelect
             labelText={TYPE_LABEL}
             name="type"
             value={type}
             handleChange={handlePostInput}
-            options={TYPE}
+            options={optionObjectsToStrings({ options: TYPE })}
           />
           <FormRow
             type="text"

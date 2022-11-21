@@ -57,10 +57,10 @@ const TranslationProvider = ({ children }) => {
         LOW: t('LOW'),
         // Mapping from the backend to the localized values
         IMPORTANCE: [
-          { Critical: t('CRITICAL') },
-          { High: t('HIGH') },
-          { Medium: t('MEDIUM') },
           { Low: t('LOW') },
+          { Medium: t('MEDIUM') },
+          { High: t('HIGH') },
+          { Critical: t('CRITICAL') },
         ],
         ARTICLE: t('ARTICLE'),
         TASK: t('TASK'),
@@ -88,6 +88,14 @@ const TranslationProvider = ({ children }) => {
         MONTHLY_POSTS: t('MONTHLY_POSTS'),
         MONTH: t('MONTH'),
         COUNT: t('COUNT'),
+        ALL: t('ALL'),
+        LATEST: t('LATEST'),
+        OLDEST: t('OLDEST'),
+        SEARCH_FORM: t('SEARCH_FORM'),
+        SEARCH_LABEL: t('SEARCH_LABEL'),
+        SORT_LABEL: t('SORT_LABEL'),
+        CLEAR_FILTERS: t('CLEAR_FILTERS'),
+        FOUND: t('FOUND'),
       }}
     >
       {children}

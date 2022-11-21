@@ -27,7 +27,9 @@ import {
   EDIT_POST_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from './actions';
+import { useTranslationContext } from './TranslationContext';
 import { UNAUTHORIZED, CLEAR_ALERT_DELAY } from '../common/constants';
 import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
 import reducer from './reducer';
@@ -54,12 +56,41 @@ const initialState = {
   page: 1,
   stats: {},
   monthlyPosts: [],
+  search: '',
 };
 
-const AppContext = React.createContext();
+const AppContext = React.createContext(undefined);
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const {
+    ALL,
+    LATEST,
+    OLDEST,
+    ARTICLE,
+    MEDIUM,
+    PUBLIC,
+    PRIVATE,
+    TASK,
+    LOW,
+    HIGH,
+    CRITICAL,
+  } = useTranslationContext();
+  const [state, dispatch] = useReducer(
+    reducer,
+    {
+      ...initialState,
+      importance: MEDIUM,
+      classification: PUBLIC,
+      type: ARTICLE,
+      searchClassification: ALL,
+      classificationOptions: [ALL, PUBLIC, PRIVATE],
+      searchType: ALL,
+      typeOptions: [ALL, ARTICLE, TASK],
+      searchImportance: ALL,
+      importanceOptions: [ALL, LOW, MEDIUM, HIGH, CRITICAL],
+      sortOptions: [ALL, LATEST, OLDEST],
+    }
+  );
 
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER });
@@ -73,16 +104,13 @@ const AppProvider = ({ children }) => {
 
   // Request interceptor
   authFetch.interceptors.request.use(
-    config => {
-      const requestConfig = {
-        ...config,
-        headers: {
-          ...config.headers,
-          Authorization: `Bearer ${state.token}`,
-        },
-      };
-      return requestConfig;
-    },
+    config => ({
+      ...config,
+      headers: {
+        ...config.headers,
+        Authorization: `Bearer ${state.token}`,
+      },
+    }),
     error => {
       throw error;
     }
@@ -131,7 +159,14 @@ const AppProvider = ({ children }) => {
   };
 
   const toggleSidebar = () => {
-    dispatch({ type: TOGGLE_SIDEBAR });
+    dispatch({
+      type: TOGGLE_SIDEBAR,
+      payload: {
+        low: LOW,
+        public: PUBLIC,
+        article: ARTICLE,
+      }
+    });
   };
 
   const updateUser = async ({ currentUser, alertText }) => {
@@ -163,7 +198,14 @@ const AppProvider = ({ children }) => {
   };
 
   const clearValues = () => {
-    dispatch({ type: CLEAR_VALUES });
+    dispatch({
+      type: CLEAR_VALUES,
+      payload: {
+        low: LOW,
+        public: PUBLIC,
+        article: ARTICLE,
+      }
+    });
   };
 
   const createPost = async ({ alertText }) => {
@@ -182,7 +224,7 @@ const AppProvider = ({ children }) => {
         type: CREATE_POST_SUCCESS,
         payload: { alertText }
       });
-      dispatch({ type: CLEAR_VALUES });
+      clearValues();
     } catch (error) {
       if (error.response.status === UNAUTHORIZED) return;
       dispatch({
@@ -194,10 +236,44 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const buildUrl = ({
+    importance,
+    classification,
+    search,
+    type,
+  }) => {
+    const url = new URLSearchParams();
+    if (importance !== ALL) url.append('importance', importance);
+    if (classification !== ALL) url.append('classification', classification);
+    if (type !== ALL) url.append('type', type);
+    if (search) url.append('search', search);
+    return url.toString();
+  };
+
   const getPosts = async () => {
+    const {
+      search,
+      searchClassification,
+      searchType,
+      searchImportance
+    } = state;
+
+    const url = buildUrl({
+      importance: searchImportance,
+      classification: searchClassification,
+      search,
+      type: searchType,
+    });
+
     dispatch({ type: GET_POSTS_BEGIN });
     try {
-      const { data: { posts, totalPosts, numOfPages } } = await authFetch(HANDLE_POST);
+      const {
+        data: {
+          posts,
+          totalPosts,
+          numOfPages
+        }
+      } = await authFetch(`${HANDLE_POST}?${url}`);
       dispatch({
         type: GET_POSTS_SUCCESS,
         payload: {
@@ -233,7 +309,7 @@ const AppProvider = ({ children }) => {
         type: EDIT_POST_SUCCESS,
         payload: { alertText }
       });
-      dispatch({ type: CLEAR_VALUES });
+      clearValues();
     } catch (error) {
       if (error.response.status === UNAUTHORIZED) return;
       dispatch({
@@ -249,7 +325,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: DELETE_POST_BEGIN });
     try {
       await authFetch.delete(`${HANDLE_POST}/${postId}`, { isDeleted: true });
-      getPosts();
+      await getPosts();
     } catch (error) {
       // Remove the console.log when a proper error handling is implemented
       console.log(error.response);
@@ -270,6 +346,16 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const clearFilters = () => {
+    dispatch({
+      type: CLEAR_FILTERS,
+      payload: {
+        all: ALL,
+        latest: LATEST,
+      }
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -288,6 +374,7 @@ const AppProvider = ({ children }) => {
         deletePost,
         editPost,
         showStats,
+        clearFilters,
       }}
     >
       {children}
