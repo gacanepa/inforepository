@@ -135,7 +135,10 @@ const getAllPosts = async (req, res) => {
     }
     : {}
 
-  const skip = (Number(page) - 1) * Number(limit);
+  const pageNumber = typeof Number(page) === 'number' ? Number(page) : 1;
+  const limitNumber = typeof Number(limit) === 'number' ? Number(limit) : 10;
+
+  const skip = (pageNumber - 1) * limitNumber;
 
   // Search filter without skip and limit
   const combinedFilter = {
@@ -153,13 +156,13 @@ const getAllPosts = async (req, res) => {
   }).populate('createdBy', 'firstName lastName')
     .sort(getSortCriteria({ sortCriteria }))
     .skip(skip)
-    .limit(Number(limit));
+    .limit(limitNumber);
 
   const totalPosts = await Post.countDocuments({
     ...combinedFilter,
   });
 
-  const numOfPages = Math.ceil(totalPosts / Number(limit));
+  const numOfPages = Math.ceil(totalPosts / limitNumber);
 
   res.status(OK).json({
     posts,
