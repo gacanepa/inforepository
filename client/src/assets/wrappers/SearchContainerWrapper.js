@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const SearchContainerWrapper = styled.section`
   .form {
@@ -39,6 +39,6 @@ const SearchContainerWrapper = styled.section`
       margin-top: 0;
     }
   }
-`
+`;
 
 export default SearchContainerWrapper;
