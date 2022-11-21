@@ -88,7 +88,7 @@ const AppProvider = ({ children }) => {
       typeOptions: [ALL, ARTICLE, TASK],
       searchImportance: ALL,
       importanceOptions: [ALL, LOW, MEDIUM, HIGH, CRITICAL],
-      sortOptions: [ALL, LATEST, OLDEST],
+      sortOptions: [OLDEST, LATEST],
     }
   );
 
@@ -240,12 +240,14 @@ const AppProvider = ({ children }) => {
     importance,
     classification,
     search,
+    sort,
     type,
   }) => {
     const url = new URLSearchParams();
     if (importance !== ALL) url.append('importance', importance);
     if (classification !== ALL) url.append('classification', classification);
     if (type !== ALL) url.append('type', type);
+    if (sort) url.append('sort', sort);
     if (search) url.append('search', search);
     return url.toString();
   };
@@ -255,7 +257,8 @@ const AppProvider = ({ children }) => {
       search,
       searchClassification,
       searchType,
-      searchImportance
+      searchImportance,
+      sort,
     } = state;
 
     const url = buildUrl({
@@ -263,6 +266,7 @@ const AppProvider = ({ children }) => {
       classification: searchClassification,
       search,
       type: searchType,
+      sort,
     });
 
     dispatch({ type: GET_POSTS_BEGIN });

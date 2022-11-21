@@ -9,5 +9,5 @@ export const IMPORTANCE_QUERY_FILTER = 'importance';
 export const TYPE_QUERY_FILTER = 'filter';
 export const CLASSIFICATION_QUERY_FILTER = 'classification';
 export const ALL = 'All';
-export const ASCENDING = 'asc';
-export const DESCENDING = 'desc';
+export const OLDEST = 'Oldest';
+export const LATEST = 'Latest';

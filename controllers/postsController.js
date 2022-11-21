@@ -10,8 +10,8 @@ import {
   IMPORTANCE_QUERY_FILTER,
   TYPE_QUERY_FILTER,
   CLASSIFICATION_QUERY_FILTER,
-  ASCENDING,
-  DESCENDING,
+  OLDEST,
+  LATEST,
 } from './constants.js'
 import handleNullUndefined from '../utilities/handleNullUndefined.js';
 import checkPermissions from '../utilities/checkPermissions.js';
@@ -88,8 +88,8 @@ const queryFilter = ({ filter, filterValue }) => {
 };
 
 const getSortCriteria = ({ sortCriteria }) => {
-  if (!sortCriteria || sortCriteria === ASCENDING) return 'createdAt';
-  if (sortCriteria === DESCENDING) return '-createdAt';
+  if (!sortCriteria || sortCriteria === OLDEST) return 'updatedAt';
+  if (sortCriteria === LATEST) return '-updatedAt';
 };
 
 const getAllPosts = async (req, res) => {
@@ -99,6 +99,8 @@ const getAllPosts = async (req, res) => {
     type,
     search,
     sort,
+    page,
+    limit,
   } = req.query;
   const user = await User.findById(handleNullUndefined(req.user.userId)).select('+isSuperUser');
 
@@ -133,21 +135,36 @@ const getAllPosts = async (req, res) => {
     }
     : {}
 
-  // Instead of returning the user's ObjectId, populate the response with the first and last names
-  const posts = await Post.find({
+  const skip = (Number(page) - 1) * Number(limit);
+
+  // Search filter without skip and limit
+  const combinedFilter = {
     ...userFilter,
     ...importanceFilter,
     ...typeFilter,
     ...classificationFilter,
     ...searchFilter,
     isDeleted: false,
+  };
+
+  // Instead of returning the user's ObjectId, populate the response with the first and last names
+  const posts = await Post.find({
+    ...combinedFilter,
   }).populate('createdBy', 'firstName lastName')
-    .sort(getSortCriteria({ sortCriteria }));
+    .sort(getSortCriteria({ sortCriteria }))
+    .skip(skip)
+    .limit(Number(limit));
+
+  const totalPosts = await Post.countDocuments({
+    ...combinedFilter,
+  });
+
+  const numOfPages = Math.ceil(totalPosts / Number(limit));
 
   res.status(OK).json({
     posts,
-    totalPosts: posts.length,
-    numOfPages: 1,
+    totalPosts,
+    numOfPages,
   });
 };
 
