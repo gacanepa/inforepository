@@ -89,6 +89,7 @@ const AppProvider = ({ children }) => {
       searchImportance: ALL,
       importanceOptions: [ALL, LOW, MEDIUM, HIGH, CRITICAL],
       sortOptions: [OLDEST, LATEST],
+      sort: OLDEST,
     }
   );
 
