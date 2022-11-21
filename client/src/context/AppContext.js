@@ -236,10 +236,44 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const buildUrl = ({
+    importance,
+    classification,
+    search,
+    type,
+  }) => {
+    const url = new URLSearchParams();
+    if (importance !== ALL) url.append('importance', importance);
+    if (classification !== ALL) url.append('classification', classification);
+    if (type !== ALL) url.append('type', type);
+    if (search) url.append('search', search);
+    return url.toString();
+  };
+
   const getPosts = async () => {
+    const {
+      search,
+      searchClassification,
+      searchType,
+      searchImportance
+    } = state;
+
+    const url = buildUrl({
+      importance: searchImportance,
+      classification: searchClassification,
+      search,
+      type: searchType,
+    });
+
     dispatch({ type: GET_POSTS_BEGIN });
     try {
-      const { data: { posts, totalPosts, numOfPages } } = await authFetch(HANDLE_POST);
+      const {
+        data: {
+          posts,
+          totalPosts,
+          numOfPages
+        }
+      } = await authFetch(`${HANDLE_POST}?${url}`);
       dispatch({
         type: GET_POSTS_SUCCESS,
         payload: {
