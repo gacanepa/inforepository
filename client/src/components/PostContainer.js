@@ -15,12 +15,13 @@ const PostsContainer = () => {
     searchType,
     searchImportance,
     search,
+    sort,
   } = useAppContext();
   const { NO_POSTS_FOUND, FOUND } = useTranslationContext();
 
   useEffect(() => {
     getPosts();
-  }, [searchClassification, searchType, searchImportance, search]);
+  }, [searchClassification, searchType, searchImportance, search, sort]);
 
   if (isLoading) {
     return (

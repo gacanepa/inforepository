@@ -18,6 +18,7 @@ const SearchContainer = () => {
     typeOptions,
     handleChange,
     clearFilters,
+    sort,
   } = useAppContext();
 
   const {
@@ -76,7 +77,7 @@ const SearchContainer = () => {
         <FormRowSelect
           labelText={SORT_LABEL}
           name="sort"
-          value={sortOptions[0]}
+          value={sort}
           options={sortOptions}
           handleChange={handleSearch}
         />
