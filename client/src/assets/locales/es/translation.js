@@ -79,6 +79,12 @@ const SPA = {
   SEARCH_LABEL: 'Buscar',
   SORT_LABEL: 'Ordenar',
   CLEAR_FILTERS: 'Limpiar filtros',
+  FOUND: numberOfPosts => {
+    if (numberOfPosts > 1) {
+      return 'Encontrados';
+    }
+    return 'Encontrado';
+  }
 };
 
 export default SPA;

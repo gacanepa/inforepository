@@ -7,7 +7,7 @@ import PostContainerWrapper from '../assets/wrappers/PostContainerWrapper';
 
 const PostsContainer = () => {
   const { getPosts, posts, isLoading, totalPosts } = useAppContext();
-  const { NO_POSTS_FOUND } = useTranslationContext();
+  const { NO_POSTS_FOUND, FOUND } = useTranslationContext();
 
   useEffect(() => {
     getPosts();
@@ -30,7 +30,7 @@ const PostsContainer = () => {
   return (
     <PostContainerWrapper>
       <h5>
-        {`${totalPosts} post${totalPosts > 1 ? 's ' : ' '} found`}
+        {`${totalPosts} post${totalPosts > 1 ? 's ' : ' '} ${FOUND(totalPosts)}`}
       </h5>
       <div className="posts">
         {posts.map(post => (

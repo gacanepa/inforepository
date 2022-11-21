@@ -80,6 +80,7 @@ const ENG = {
   SEARCH_LABEL: 'Search',
   SORT_LABEL: 'Sort',
   CLEAR_FILTERS: 'Clear Filters',
+  FOUND: () => 'Found',
 };
 
 export default ENG;
