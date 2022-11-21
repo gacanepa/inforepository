@@ -57,10 +57,10 @@ const TranslationProvider = ({ children }) => {
         LOW: t('LOW'),
         // Mapping from the backend to the localized values
         IMPORTANCE: [
-          { Critical: t('CRITICAL') },
-          { High: t('HIGH') },
-          { Medium: t('MEDIUM') },
           { Low: t('LOW') },
+          { Medium: t('MEDIUM') },
+          { High: t('HIGH') },
+          { Critical: t('CRITICAL') },
         ],
         ARTICLE: t('ARTICLE'),
         TASK: t('TASK'),
