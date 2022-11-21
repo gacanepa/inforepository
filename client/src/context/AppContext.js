@@ -27,6 +27,7 @@ import {
   EDIT_POST_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from './actions';
 import { useTranslationContext } from './TranslationContext';
 import { UNAUTHORIZED, CLEAR_ALERT_DELAY } from '../common/constants';
@@ -72,6 +73,7 @@ const AppProvider = ({ children }) => {
     TASK,
     LOW,
     HIGH,
+    CRITICAL,
   } = useTranslationContext();
   const [state, dispatch] = useReducer(
     reducer,
@@ -85,7 +87,7 @@ const AppProvider = ({ children }) => {
       searchType: ALL,
       typeOptions: [ALL, ARTICLE, TASK],
       searchImportance: ALL,
-      importanceOptions: [ALL, LOW, MEDIUM, HIGH],
+      importanceOptions: [ALL, LOW, MEDIUM, HIGH, CRITICAL],
       sortOptions: [ALL, LATEST, OLDEST],
     }
   );
@@ -157,7 +159,14 @@ const AppProvider = ({ children }) => {
   };
 
   const toggleSidebar = () => {
-    dispatch({ type: TOGGLE_SIDEBAR });
+    dispatch({
+      type: TOGGLE_SIDEBAR,
+      payload: {
+        low: LOW,
+        public: PUBLIC,
+        article: ARTICLE,
+      }
+    });
   };
 
   const updateUser = async ({ currentUser, alertText }) => {
@@ -189,7 +198,14 @@ const AppProvider = ({ children }) => {
   };
 
   const clearValues = () => {
-    dispatch({ type: CLEAR_VALUES });
+    dispatch({
+      type: CLEAR_VALUES,
+      payload: {
+        low: LOW,
+        public: PUBLIC,
+        article: ARTICLE,
+      }
+    });
   };
 
   const createPost = async ({ alertText }) => {
@@ -208,7 +224,7 @@ const AppProvider = ({ children }) => {
         type: CREATE_POST_SUCCESS,
         payload: { alertText }
       });
-      dispatch({ type: CLEAR_VALUES });
+      clearValues();
     } catch (error) {
       if (error.response.status === UNAUTHORIZED) return;
       dispatch({
@@ -259,7 +275,7 @@ const AppProvider = ({ children }) => {
         type: EDIT_POST_SUCCESS,
         payload: { alertText }
       });
-      dispatch({ type: CLEAR_VALUES });
+      clearValues();
     } catch (error) {
       if (error.response.status === UNAUTHORIZED) return;
       dispatch({
@@ -297,7 +313,13 @@ const AppProvider = ({ children }) => {
   };
 
   const clearFilters = () => {
-    console.log('clear filters');
+    dispatch({
+      type: CLEAR_FILTERS,
+      payload: {
+        all: ALL,
+        latest: LATEST,
+      }
+    });
   };
 
   return (
