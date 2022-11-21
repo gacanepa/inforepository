@@ -6,12 +6,21 @@ import Post from './Post';
 import PostContainerWrapper from '../assets/wrappers/PostContainerWrapper';
 
 const PostsContainer = () => {
-  const { getPosts, posts, isLoading, totalPosts } = useAppContext();
+  const {
+    getPosts,
+    posts,
+    isLoading,
+    totalPosts,
+    searchClassification,
+    searchType,
+    searchImportance,
+    search,
+  } = useAppContext();
   const { NO_POSTS_FOUND, FOUND } = useTranslationContext();
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [searchClassification, searchType, searchImportance, search]);
 
   if (isLoading) {
     return (
