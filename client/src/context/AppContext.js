@@ -68,6 +68,10 @@ const AppProvider = ({ children }) => {
     ARTICLE,
     MEDIUM,
     PUBLIC,
+    PRIVATE,
+    TASK,
+    LOW,
+    HIGH,
   } = useTranslationContext();
   const [state, dispatch] = useReducer(
     reducer,
@@ -76,9 +80,13 @@ const AppProvider = ({ children }) => {
       importance: MEDIUM,
       classification: PUBLIC,
       type: ARTICLE,
-      searchStatus: ALL,
+      searchClassification: ALL,
+      classificationOptions: [ALL, PUBLIC, PRIVATE],
       searchType: ALL,
-      sortOptions: [LATEST, OLDEST],
+      typeOptions: [ALL, ARTICLE, TASK],
+      searchImportance: ALL,
+      importanceOptions: [ALL, LOW, MEDIUM, HIGH],
+      sortOptions: [ALL, LATEST, OLDEST],
     }
   );
 
