@@ -75,7 +75,8 @@ const SPA = {
   ALL: 'Todos',
   LATEST: 'Más recientes',
   OLDEST: 'Más antiguos',
-  SEARCH: 'Buscar en el título y el contenido',
+  SEARCH_FORM: 'Formulario de búsqueda',
+  SEARCH_LABEL: 'Buscar',
 };
 
 export default SPA;

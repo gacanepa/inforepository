@@ -76,7 +76,8 @@ const ENG = {
   ALL: 'All',
   LATEST: 'Latest',
   OLDEST: 'Oldest',
-  SEARCH: 'Search in the title and content',
+  SEARCH_FORM: 'Search Form',
+  SEARCH_LABEL: 'Search',
 };
 
 export default ENG;
