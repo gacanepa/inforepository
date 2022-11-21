@@ -23,22 +23,23 @@ import {
   EDIT_POST_ERROR,
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
+  CLEAR_FILTERS,
 } from './actions';
 
 import { ALERT_TYPE_SUCCESS, ALERT_TYPE_ERROR } from '../common/constants';
 
 const reducer = (state, action) => {
+  const { type, payload } = action;
+
   const defaultValues = {
     isEditing: false,
     editPostId: '',
     title: '',
-    importance: 'Low',
-    classification: 'Public',
-    type: 'Article',
+    importance: payload?.low,
+    classification: payload?.public,
+    type: payload?.article,
     content: '',
   };
-
-  const { type, payload } = action;
 
   const actions = {
     [DISPLAY_ALERT]: () => ({
@@ -223,6 +224,14 @@ const reducer = (state, action) => {
       isLoading: false,
       stats: payload.defaultStats,
       monthlyPosts: payload.monthlyPosts,
+    }),
+    [CLEAR_FILTERS]: () => ({
+      ...state,
+      search: '',
+      searchClassification: payload.all,
+      searchImportance: payload.all,
+      searchType: payload.all,
+      sort: payload.latest,
     }),
   };
 
