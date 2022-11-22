@@ -4,7 +4,7 @@ import {
   removeUserFromLocalStorage
 } from './handleLocalStorage';
 import getLocalizedValue from './getLocalizedValue';
-import getUnlocalizedKey from './getLocalizedKey';
+import getUnlocalizedKey from './getUnlocalizedKey';
 
 export {
   areInputsEmpty,
