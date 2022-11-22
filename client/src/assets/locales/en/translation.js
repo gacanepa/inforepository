@@ -81,6 +81,8 @@ const ENG = {
   SORT_LABEL: 'Sort',
   CLEAR_FILTERS: 'Clear Filters',
   FOUND: () => 'Found',
+  PREV: 'Previous',
+  NEXT: 'Next',
 };
 
 export default ENG;

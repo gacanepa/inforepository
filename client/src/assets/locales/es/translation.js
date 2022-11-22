@@ -84,7 +84,9 @@ const SPA = {
       return 'Encontrados';
     }
     return 'Encontrado';
-  }
+  },
+  PREV: 'Anterior',
+  NEXT: 'Siguiente',
 };
 
 export default SPA;
