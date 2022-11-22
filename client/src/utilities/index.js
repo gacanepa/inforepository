@@ -3,7 +3,7 @@ import {
   addUserToLocalStorage,
   removeUserFromLocalStorage
 } from './handleLocalStorage';
-import getLocalizedValue from './getLocalizedValues';
+import getLocalizedValue from './getLocalizedValue';
 
 export {
   areInputsEmpty,
