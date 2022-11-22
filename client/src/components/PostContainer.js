@@ -4,6 +4,7 @@ import { useAppContext } from '../context/AppContext';
 import Loading from './Loading';
 import Post from './Post';
 import PostContainerWrapper from '../assets/wrappers/PostContainerWrapper';
+import PageButtonContainer from './PageButtonContainer';
 
 const PostsContainer = () => {
   const {
@@ -16,6 +17,7 @@ const PostsContainer = () => {
     searchImportance,
     search,
     sort,
+    numOfPages,
   } = useAppContext();
   const { NO_POSTS_FOUND, FOUND } = useTranslationContext();
 
@@ -48,6 +50,8 @@ const PostsContainer = () => {
           <Post key={post._id} {...post} />
         ))}
       </div>
+      {/* Display the pagination buttons only if there are 2 or more pages */}
+      { numOfPages > 1 && <PageButtonContainer /> }
     </PostContainerWrapper>
   );
 };
