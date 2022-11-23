@@ -28,6 +28,7 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CHANGE_PAGE,
 } from './actions';
 import { useTranslationContext } from './TranslationContext';
 import { UNAUTHORIZED, CLEAR_ALERT_DELAY } from '../common/constants';
@@ -369,6 +370,10 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const changePage = page => {
+    dispatch({ type: CHANGE_PAGE, payload: { page } });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -388,6 +393,7 @@ const AppProvider = ({ children }) => {
         editPost,
         showStats,
         clearFilters,
+        changePage,
       }}
     >
       {children}

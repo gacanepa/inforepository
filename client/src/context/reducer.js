@@ -24,6 +24,7 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CHANGE_PAGE,
 } from './actions';
 
 import { ALERT_TYPE_SUCCESS, ALERT_TYPE_ERROR } from '../common/constants';
@@ -232,6 +233,10 @@ const reducer = (state, action) => {
       searchImportance: payload.all,
       searchType: payload.all,
       sort: payload.latest,
+    }),
+    [CHANGE_PAGE]: () => ({
+      ...state,
+      page: action.payload.page
     }),
   };
 
