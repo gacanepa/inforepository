@@ -186,6 +186,7 @@ const reducer = (state, action) => {
     }),
     [HANDLE_CHANGE]: () => ({
       ...state,
+      page: 1,
       [payload.name]: payload.value,
     }),
     [CLEAR_VALUES]: () => ({
