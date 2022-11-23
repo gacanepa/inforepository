@@ -136,7 +136,7 @@ const getAllPosts = async (req, res) => {
     : {}
 
   // Use default values if page or limit are not provided or are not numbers
-  const pageNumber = page && Number(page) === 'number' ? Number(page) : 1;
+  const pageNumber = page && typeof Number(page) === 'number' ? Number(page) : 1;
   const limitNumber = limit && typeof Number(limit) === 'number' ? Number(limit) : 6;
 
   const skip = (pageNumber - 1) * limitNumber;
