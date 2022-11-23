@@ -252,8 +252,10 @@ const AppProvider = ({ children }) => {
     search,
     sort,
     type,
+    page,
   }) => {
     const url = new URLSearchParams();
+    if (page) url.append('page', page);
     if (importance !== ALL) url.append('importance', importance);
     if (classification !== ALL) url.append('classification', classification);
     if (type !== ALL) url.append('type', type);
@@ -264,6 +266,7 @@ const AppProvider = ({ children }) => {
 
   const getPosts = async () => {
     const {
+      page,
       search,
       searchClassification,
       searchType,
@@ -275,6 +278,7 @@ const AppProvider = ({ children }) => {
       importance: getUnlocalizedKey(IMPORTANCE, searchImportance),
       classification: getUnlocalizedKey(CLASSIFICATION, searchClassification),
       search,
+      page,
       type: getUnlocalizedKey(TYPE, searchType),
       sort: getUnlocalizedKey(SORT_CRITERIA, sort),
     });
