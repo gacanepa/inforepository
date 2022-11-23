@@ -18,6 +18,8 @@ const SPA = {
   LANDING: 'Landing',
   LOGIN: 'Inicia Sesión',
   REGISTER: 'Regístrate',
+  CREATE_ACCOUNT: 'Crear Cuenta',
+  SIGN_IN: 'Ingresar',
   EMAIL: 'Correo Electrónico',
   PASSWORD: 'Contraseña',
   LOCATION: 'Ubicación',
@@ -84,7 +86,9 @@ const SPA = {
       return 'Encontrados';
     }
     return 'Encontrado';
-  }
+  },
+  PREV: 'Anterior',
+  NEXT: 'Siguiente',
 };
 
 export default SPA;

@@ -28,10 +28,15 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
+  CHANGE_PAGE,
 } from './actions';
 import { useTranslationContext } from './TranslationContext';
 import { UNAUTHORIZED, CLEAR_ALERT_DELAY } from '../common/constants';
-import { addUserToLocalStorage, removeUserFromLocalStorage } from '../utilities';
+import {
+  addUserToLocalStorage,
+  removeUserFromLocalStorage,
+  getUnlocalizedKey,
+} from '../utilities';
 import reducer from './reducer';
 import { BASE_URL, SETUP_USER, UPDATE_USER, HANDLE_POST } from '../common/endpoints';
 
@@ -74,6 +79,10 @@ const AppProvider = ({ children }) => {
     LOW,
     HIGH,
     CRITICAL,
+    IMPORTANCE,
+    TYPE,
+    CLASSIFICATION,
+    SORT_CRITERIA,
   } = useTranslationContext();
   const [state, dispatch] = useReducer(
     reducer,
@@ -89,6 +98,7 @@ const AppProvider = ({ children }) => {
       searchImportance: ALL,
       importanceOptions: [ALL, LOW, MEDIUM, HIGH, CRITICAL],
       sortOptions: [OLDEST, LATEST],
+      sort: OLDEST,
     }
   );
 
@@ -242,8 +252,10 @@ const AppProvider = ({ children }) => {
     search,
     sort,
     type,
+    page,
   }) => {
     const url = new URLSearchParams();
+    if (page) url.append('page', page);
     if (importance !== ALL) url.append('importance', importance);
     if (classification !== ALL) url.append('classification', classification);
     if (type !== ALL) url.append('type', type);
@@ -254,6 +266,7 @@ const AppProvider = ({ children }) => {
 
   const getPosts = async () => {
     const {
+      page,
       search,
       searchClassification,
       searchType,
@@ -262,11 +275,12 @@ const AppProvider = ({ children }) => {
     } = state;
 
     const url = buildUrl({
-      importance: searchImportance,
-      classification: searchClassification,
+      importance: getUnlocalizedKey(IMPORTANCE, searchImportance),
+      classification: getUnlocalizedKey(CLASSIFICATION, searchClassification),
       search,
-      type: searchType,
-      sort,
+      page,
+      type: getUnlocalizedKey(TYPE, searchType),
+      sort: getUnlocalizedKey(SORT_CRITERIA, sort),
     });
 
     dispatch({ type: GET_POSTS_BEGIN });
@@ -360,6 +374,10 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const changePage = page => {
+    dispatch({ type: CHANGE_PAGE, payload: { page } });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -379,6 +397,7 @@ const AppProvider = ({ children }) => {
         editPost,
         showStats,
         clearFilters,
+        changePage,
       }}
     >
       {children}

@@ -18,6 +18,8 @@ const ENG = {
   LANDING: 'Landing',
   LOGIN: 'Login',
   REGISTER: 'Register',
+  CREATE_ACCOUNT: 'Create Account',
+  SIGN_IN: 'Sign In',
   EMAIL: 'Email',
   PASSWORD: 'Password',
   LOCATION: 'Location',
@@ -81,6 +83,8 @@ const ENG = {
   SORT_LABEL: 'Sort',
   CLEAR_FILTERS: 'Clear Filters',
   FOUND: () => 'Found',
+  PREV: 'Previous',
+  NEXT: 'Next',
 };
 
 export default ENG;

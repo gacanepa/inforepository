@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-const PageBtnContainerWrapper = styled.section`
+const PageButtonContainerWrapper = styled.section`
   height: 6rem;
   margin-top: 2rem;
   display: flex;
@@ -30,7 +30,7 @@ const PageBtnContainerWrapper = styled.section`
   }
   .prev-btn,
   .next-btn {
-    width: 100px;
+    width: 120px;
     height: 40px;
     background: var(--white);
     border-color: transparent;
@@ -50,6 +50,6 @@ const PageBtnContainerWrapper = styled.section`
     background: var(--primary-500);
     color: var(--white);
   }
-`
+`;
 
-export default PageBtnContainerWrapper;
+export default PageButtonContainerWrapper;

@@ -24,6 +24,7 @@ const Post = ({
     LAST_UPDATED,
     IMPORTANCE,
     CLASSIFICATION,
+    PUBLIC,
   } = useTranslationContext();
   const { firstName, lastName } = createdBy;
 
@@ -42,7 +43,7 @@ const Post = ({
       <div className="content">
         <div className="content-center">
           <PostInfo
-            icon={classification === 'Public' ? <FaLockOpen /> : <FaLock />}
+            icon={classification === PUBLIC ? <FaLockOpen /> : <FaLock />}
             text={getLocalizedValue(CLASSIFICATION, classification)}
           />
           <PostInfo icon={<FaCalendarAlt />} text={`${LAST_UPDATED} ${lastUpdated}`} />

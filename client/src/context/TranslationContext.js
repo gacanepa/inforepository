@@ -15,6 +15,8 @@ const TranslationProvider = ({ children }) => {
         LANDING: t('LANDING'),
         LOGIN: t('LOGIN'),
         REGISTER: t('REGISTER'),
+        CREATE_ACCOUNT: t('CREATE_ACCOUNT'),
+        SIGN_IN: t('SIGN_IN'),
         EMAIL: t('EMAIL'),
         PASSWORD: t('PASSWORD'),
         LOCATION: t('LOCATION'),
@@ -57,6 +59,7 @@ const TranslationProvider = ({ children }) => {
         LOW: t('LOW'),
         // Mapping from the backend to the localized values
         IMPORTANCE: [
+          { All: t('ALL') },
           { Low: t('LOW') },
           { Medium: t('MEDIUM') },
           { High: t('HIGH') },
@@ -66,6 +69,7 @@ const TranslationProvider = ({ children }) => {
         TASK: t('TASK'),
         // Mapping from the backend to the localized values
         TYPE: [
+          { All: t('ALL') },
           { Article: t('ARTICLE') },
           { Task: t('TASK') },
         ],
@@ -73,6 +77,7 @@ const TranslationProvider = ({ children }) => {
         PRIVATE: t('PRIVATE'),
         // Mapping from the backend to the localized values
         CLASSIFICATION: [
+          { All: t('ALL') },
           { Public: t('PUBLIC') },
           { Private: t('PRIVATE') },
         ],
@@ -91,11 +96,18 @@ const TranslationProvider = ({ children }) => {
         ALL: t('ALL'),
         LATEST: t('LATEST'),
         OLDEST: t('OLDEST'),
+        SORT_CRITERIA: [
+          { All: t('ALL') },
+          { Latest: t('LATEST') },
+          { Oldest: t('OLDEST') },
+        ],
         SEARCH_FORM: t('SEARCH_FORM'),
         SEARCH_LABEL: t('SEARCH_LABEL'),
         SORT_LABEL: t('SORT_LABEL'),
         CLEAR_FILTERS: t('CLEAR_FILTERS'),
         FOUND: t('FOUND'),
+        PREV: t('PREV'),
+        NEXT: t('NEXT'),
       }}
     >
       {children}

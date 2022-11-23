@@ -1,7 +1,5 @@
 const handleNullUndefined = value => {
-  if (![null, undefined].includes(value)) {
-    return String(value);
-  }
+  if (![null, undefined].includes(value)) return String(value);
 
   return value;
 };

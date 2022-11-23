@@ -3,11 +3,13 @@ import {
   addUserToLocalStorage,
   removeUserFromLocalStorage
 } from './handleLocalStorage';
-import getLocalizedValue from './getLocalizedValues';
+import getLocalizedValue from './getLocalizedValue';
+import getUnlocalizedKey from './getUnlocalizedKey';
 
 export {
   areInputsEmpty,
   addUserToLocalStorage,
   removeUserFromLocalStorage,
   getLocalizedValue,
+  getUnlocalizedKey,
 };
