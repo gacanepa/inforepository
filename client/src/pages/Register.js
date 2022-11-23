@@ -28,7 +28,6 @@ const Register = () => {
     EMAIL,
     PASSWORD,
     LOCATION,
-    SUBMIT,
     MISSING_VALUES,
     PASSWORD_MISMATCH,
     CLEAR_ALERT_DELAY,
@@ -36,6 +35,8 @@ const Register = () => {
     LAST_NAME,
     ALERT_USER_CREATED,
     ALERT_USER_LOGIN_SUCCESS,
+    CREATE_ACCOUNT,
+    SIGN_IN,
   } = useTranslationContext();
 
   const navigate = useNavigate();
@@ -171,7 +172,7 @@ const Register = () => {
           />
         )}
         <button type="submit" className="btn btn-block" disabled={isLoading}>
-          {SUBMIT}
+          {formData.isMember ? SIGN_IN : CREATE_ACCOUNT}
         </button>
         <p>
           {formData.isMember ? NOT_A_MEMBER_YET : ALREADY_A_MEMBER}
