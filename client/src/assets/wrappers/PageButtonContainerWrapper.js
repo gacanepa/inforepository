@@ -30,7 +30,7 @@ const PageButtonContainerWrapper = styled.section`
   }
   .prev-btn,
   .next-btn {
-    width: 100px;
+    width: 120px;
     height: 40px;
     background: var(--white);
     border-color: transparent;
