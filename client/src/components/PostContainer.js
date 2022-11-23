@@ -18,12 +18,13 @@ const PostsContainer = () => {
     search,
     sort,
     numOfPages,
+    page,
   } = useAppContext();
   const { NO_POSTS_FOUND, FOUND } = useTranslationContext();
 
   useEffect(() => {
     getPosts();
-  }, [searchClassification, searchType, searchImportance, search, sort]);
+  }, [page, searchClassification, searchType, searchImportance, search, sort]);
 
   if (isLoading) {
     return (
@@ -51,7 +52,7 @@ const PostsContainer = () => {
         ))}
       </div>
       {/* Display the pagination buttons only if there are 2 or more pages */}
-      { numOfPages > 1 && <PageButtonContainer /> }
+      {numOfPages > 1 && <PageButtonContainer />}
     </PostContainerWrapper>
   );
 };
