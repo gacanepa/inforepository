@@ -18,6 +18,8 @@ const ENG = {
   LANDING: 'Landing',
   LOGIN: 'Login',
   REGISTER: 'Register',
+  CREATE_ACCOUNT: 'Create Account',
+  SIGN_IN: 'Sign In',
   EMAIL: 'Email',
   PASSWORD: 'Password',
   LOCATION: 'Location',

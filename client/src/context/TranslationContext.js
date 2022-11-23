@@ -15,6 +15,8 @@ const TranslationProvider = ({ children }) => {
         LANDING: t('LANDING'),
         LOGIN: t('LOGIN'),
         REGISTER: t('REGISTER'),
+        CREATE_ACCOUNT: t('CREATE_ACCOUNT'),
+        SIGN_IN: t('SIGN_IN'),
         EMAIL: t('EMAIL'),
         PASSWORD: t('PASSWORD'),
         LOCATION: t('LOCATION'),
