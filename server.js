@@ -1,4 +1,5 @@
 import 'express-async-errors';
+import cors from 'cors';
 import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
@@ -19,6 +20,14 @@ const { OK } = StatusCodes;
 // Instantiate the express app and hide the X-Powered-By header
 const app = express();
 app.use(helmet.hidePoweredBy());
+
+// Allow requests from the development frontend and the production app instance
+app.use(cors({
+  origin: [
+    process.env.DEV_FRONTEND,
+    process.env.APP_BUILD,
+  ],
+}));
 
 // Set up logging
 if (process.env.NODE_ENV !== 'production') {
