@@ -21,6 +21,9 @@ const { OK } = StatusCodes;
 const app = express();
 app.use(helmet.hidePoweredBy());
 
+// Load environment variables
+dotenv.config();
+
 // Allow requests from the development frontend and the production app instance
 app.use(cors({
   origin: [
@@ -41,9 +44,6 @@ app.use(express.json());
 app.use('/api/v1/auth', authRouter);
 // All job routes require authorization
 app.use('/api/v1/posts', authorizeUser, postsRouter);
-
-// Load environment variables
-dotenv.config();
 
 app.get('/', (req, res) => {
   res.status(OK).json({
