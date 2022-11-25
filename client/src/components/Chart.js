@@ -27,11 +27,19 @@ const Chart = ({ data }) => {
       <BarChart
         data={data}
         margin={{
-          top: 50,
+          top: 30,
+          bottom: 30,
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" label={{ value: MONTH, position: 'insideBottom' }} />
+        <XAxis
+          dataKey="date"
+          label={{
+            value: MONTH,
+            position: 'insideBottom',
+            dy: 25,
+          }}
+        />
         <YAxis
           allowDecimals={false}
           label={{
