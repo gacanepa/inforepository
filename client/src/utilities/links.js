@@ -11,13 +11,13 @@ const links = [
   {
     id: 1,
     text: 'Stats',
-    path: '/',
+    path: '/stats',
     icon: <MdBarChart />,
   },
   {
     id: 2,
     text: 'All_Posts',
-    path: '/all-posts',
+    path: '/',
     icon: <MdQueryStats />,
   },
   {

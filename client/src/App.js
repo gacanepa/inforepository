@@ -19,9 +19,9 @@ const App = () => (
           </ProtectedRoute>
         )}
       >
-        {/* Make Stats an index route in order to redirect after login or registration */}
-        <Route index element={<Stats />} />
-        <Route path="all-posts" element={<AllPosts />} />
+        <Route path="stats" element={<Stats />} />
+        {/* Make All Posts an index route in order to redirect after login or registration */}
+        <Route index element={<AllPosts />} />
         <Route path="add-post" element={<AddPost />} />
         <Route path="profile" element={<Profile />} />
       </Route>
