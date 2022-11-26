@@ -221,11 +221,17 @@ const AppProvider = ({ children }) => {
   const createPost = async ({ alertText }) => {
     dispatch({ type: CREATE_POST_BEGIN });
     try {
-      const { importance, classification, type, title, content } = state;
-      await authFetch.post(HANDLE_POST, {
+      const {
         importance,
         classification,
         type,
+        title,
+        content,
+      } = state;
+      await authFetch.post(HANDLE_POST, {
+        importance: getUnlocalizedKey(IMPORTANCE, importance),
+        classification: getUnlocalizedKey(CLASSIFICATION, classification),
+        type: getUnlocalizedKey(TYPE, type),
         title,
         content,
       });
