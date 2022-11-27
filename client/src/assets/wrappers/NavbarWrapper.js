@@ -25,6 +25,7 @@ const NavbarWrapper = styled.nav`
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 1rem;
   }
   background: var(--white);
   .btn-container {
@@ -37,6 +38,7 @@ const NavbarWrapper = styled.nav`
     gap: 0 0.5rem;
     position: relative;
     box-shadow: var(--shadow-2);
+    padding: 1rem;
   }
 
   .dropdown {

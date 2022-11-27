@@ -3,6 +3,7 @@ import { useTranslationContext } from '../../context/TranslationContext';
 import { FormRow, Alert, FormRowSelect, TextArea } from '../../components';
 import { useAppContext } from '../../context/AppContext';
 import DashboardFormPageWrapper from '../../assets/wrappers/DashboardFormPageWrapper';
+import { getLocalizedValue } from '../../utilities';
 
 const AddPost = () => {
   const {
@@ -75,21 +76,21 @@ const AddPost = () => {
           <FormRowSelect
             labelText={IMPORTANCE_LABEL}
             name="importance"
-            value={importance}
+            value={getLocalizedValue(IMPORTANCE, importance)}
             handleChange={handlePostInput}
             options={optionObjectsToStrings({ options: IMPORTANCE })}
           />
           <FormRowSelect
             labelText={CLASSIFICATION_LABEL}
             name="classification"
-            value={classification}
+            value={getLocalizedValue(CLASSIFICATION, classification)}
             handleChange={handlePostInput}
             options={optionObjectsToStrings({ options: CLASSIFICATION })}
           />
           <FormRowSelect
             labelText={TYPE_LABEL}
             name="type"
-            value={type}
+            value={getLocalizedValue(TYPE, type)}
             handleChange={handlePostInput}
             options={optionObjectsToStrings({ options: TYPE })}
           />
